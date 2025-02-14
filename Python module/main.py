@@ -1,10 +1,9 @@
-from fastapi import FastAPI
-from wordsegment import segment, load
-import re
-from pydantic import BaseModel
-from wordsegment import segment, load
 import json
+import re
 
+from fastapi import FastAPI
+from pydantic import BaseModel
+from wordsegment import load, segment
 
 # Lista auxiliar que ayuda al momento de nombrar metodos
 tipo_datos = [
@@ -19,6 +18,8 @@ tipo_datos = [
     "String",
     "Array",
 ]
+
+load()
 
 # Declaración de regex para uso general
 class_starter = r"(class)\s([^\{]+)\{"
@@ -37,7 +38,6 @@ def separate_words(text: str) -> str:
     Returns:
         str: Retorna las palabras con cammel case en este caso GetAllValuesOfArray
     """
-    load()
     t_list = segment(text)
 
     # En el return se itera por cada letra y se pone la primera en mayuscula y se junta todo el texto
