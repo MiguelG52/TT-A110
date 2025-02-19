@@ -1,4 +1,4 @@
-import app from './server.ts';
+import app from './server';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
@@ -14,7 +14,3 @@ httpServer.listen(PORT, () => {
   console.log(`Servidor corriendo en pueto: ${PORT}`);
 });
 
-
-function morgan(arg0: string): any {
-    throw new Error('Function not implemented.');
-}
