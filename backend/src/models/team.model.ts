@@ -1,0 +1,46 @@
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
+import  User  from "./user.model";
+import  UserTeam  from "./userTeam.model";
+import  Project  from "./project.model";
+
+@Table({
+  tableName: "Team",
+})
+class Team extends Model {
+  @AutoIncrement
+  @PrimaryKey
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  teamId!: number;
+
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER })
+  studentId!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  name!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+
+  description!: string;
+  
+  @BelongsTo(() => User)
+  student!: User;
+
+  @HasMany(() => UserTeam)
+  userTeams!: UserTeam[];
+
+  @HasMany(() => Project)
+  projects!: Project[];
+  
+}
+
+export default Team;

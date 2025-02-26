@@ -1,15 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import {database} from "./config/db"
+import database from "./config/db"
 
 async function connectDB(){
     try{
         await database.authenticate();
-        database.sync();
-        console.log('Connection has been established successfully.');
+        await database.sync({alter:true});
+        console.log('Coneccion a la bd exitosa');
     }catch(error){
-        console.error('Unable to connect to the database:');
+        console.error('Error al conectar a la bd');
     }
 }
 connectDB();
