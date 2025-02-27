@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, AllowNull, Unique } from "sequelize-typescript";
 import  Role from "./roles.model";
 import  Content  from "./content.model";
 import  UserGroup  from "./userGroup.model";
@@ -7,6 +7,7 @@ import  Project  from "./project.model";
 
 @Table({
   tableName: "Users",
+  timestamps: true,
 })
 class User extends Model {
   @AutoIncrement
@@ -46,11 +47,17 @@ class User extends Model {
   })
   password!: string;
 
+  @Unique
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   email!: string;
+
+  @Column({
+    type: DataType.STRING, 
+    allowNull: true})
+  token!: string;
 
   @BelongsTo(() => Role)
   role!: Role;

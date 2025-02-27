@@ -4,6 +4,7 @@ import  Group  from "./group.model";
 
 @Table({
   tableName: "UserGroup",
+  timestamps: true,
 })
  class UserGroup extends Model {
   

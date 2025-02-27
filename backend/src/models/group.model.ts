@@ -3,6 +3,7 @@ import UserGroup from "./userGroup.model";
 
 @Table({
   tableName: "Group",
+  timestamps: true,
 })
  class Group extends Model {
   @AutoIncrement

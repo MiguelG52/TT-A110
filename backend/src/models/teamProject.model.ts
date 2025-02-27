@@ -3,7 +3,8 @@ import Team from "./team.model";
 import Project from "./project.model";
 
 @Table({
-    tableName: "teamProject",
+    tableName: "TeamProject",
+    timestamps: true,
   })
   class TeamProject extends Model {
     @ForeignKey(() => Project)

@@ -5,6 +5,7 @@ import TeamProject from "./teamProject.model";
 
 @Table({
   tableName: "Projects",
+  timestamps: true,
 })
 class Project extends Model {
   @AutoIncrement
