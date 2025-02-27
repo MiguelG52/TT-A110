@@ -7,6 +7,7 @@ import { BelongsToMany } from "sequelize-typescript";
 
 @Table({
   tableName: "Team",
+  timestamps: true,
 })
 class Team extends Model {
   @AutoIncrement

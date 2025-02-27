@@ -4,6 +4,7 @@ import  Team  from "./team.model";
 
 @Table({
   tableName: "UserTeam",
+  timestamps: true,
 })
  class UserTeam extends Model {
   

@@ -6,6 +6,7 @@ dotenv.config();
 const sequelize = new Sequelize(process.env.DATABASE_URL,{
     dialect: 'postgres',
     models: [__dirname+'/../models/**/*.model.ts'],
+    logging: false,
     dialectOptions:{
         ssl: {
             require: false,

@@ -3,6 +3,7 @@ import  Content  from "./content.model";
 
 @Table({
   tableName: "ContentFile",
+  timestamps: true,
 })
  class ContentFile extends Model {
   @AutoIncrement
