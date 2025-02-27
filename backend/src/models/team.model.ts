@@ -2,6 +2,8 @@ import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, 
 import  User  from "./user.model";
 import  UserTeam  from "./userTeam.model";
 import  Project  from "./project.model";
+import  TeamProject  from "./teamProject.model";
+import { BelongsToMany } from "sequelize-typescript";
 
 @Table({
   tableName: "Team",
@@ -38,9 +40,9 @@ class Team extends Model {
   @HasMany(() => UserTeam)
   userTeams!: UserTeam[];
 
-  @HasMany(() => Project)
+  @BelongsToMany(() => Project, () => TeamProject)
   projects!: Project[];
-  
+
 }
 
 export default Team;
