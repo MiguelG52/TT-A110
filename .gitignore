@@ -2,6 +2,7 @@
 /Python module/dataset
 /Python module/dataset/dataset_final.csv
 /Python module/dataset/*.csv
+Python module/dataset/dataset_final.csv
 
 # Ignorar el archivo env con el APIKEY
 /Python module/.env
