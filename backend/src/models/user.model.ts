@@ -62,7 +62,7 @@ class User extends Model {
   @Column({
     type: DataType.BOOLEAN, 
     allowNull: true})
-  isVerified!: string;
+  isVerified!: boolean;
 
   @BelongsTo(() => Role)
   role!: Role;

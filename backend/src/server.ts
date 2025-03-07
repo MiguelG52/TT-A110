@@ -4,11 +4,12 @@ import morgan from 'morgan';
 import database from "./config/db"
 import userRouter from './routes/users.route';
 import authRouter from './routes/auth.route';
+import { limiter } from './config/limiter';
 
 async function connectDB(){
     try{
         await database.authenticate();
-        await database.sync({alter:true});
+        await database.sync();
         console.log('Coneccion a la bd exitosa');
     }catch(error){
         console.error('Error al conectar a la bd');
