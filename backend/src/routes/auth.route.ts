@@ -2,8 +2,11 @@ import { Router } from "express";
 import { AuthController } from "../controllers/Auth.controller";
 import { body } from 'express-validator';
 import { handleInputErrors } from "../middleware/validation.middleware";
+import { limiter } from "../config/limiter";
 
 const authRouter = Router();
+
+authRouter.use(limiter)
 
 authRouter.post('/create-account',
     body('name')
@@ -19,7 +22,7 @@ authRouter.post('/create-account',
     body('password')
         .isLength({min:10}).withMessage("La contraseña debe tener al menos 10 caracteres"),
     handleInputErrors,
-    AuthController.createUser
+    AuthController.createAccount
 );
 
 authRouter.post("/confirm-account",
@@ -30,5 +33,9 @@ authRouter.post("/confirm-account",
 
     handleInputErrors,
     AuthController.confirmAccount
+)
+
+authRouter.post("/login-account",
+    AuthController.loginAccount
 )
 export default authRouter;

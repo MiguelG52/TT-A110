@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import database from "./config/db"
 import userRouter from './routes/users.route';
 import authRouter from './routes/auth.route';
+import { limiter } from './config/limiter';
 
 async function connectDB(){
     try{
