@@ -55,9 +55,14 @@ class User extends Model {
   email!: string;
 
   @Column({
-    type: DataType.STRING, 
+    type: DataType.STRING(6), 
     allowNull: true})
   token!: string;
+
+  @Column({
+    type: DataType.BOOLEAN, 
+    allowNull: true})
+  isVerified!: string;
 
   @BelongsTo(() => Role)
   role!: Role;

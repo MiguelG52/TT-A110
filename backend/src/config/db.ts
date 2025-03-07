@@ -3,16 +3,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const sequelize = new Sequelize(process.env.DATABASE_URL,{
+const sequelize = new Sequelize('tta110_dev','postgres','mik3123', {
+    host: 'localhost',
     dialect: 'postgres',
     models: [__dirname+'/../models/**/*.model.ts'],
     logging: false,
-    dialectOptions:{
-        ssl: {
-            require: false,
-            rejectUnauthorized: false,
-        },
-    }
 })
 
 export default sequelize;

@@ -22,4 +22,13 @@ authRouter.post('/create-account',
     AuthController.createUser
 );
 
+authRouter.post("/confirm-account",
+    body("token")
+        .notEmpty()
+        .isLength({min:6,max:6})
+        .withMessage("Token no válido"),
+
+    handleInputErrors,
+    AuthController.confirmAccount
+)
 export default authRouter;
