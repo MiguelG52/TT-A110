@@ -8,7 +8,7 @@ import authRouter from './routes/auth.route';
 async function connectDB(){
     try{
         await database.authenticate();
-        //await database.sync({alter:true});
+        await database.sync({alter:true});
         console.log('Coneccion a la bd exitosa');
     }catch(error){
         console.error('Error al conectar a la bd');
