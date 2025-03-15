@@ -6,11 +6,11 @@ export type authForm = {
     type:string
 }
 
+const formSchema = authFormSchema("sign-up")
 export type customInput = {
-    control: Control<z.infer<typeof authFormSchema>>,
-    name: FieldPath<z.infer<typeof authFormSchema>>,
+    control: Control<z.infer<typeof formSchema>>,
+    name: FieldPath<z.infer<typeof formSchema>>,
     type: string,
     label:string
     placeholder: string
-
 }
