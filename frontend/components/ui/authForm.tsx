@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 
 const AuthForm = ({type}:authForm) => {
 
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
 
   const formSchema = authFormSchema(type);
 
@@ -28,7 +30,12 @@ const AuthForm = ({type}:authForm) => {
   })
   function onSubmit(values:z.infer<typeof formSchema>){
     setIsLoading(true);
- 
+    if(type==='sign-in'){
+      router.push("/")
+    }
+    if(type === "sign-up"){
+      router.push("/auth/sign-in")
+    }
   }
   return (
     <section className='authForm'>
