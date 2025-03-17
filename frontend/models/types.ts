@@ -14,3 +14,24 @@ export type customInput = {
     label:string
     placeholder: string
 }
+
+export type editor = {
+    code:string,
+    onChange:(value:string)=>void,
+    theme?:string
+}
+
+export type Recommendation = {
+    id: string
+    title: string
+    description: string
+    code?: string
+    type: "improvement" | "optimization" | "security" | "style"
+  }
+  
+export type RecommendationsPanelProps = {
+    code: string
+    isVisible: boolean
+    onClose: () => void
+    isConnected: boolean
+  }
