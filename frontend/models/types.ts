@@ -6,32 +6,11 @@ export type authForm = {
     type:string
 }
 
-const formSchema = authFormSchema("sign-up")
 export type customInput = {
-    control: Control<z.infer<typeof formSchema>>,
-    name: FieldPath<z.infer<typeof formSchema>>,
+    control: Control<z.infer<typeof authFormSchema>>,
+    name: FieldPath<z.infer<typeof authFormSchema>>,
     type: string,
     label:string
     placeholder: string
-}
 
-export type editor = {
-    code:string,
-    onChange:(value:string)=>void,
-    theme?:string
 }
-
-export type Recommendation = {
-    id: string
-    title: string
-    description: string
-    code?: string
-    type: "improvement" | "optimization" | "security" | "style"
-  }
-  
-export type RecommendationsPanelProps = {
-    code: string
-    isVisible: boolean
-    onClose: () => void
-    isConnected: boolean
-  }
