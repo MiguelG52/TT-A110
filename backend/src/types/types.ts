@@ -14,9 +14,8 @@ export type TransportConfig = {
     }
 }
 
-export type email = {
+export type Email = {
     name:string,
     email:string,
     token:string
 }
-
