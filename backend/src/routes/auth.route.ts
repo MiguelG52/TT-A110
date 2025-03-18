@@ -3,6 +3,7 @@ import { AuthController } from "../controllers/Auth.controller";
 import { body } from 'express-validator';
 import { handleInputErrors } from "../middleware/validation.middleware";
 import { limiter } from "../config/limiter";
+import { authenticate } from "../middleware/auth.middleware";
 
 const authRouter = Router();
 
@@ -35,7 +36,13 @@ authRouter.post("/confirm-account",
     AuthController.confirmAccount
 )
 
-authRouter.post("/login-account",
+authRouter.post("/login",
     AuthController.loginAccount
 )
+authRouter.post("/reset-password", 
+    body("email").notEmpty().withMessage("El email no puede ir vacio"),
+    body("email").isEmail().withMessage("El email no es válido")
+    ,AuthController.resetPassword)
+
+authRouter.get("/user", authenticate ,AuthController.user)
 export default authRouter;
