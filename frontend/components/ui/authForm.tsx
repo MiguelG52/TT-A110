@@ -9,21 +9,33 @@ import { z } from 'zod'
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 
 const AuthForm = ({type}:authForm) => {
 
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
 
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver:zodResolver(authFormSchema),
+  const formSchema = authFormSchema(type);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver:zodResolver(formSchema),
     defaultValues:{
       email:"",
-      password:""
+      password:"",
     }
   })
-  function onSubmit(values:z.infer<typeof authFormSchema>){
-
+  function onSubmit(values:z.infer<typeof formSchema>){
+    setIsLoading(true);
+    if(type==='sign-in'){
+      router.push("/")
+    }
+    if(type === "sign-up"){
+      router.push("/auth/sign-in")
+    }
   }
   return (
     <section className='authForm'>
@@ -37,10 +49,7 @@ const AuthForm = ({type}:authForm) => {
             {user ? "link account": type === 'sign-in' ? "Iniciar Sesión": "Crear Cuenta" }
           </h1>
           <p className='text-sm font-normal text-gray-600'>
-            {
-              user ? "Crea tu cuenta para unirte a un equipo":"Por favor, ingresa tus datos"
-            }
-
+            {user ? "Crea tu cuenta para unirte a un equipo":"Por favor, ingresa tus datos"}
           </p>
         </div>
       </header>
@@ -51,22 +60,49 @@ const AuthForm = ({type}:authForm) => {
       ):(
         <>
            <Form  {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-start">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 justify-start">
+              
+              {type==="sign-up" &&(
+                <>
+                  <div className='flex flex-col justify-between'>
+                    <CustomInput control={form.control} label='Nombre' name='name' type='text' placeholder='Miguel'/>
+                    <CustomInput control={form.control} label='Apellidos' name='lastName' type='text' placeholder='Lechuga Salazar'/>
+                  </div>
+                  <div className='flex flex-col justify-between'>
+                    <CustomInput control={form.control} label='Nombre de usuario' name='username' type='text' placeholder='Mike'/>
+                    <CustomInput control={form.control} label='Selecciona tu rol' name='role' type='select' placeholder='Profesor/Alumno'/>
+                  </div>
+                </>
+              )}
+
+
               <CustomInput control={form.control} label='Email' name='email' type='email' placeholder='Ingresa tu email' />     
               <CustomInput control={form.control} label='Contraseña' name='password' type='password' placeholder='Ingresa tu contraseña' />        
               {type==='sign-in'?(<>
-                <Link className='text-sm mt-3' href="/auth/create-account">¿Olvidaste tu contraseña?</Link>
+                <Link className='text-sm' href="/auth/reset-password">¿Olvidaste tu contraseña?</Link>
               </>):null
                 
               }
-              <Button className='bg-blue-600 w-full text-white mt-9'  type="submit">Iniciar Sesión</Button> 
+              <div className='flex flex-col gap-4'>
+                <Button disabled={isLoading} className='form-btn bg-blue-600 hover:bg-blue-400  w-full text-white mt-2'  type="submit">
+                  {isLoading?
+                    (
+                      <>
+                        <Loader2 size={20}  className='animate-spin'/>
+                      </>
+                    ):(
+                      type === 'sign-in'?"Iniciar Sesión":"Crear Cuenta"
+                    )  
+                  }  
+                </Button> 
+              </div>
             </form>
           </Form>
           <footer className='flex justify-center gap-2 p-2'>
             <p className='text-sm text-gray-600'>
               {type === 'sign-in' ? "¿No tienes una cuenta?": "¿Ya tienes una cuenta? "}
             </p>
-            <Link className='text-sm' href={type === 'sign-in'? "/auth/sign-up" : '/auth/sign-in'}>
+            <Link className='text-sm text-blue-600 font-semibold' href={type === 'sign-in'? "/auth/sign-up" : '/auth/sign-in'}>
                     {
                       type === 'sign-in' ? 'Crea una cuenta' : "Inicia Sesión"
                     }
