@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { WebService } from "@/service/generalWebService";
 import "@/assets/css/globals.css";
 
 const geistSans = localFont({
@@ -20,17 +21,32 @@ const geistMono = localFont({
 //     description: "Página de edicion de información de usuario en TTA-110",
 // };
 
-
 export default function EditProfilePage() {
-    const [name, setName] = useState("Juan Pérez");
-    const [email, setEmail] = useState("juan.perez@example.com");
+    const [user, setUser] = useState({ name: "", email: "" });
+    const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    useEffect(() => {
+        async function fetchUserData() {
+            const result = await WebService.getAsync("/api/user");
+            if (result.success) {
+                setUser(result.response);
+            }
+            setLoading(false);
+        }
+
+        fetchUserData();
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Aquí iría la lógica para actualizar datos del usuario (ejemplo: API call)
-        setMessage("Perfil actualizado con éxito.");
+        setMessage("");
+
+        const result = await WebService.putAsync("/api/user/update", user, "Perfil actualizado con éxito.");
+        setMessage(result.message);
     };
+
+    if (loading) return <p className="text-center">Cargando...</p>;
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-gray-100 p-6">
@@ -41,8 +57,8 @@ export default function EditProfilePage() {
                         <label className="block text-sm font-medium">Nombre</label>
                         <input
                             type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={user.name}
+                            onChange={(e) => setUser({ ...user, name: e.target.value })}
                             className="w-full px-3 py-2 border rounded-lg"
                             required
                         />
@@ -51,17 +67,14 @@ export default function EditProfilePage() {
                         <label className="block text-sm font-medium">Email</label>
                         <input
                             type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={user.email}
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
                             className="w-full px-3 py-2 border rounded-lg"
                             required
                         />
                     </div>
-                    {message && <p className="text-green-500 text-sm">{message}</p>}
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-                    >
+                    {message && <p className="text-sm text-green-500">{message}</p>}
+                    <button type="submit" className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                         Guardar Cambios
                     </button>
                 </form>
