@@ -37,6 +37,9 @@ authRouter.post("/confirm-account",
 )
 
 authRouter.post("/login",
+    body("email").notEmpty().withMessage("El email no puede ir vacio"),
+    body("email").isEmail().withMessage("El email no es válido"),
+    body("password").notEmpty().withMessage("La contraseña no puede ir vacia"),
     AuthController.loginAccount
 )
 authRouter.post("/reset-password", 
@@ -45,4 +48,5 @@ authRouter.post("/reset-password",
     ,AuthController.resetPassword)
 
 authRouter.get("/user", authenticate ,AuthController.user)
+
 export default authRouter;

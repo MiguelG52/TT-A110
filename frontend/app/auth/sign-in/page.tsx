@@ -4,7 +4,7 @@ import React from 'react'
 
 const SignUp = () => {
   return (
-    <section className='size-full max-sm:px-6'>
+    <section className='p-5 flex  flex-col items-center md:justify-center max-sm:px-6'>
       <AuthForm type='sign-in'/>
     </section>
   )

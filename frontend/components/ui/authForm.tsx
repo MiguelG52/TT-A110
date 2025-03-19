@@ -11,6 +11,8 @@ import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { authService} from '@/service/auth/signIn.service'
+
 
 
 const AuthForm = ({type}:authForm) => {
@@ -25,20 +27,31 @@ const AuthForm = ({type}:authForm) => {
     resolver:zodResolver(formSchema),
     defaultValues:{
       email:"",
-      password:"",
+      password:""
     }
   })
-  function onSubmit(values:z.infer<typeof formSchema>){
-    setIsLoading(true);
+  async function onSubmit(values:z.infer<typeof formSchema>){
+    setIsLoading(true)
+    let result;
+    if (type === 'sign-in') {
+      result = await authService(values)
+    }else{
+      result = authService(values)
+    }
+
+
+    /*
     if(type==='sign-in'){
       router.push("/")
     }
     if(type === "sign-up"){
       router.push("/auth/sign-in")
     }
+    */
+   setIsLoading(false);
   }
   return (
-    <section className='authForm'>
+    <section className='bg-white w-full md:w-1/2 lg:w-1/3 p-5 rounded-lg shadow-md'>
       <header className='flex flex-col gap-5 md:gap-8 mb-6' >
         <Link href="/" className='cursor-pointer flex items-center gap-1'>
           <h1 className='capitalize text-xl font-bold'>odemia</h1>
@@ -60,8 +73,7 @@ const AuthForm = ({type}:authForm) => {
       ):(
         <>
            <Form  {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 justify-start">
-              
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 justify-start">              
               {type==="sign-up" &&(
                 <>
                   <div className='flex flex-col justify-between'>
