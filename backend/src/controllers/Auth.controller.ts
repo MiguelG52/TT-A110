@@ -83,9 +83,7 @@ export class AuthController {
             }
             //generate jwt
             const jwt = await generateJWT(user.dataValues.userId)
-            res.json({token:jwt})
-            
-
+            res.json({token:jwt}) 
         }catch(error){
             res.status(500).json({error:`"Error al iniciar sesión ${error}`})
             return
@@ -114,7 +112,7 @@ export class AuthController {
     }
 
     static async user(req: Request, res:Response){
-        res.json(req.user)
+        res.status(201).json(req.user)
     }
        
 }

@@ -32,8 +32,8 @@ const CustomInput = ({control, name,label, placeholder, type}:customInput) => {
                                 <SelectValue placeholder={placeholder}/>
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="2">Profesor</SelectItem>
-                                <SelectItem value="3">Alumno</SelectItem>
+                                <SelectItem value="5">Profesor</SelectItem>
+                                <SelectItem value="6">Alumno</SelectItem>
                               </SelectContent>
                             </Select>
                           </>):(<>
