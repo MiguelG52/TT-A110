@@ -8,7 +8,7 @@ const sequelize = new Sequelize('tta110_dev','postgres','mik3123', {
     port: 5432,
     dialect: 'postgres',
     models: [__dirname+'/../models/**/*.model.ts'],
-    logging: false,
+    logging:false,
 })
 
 export default sequelize;

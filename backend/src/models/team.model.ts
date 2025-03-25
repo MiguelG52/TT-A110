@@ -20,7 +20,7 @@ class Team extends Model {
 
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER })
-  studentId!: number;
+  userId!: number;
 
   @Column({
     type: DataType.STRING,
@@ -36,7 +36,7 @@ class Team extends Model {
   description!: string;
   
   @BelongsTo(() => User)
-  student!: User;
+  user!: User;
 
   @HasMany(() => UserTeam)
   userTeams!: UserTeam[];
