@@ -43,7 +43,8 @@ export class AuthController {
 
     static async confirmAccount(req: Request, res: Response) {
         try {
-            const { token } = req.params;
+            const { token } = req.body;
+
             const user = await User.findOne({ where: { token } });
             if (!user) {
                res.status(404).json({ error: "Token no válido" });
@@ -56,6 +57,7 @@ export class AuthController {
             res.status(201).json({ message: "Cuenta verificada correctamente" });
             return 
         } catch (error) {
+            console.log(error)
             res.status(500).json({ error: "Error al confirmar la cuenta" });
             return
         }
@@ -108,11 +110,11 @@ export class AuthController {
             token: user.dataValues.token
         })
         if(emailStatus.error) res.status(500).json({message:"Ocurrio un error al enviar el correo"})
-        res.status(201).json({message:"Revisa tu email y sigue las instrucciones"})
+        res.status(200).json({message:"Revisa tu email y sigue las instrucciones"})
     }
 
     static async user(req: Request, res:Response){
-        res.status(201).json(req.user)
+        res.status(200).json(req.user)
     }
        
 }

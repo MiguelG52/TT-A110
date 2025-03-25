@@ -5,6 +5,7 @@ import database from "./config/db"
 import userRouter from './routes/users.route';
 import authRouter from './routes/auth.route';
 import { limiter } from './config/limiter';
+import teamRouter from './routes/team.route';
 
 async function connectDB(){
     try{
@@ -25,8 +26,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(morgan('dev'));
-app.use('/api', userRouter);
+app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/team', teamRouter)
+
 
 
 export default app;

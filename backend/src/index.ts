@@ -9,7 +9,7 @@ const io = new Server(httpServer, {
   },
 });
 
-const PORT = 4000;
+const PORT = 5001;
 httpServer.listen(PORT, () => {
   console.log(`Servidor corriendo en pueto: ${PORT}`);
 });
