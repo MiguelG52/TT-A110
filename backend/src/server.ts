@@ -6,6 +6,7 @@ import userRouter from './routes/users.route';
 import authRouter from './routes/auth.route';
 import { limiter } from './config/limiter';
 import teamRouter from './routes/team.route';
+import projectRouter from './routes/projects.route';
 
 async function connectDB(){
     try{
@@ -28,7 +29,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
-app.use('/api/team', teamRouter)
+app.use('/api/team', teamRouter);
+app.use('/api/project', projectRouter)
 
 
 
