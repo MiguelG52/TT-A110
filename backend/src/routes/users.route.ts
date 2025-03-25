@@ -8,6 +8,10 @@ userRouter.get("/get-user-teams",
     authorizeInsert,
     UserController.getUserTeams
 )
+userRouter.get("/get-user-projects/:userId",
+    authorizeInsert,
+    UserController.getUserProjects
+)
 
 
 export default userRouter

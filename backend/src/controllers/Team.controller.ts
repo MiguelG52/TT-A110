@@ -3,6 +3,7 @@ import Team from "../models/team.model";
 import UserTeam from "../models/userTeam.model";
 import User from "../models/user.model";
 import { verfyJWT } from "../helpers/jwt.helper";
+import Project from "../models/project.model";
 
 export class TeamController {
   static async createTeam(req: Request, res: Response) {
@@ -106,6 +107,29 @@ export class TeamController {
     }
   }
 
+  // Obtener todos los proyectos de un equipo
+  static async getTeamProjects(req: Request, res: Response) {
+    try {
+      const { teamId } = req.params;
+
+      if (!teamId) {
+        return res.status(400).json({ error: "El teamId es obligatorio" });
+      }
+
+      const projects = await Project.findAll({
+        include: {
+          model: Team,
+          where: { teamId },
+          through: { attributes: [] }
+        }
+      });
+
+      res.status(200).json({ projects });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error al obtener los proyectos del equipo" });
+    }
+  }
   
   
 
