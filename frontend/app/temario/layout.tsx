@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Home de Usuario | TTA-110",
-    description: "Página principal de usuario en TTA-110",
+    title: "Temario POO | TTA-110",
+    description: "Temario de POO en TTA-110",
 };
 
 export default function UserProfileLayout({

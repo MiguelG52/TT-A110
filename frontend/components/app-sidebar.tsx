@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Home, List, UserCog2, SquareChevronRight } from "lucide-react"
 
 import {
     Sidebar,
@@ -14,29 +14,34 @@ import {
 // Menu items.
 const items = [
     {
-        title: "Home",
+        title: "Inicio",
         url: "/home",
         icon: Home,
     },
     {
+        title: "Editor de Código",
+        url: "/",
+        icon: SquareChevronRight
+    },
+    {
         title: "Temario",
         url: "/temario",
-        icon: Inbox,
+        icon: List,
     },
+    // {
+    //     title: "Calendar",
+    //     url: "#",
+    //     icon: Calendar,
+    // },
+    // {
+    //     title: "Search",
+    //     url: "#",
+    //     icon: Search,
+    // },
     {
-        title: "Calendar",
-        url: "#",
-        icon: Calendar,
-    },
-    {
-        title: "Search",
-        url: "#",
-        icon: Search,
-    },
-    {
-        title: "Usuario",
+        title: "Perfil",
         url: "/userProfile",
-        icon: Settings,
+        icon: UserCog2,
     },
 ]
 
