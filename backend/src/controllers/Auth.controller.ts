@@ -91,13 +91,26 @@ export class AuthController {
             return
         }
     }
-    static async resetPassword(req:Request, res:Response){
-        const {email} = req.params;
+
+    static async verifyToken(req:Request, res:Response){
+        const { token } = req.body
+        
+        const tokenExists = await User.findOne({where:{token}})
+        if(!tokenExists){
+            const error = new Error("Token no válido")
+            res.status(404).json({error:error.message})
+        }
+        res.status(200).json({message:"Token válido"})
+    }
+
+
+    static async forgotPassword(req:Request, res:Response){
+        const {email} = req.body;
         let newToken = ""
         const user = await User.findOne({where:{email}})
         if(!user){
             const error = new Error("El email ingresado no esta registrado")
-            res.status(404).json({message:error.message})
+            res.status(404).json({error:error.message})
             return
         }
         newToken = generateToken()
@@ -111,6 +124,62 @@ export class AuthController {
         })
         if(emailStatus.error) res.status(500).json({message:"Ocurrio un error al enviar el correo"})
         res.status(200).json({message:"Revisa tu email y sigue las instrucciones"})
+    }
+
+    static async resetPasswordWithToken(req:Request, res:Response){
+        const {token} = req.params;
+        const {newPassword} = req.body
+
+        try {
+            const user = await User.findOne({where:{token}})
+            if(!user){
+                const error = new Error("El token no es valido")
+                res.status(404).json({error:error.message})
+                return    
+            }
+            const passwordEncrypted = await hashPassword(newPassword);
+            await user.update({
+                password: passwordEncrypted,
+                token: null
+            })
+            res.status(200).json({message:"Contraseña actualizada correctamente"})
+        }catch (error) {
+            console.log(error)
+            res.status(500).json({error:"Error al cambiar la contraseña"})
+            return
+        }
+    }
+
+    //Corregir la funcion
+    static async update(req:Request, res:Response){
+        const {currentPassword, newPassword} = req.body
+        const {userId} = req.user
+        
+        try {
+            const user = await User.findByPk(userId)
+            if(!user){
+                const error = new Error("El token no es valido")
+                res.status(404).json({error:error.message})
+                return    
+            }
+            const isActualPassword = await verifyPassword(currentPassword, user.dataValues.password);
+    
+            if(!isActualPassword){
+                const error = new Error("La contraseña actual ingresada no es correcta.")
+                res.status(401).json({error:error.message})
+                return
+            }
+            const passwordEncrypted = await hashPassword(newPassword);
+            await user.update({
+                password: passwordEncrypted,
+                token: null
+            })
+            res.status(200).json({message:"Contraseña actualizada correctamente"})
+        }catch (error) {
+            console.log(error)
+            res.status(500).json({error:"Error al cambiar la contraseña"})
+            return
+        }
     }
 
     static async user(req: Request, res:Response){
