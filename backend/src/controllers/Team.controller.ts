@@ -6,6 +6,16 @@ import { verfyJWT } from "../helpers/jwt.helper";
 import Project from "../models/project.model";
 
 export class TeamController {
+
+
+  static async getTeamById(req: Request, res:Response){
+    const { userId } = req.body;
+    const team = await Team.findByPk(userId,{
+      include:['userId, description','name', 'teamId']
+    })
+
+  }
+
   static async createTeam(req: Request, res: Response) {
     try {
 
@@ -130,7 +140,4 @@ export class TeamController {
       res.status(500).json({ error: "Error al obtener los proyectos del equipo" });
     }
   }
-  
-  
-
 }

@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, AllowNull } from "sequelize-typescript";
 import  User  from "./user.model";
 import  UserTeam  from "./userTeam.model";
 import  Project  from "./project.model";
@@ -32,9 +32,15 @@ class Team extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-
   description!: string;
   
+  @Column({
+    type: DataType.STRING(8),
+    allowNull:false,
+  })
+  teamCode!: string
+
+
   @BelongsTo(() => User)
   user!: User;
 

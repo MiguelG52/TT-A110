@@ -151,7 +151,7 @@ export class AuthController {
     }
 
     //Corregir la funcion
-    static async update(req:Request, res:Response){
+    static async updatePassword(req:Request, res:Response){
         const {currentPassword, newPassword} = req.body
         const {userId} = req.user
         
