@@ -1,6 +1,8 @@
 import type  {Request, Response, NextFunction} from 'express';
 import { verfyJWT } from '../helpers/jwt.helper';
 import User from '../models/user.model';
+import { extractTokenFromHeader } from '../helpers/auth.helper';
+import { sendAuthError } from '../helpers/errors.helper';
 
 declare global{
     namespace Express {
@@ -9,29 +11,59 @@ declare global{
         }
     }
 }
-export const authenticate = async(req:Request, res:Response, next:NextFunction) =>{
-        const bearer  = req.headers.authorization
-        if(!bearer){
-            const error = new Error("No autorizado");
-            res.status(401).json({error:error.message})
-            return
-        }
-        const [, encondedToken] = bearer.split(' ');
-        if(!encondedToken){
-            const error = new Error("Token no válido")
-            res.status(401).json({error:error.message})
-            return
-        }
-        try {
-            const decodedToken = await verfyJWT(encondedToken)
-            if(typeof decodedToken === 'object' && decodedToken.id){
-                req.user = await User.findByPk(decodedToken.id, {
-                    attributes:['userId',"email","name","lastName","username"]
-                })
-                next()
-            }
-            
-        } catch (error) {
-            res.status(500).json({error:`Error al obtener información del usuario: ${error}`})
-        }
-}
+export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = extractTokenFromHeader(req.headers.authorization);
+  
+      if (!token) {
+        sendAuthError(res, "No autorizado")
+        return
+      }
+  
+      const decodedToken = await verfyJWT(token);
+  
+      if (typeof decodedToken !== 'object' || !decodedToken.id) {
+         sendAuthError(res, "Token no válido");
+         return
+      }
+  
+      const user = await User.findByPk(decodedToken.id, {
+        attributes: ['userId', 'email', 'name', 'lastName', 'username','roleId'],
+      });
+  
+      if (!user){
+        sendAuthError(res, "Usuario no encontrado", 404)
+        return
+      }
+  
+      req.user = user;
+      next();
+    } catch (err) {
+      console.error("Auth error:", err);
+       sendAuthError(res, "Error al autenticar usuario", 500);
+       return
+    }
+};
+
+export const authenticateContent = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = extractTokenFromHeader(req.headers.authorization);
+
+    if (!token) {
+      sendAuthError(res, "No autorizado")
+      return
+    }
+
+    const decodedToken = await verfyJWT(token);
+
+    if (typeof decodedToken !== 'object' || !decodedToken.id) {
+       sendAuthError(res, "Token no válido");
+       return
+    }
+    next();
+  } catch (err) {
+    console.error("Auth error:", err);
+     sendAuthError(res, "Error al autenticar usuario", 500);
+     return
+  }
+};
