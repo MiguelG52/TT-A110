@@ -5,6 +5,11 @@ import UserTeam from '../models/userTeam.model';
 import Project from '../models/project.model';
 
 export class UserController {
+
+    static getUserByID(){
+
+    }
+    
     static async getUserTeams(req: Request, res: Response) {
         try {
           const { userId } = req.body; 

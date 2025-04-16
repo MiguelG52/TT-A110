@@ -1,15 +1,15 @@
 import { Router } from "express"
 import { UserController } from '../controllers/User.controller';
-import { authorizeInsert } from "../middleware/team.middleware";
+import { authenticate } from "../middleware/auth.middleware";
 
 const userRouter  = Router();   
 
+userRouter.use(authenticate)
+
 userRouter.get("/get-user-teams",
-    authorizeInsert,
     UserController.getUserTeams
 )
 userRouter.get("/get-user-projects/:userId",
-    authorizeInsert,
     UserController.getUserProjects
 )
 

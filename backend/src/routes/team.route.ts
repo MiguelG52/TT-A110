@@ -4,12 +4,12 @@ import { handleInputErrors } from "../middleware/validation.middleware";
 import { limiter } from "../config/limiter";
 import { authenticate } from "../middleware/auth.middleware";
 import { TeamController } from "../controllers/Team.controller";
-import { authorizeInsert } from "../middleware/team.middleware";
 
 const teamRouter = Router();
 
+teamRouter.use(authenticate)
+
 teamRouter.post('/create',
-    authorizeInsert,
     body('name')
         .notEmpty().withMessage("El nombre del equipo no puede ir vacio."),
     body('description')
@@ -25,12 +25,10 @@ teamRouter.post("/add-user",
         .notEmpty().withMessage("El id del usuario no puede ir vacio."),
     body('teamId')
         .notEmpty().withMessage("El id del equipo no puede ir vacio."),
-    authorizeInsert,
     TeamController.addUserToTeam
 )
 
 teamRouter.get("/get-members",
-    authorizeInsert,
     TeamController.getTeamMembers
 )
 
