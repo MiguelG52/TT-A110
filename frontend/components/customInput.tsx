@@ -19,7 +19,7 @@ const CustomInput = ({control, name,label, placeholder, type}:customInput) => {
                 render={({ field }) => (
                   <FormItem>
                     <div className='form-item w-full'>
-                      <FormLabel className='form-label'>
+                      <FormLabel className='form-label font-md'>
                         {label}
                       </FormLabel>
                     </div>

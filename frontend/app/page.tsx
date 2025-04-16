@@ -1,4 +1,5 @@
 import Image from "next/image";
+import "../assets/css/globals.css";
 
 export default function Home() {
   return (
@@ -19,8 +20,8 @@ export default function Home() {
         <Image
           src="/student_learning.webp"
           alt='Persona sentada en una sala frente a un computador escribiendo código'
-          width={2100}
-          height={500}
+          width={1200}
+          height={100}
           priority
         />
       </div>
