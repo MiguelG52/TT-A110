@@ -54,18 +54,18 @@ const AuthForm = ({ type }: authForm) => {
   }
 
   return (
-    <section className='bg-white w-full md:w-1/2 lg:w-1/3 p-5 rounded-lg shadow-md'>
+    <section className='bg-white w-full h-full md:w-1/2 lg:w-1/3 p-5 flex flex-col justify-center rounded-lg shadow-md'>
       <header className='flex flex-col gap-5 md:gap-8 mb-6' >
-        <Link href="/" className='cursor-pointer flex items-center gap-1'>
-          <h1 className='capitalize text-xl font-bold'>Odemia</h1>
+        <Link href="/" className='cursor-pointer flex items-center justify-center'>
+          <h1 className='capitalize text-lg font-bold '>Odemia</h1>
         </Link>
 
         <div>
-          <h1 className='text-xl font-semibold lg:text-3xl text-gray-900'>
+          <h1 className='text-xl font-md lg:text-3xl text-gray-900'>
             {type === 'sign-in' ? "Iniciar Sesión" : "Crear Cuenta"}
           </h1>
           <p className='text-sm font-normal text-gray-600'>
-            {type === 'sign-in' ? "Por favor, ingresa tus datos" : "Crea tu cuenta para unirte a un equipo"}
+            {type === 'sign-in' ? "Por favor, ingresa tus datos" : "Registrate para unirte a un equipo"}
           </p>
         </div>
       </header>
@@ -89,7 +89,7 @@ const AuthForm = ({ type }: authForm) => {
           )}
 
           <div className='flex flex-col gap-4'>
-            <Button disabled={isLoading} className='bg-blue-600 hover:bg-blue-400 w-full text-white mt-2' type="submit">
+            <Button disabled={isLoading} className='bg-blue-500 hover:bg-blue-400 w-full text-white mt-2' type="submit">
               {isLoading ? <Loader2 size={20} className='animate-spin' /> : (type === 'sign-in' ? "Iniciar Sesión" : "Crear Cuenta")}
             </Button>
           </div>
@@ -100,7 +100,7 @@ const AuthForm = ({ type }: authForm) => {
         <p className='text-sm text-gray-600'>
           {type === 'sign-in' ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
         </p>
-        <Link className='text-sm text-blue-600 font-semibold' href={type === 'sign-in' ? "/auth/sign-up" : '/auth/sign-in'}>
+        <Link className='text-sm text-blue-500 font-semibold' href={type === 'sign-in' ? "/auth/sign-up" : '/auth/sign-in'}>
           {type === 'sign-in' ? 'Crea una cuenta' : "Inicia Sesión"}
         </Link>
       </footer>

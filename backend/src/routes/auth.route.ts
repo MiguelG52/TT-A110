@@ -43,7 +43,6 @@ authRouter.post("/login",
     AuthController.loginAccount
 )
 authRouter.post("/reset-password", 
-    body("email").notEmpty().withMessage("El email no puede ir vacio"),
     body("email").isEmail().withMessage("El email no es válido")
     ,AuthController.resetPassword)
 

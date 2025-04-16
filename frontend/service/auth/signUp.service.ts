@@ -1,24 +1,9 @@
-export const signUpService = async (values: any) => {
-    console.log(JSON.stringify(values))
-    try {
-        const response = await fetch("http://localhost:4000/api/auth/create-account", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-        });
+import { authFormSchema } from "@/models/schemas";
+import { z } from "zod";
+import { WebService } from "../generalWebService";
 
-        console.log(JSON.stringify(values))
+const formSchema = authFormSchema("sign-up");
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || "Error al registrar usuario");
-        }
-
-        return { success: true, message: "Cuenta creada con éxito", data };
-    } catch (error) {
-        return { success: false, message: (error as Error).message };
-    }
-};
+export async function authService(values:z.infer<typeof formSchema>) {
+    return await WebService.postAsync(`${process.env.NEXT_PUBLIC_API_URL}`, values);
+}
