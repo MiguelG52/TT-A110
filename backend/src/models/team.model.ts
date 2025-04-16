@@ -38,7 +38,7 @@ class Team extends Model {
     type: DataType.STRING(8),
     allowNull:false,
   })
-  teamCode!: string
+  teamCodeId!: string
 
 
   @BelongsTo(() => User)
