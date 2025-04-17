@@ -11,6 +11,14 @@ declare global{
         }
     }
 }
+
+export const rejectAdminInjection = async (req: Request, res:Response, next: NextFunction)=> {
+    const { roleId } = req.body;
+    if(roleId == 1){
+      sendAuthError(res,"No autorizado")
+    }
+    next()
+}
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = extractTokenFromHeader(req.headers.authorization);
