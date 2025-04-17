@@ -11,11 +11,14 @@ import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { signUpService } from '@/service/auth/signUp.service'
-import { authService } from '@/service/auth/signIn.service'
+import { onSignIn } from '@/service/auth/signIn.service'
+import { onSignUp } from '@/service/auth/signUp.service'
+import { AlertDialogService } from '@/service/alert/alert.service'
 
 const AuthForm = ({ type }: authForm) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [dialogPropierties, setDialogpropierties] = useState({show:false, text:"", type:""})
+
   const router = useRouter();
 
   const formSchema = authFormSchema(type);
@@ -30,24 +33,24 @@ const AuthForm = ({ type }: authForm) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
+    setDialogpropierties({ ...dialogPropierties, show: false })
     try {
       let result;
 
       if (type === 'sign-in') {
-        result = await authService(values);
+        result = await onSignIn(values);
       } else {
-        result = await signUpService(values);
+        result = await onSignUp(values);
       }
+      console.log(result);
 
       if (result.success) {
-        alert(result.message); // Mensaje de éxito
-        router.push(type === 'sign-up' ? "/auth/sign-in" : "/");
+        setDialogpropierties({show:true,text:result.message,type:"success"})
       } else {
-        alert(result.message); // Mostrar mensaje de error
+        setDialogpropierties({show:true,text:result.message,type:"error"})
       }
     } catch (error) {
-      console.error("Error en autenticación:", error);
-      alert("Ocurrió un error, intenta nuevamente.");
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -61,9 +64,9 @@ const AuthForm = ({ type }: authForm) => {
         </Link>
 
         <div>
-          <h1 className='text-xl font-md lg:text-3xl text-gray-900'>
+          <h2 className='text-xl font-md lg:text-3xl text-gray-900'>
             {type === 'sign-in' ? "Iniciar Sesión" : "Crear Cuenta"}
-          </h1>
+          </h2>
           <p className='text-sm font-normal text-gray-600'>
             {type === 'sign-in' ? "Por favor, ingresa tus datos" : "Registrate para unirte a un equipo"}
           </p>
@@ -77,7 +80,7 @@ const AuthForm = ({ type }: authForm) => {
               <CustomInput control={form.control} label='Nombre' name='name' type='text' placeholder='Miguel' />
               <CustomInput control={form.control} label='Apellidos' name='lastName' type='text' placeholder='Lechuga Salazar' />
               <CustomInput control={form.control} label='Nombre de usuario' name='username' type='text' placeholder='Mike' />
-              <CustomInput control={form.control} label='Selecciona tu rol' name='role' type='select' placeholder='Profesor/Alumno' />
+              <CustomInput control={form.control} label='Selecciona tu rol' name='roleId' type='select' placeholder='Profesor/Alumno' />
             </>
           )}
 
@@ -88,14 +91,17 @@ const AuthForm = ({ type }: authForm) => {
             <Link className='text-sm' href="/auth/reset-password">¿Olvidaste tu contraseña?</Link>
           )}
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-2`'>
+            <AlertDialogService show={dialogPropierties.show} 
+              text={dialogPropierties.text} type={dialogPropierties.type}
+            />
             <Button disabled={isLoading} className='bg-blue-500 hover:bg-blue-400 w-full text-white mt-2' type="submit">
               {isLoading ? <Loader2 size={20} className='animate-spin' /> : (type === 'sign-in' ? "Iniciar Sesión" : "Crear Cuenta")}
             </Button>
           </div>
         </form>
       </Form>
-
+      
       <footer className='flex justify-center gap-2 p-2'>
         <p className='text-sm text-gray-600'>
           {type === 'sign-in' ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}

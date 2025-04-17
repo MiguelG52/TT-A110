@@ -1,5 +1,5 @@
 export class WebService {
-    static async postAsync(endpoint: string | undefined, values: any, successMessage?: string) {
+    static async postAsync(endpoint: string | undefined, values: any) {
         if (!endpoint) {
             throw new Error("La direccion del endpoint no esta definida");
         }
@@ -13,8 +13,8 @@ export class WebService {
             if (!response.ok) return { success: false, message: jsonResponse.error };
             return {
                 success: true,
-                message: successMessage,
-                ...(jsonResponse && { response: jsonResponse })
+                message: jsonResponse.message,
+                data:jsonResponse.data
             };
 
         } catch (error) {

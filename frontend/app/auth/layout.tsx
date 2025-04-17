@@ -1,4 +1,3 @@
-import "../../assets/css/globals.css";
 
 export default function RootLayout({
   children,
@@ -7,7 +6,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-        <section className='flex-col h-min-screen items-center justify-center p-5'>
+        <section className='flex flex-col min-h-screen items-center justify-center p-5 md:flex-row'>
             {children}
         </section>   
     </>

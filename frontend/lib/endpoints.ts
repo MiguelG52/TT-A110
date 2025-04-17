@@ -4,8 +4,10 @@ const authRoute:string = "auth"
 
 export const methods = {
     auth:{
-        signUp:baseUrl+authRoute+"create-account",
-        signIn:baseUrl+authRoute+"login",
-        recoverPassword:baseUrl+authRoute
+        signUp:baseUrl+authRoute+"/create-account",
+        signIn:baseUrl+authRoute+"/login",
+        forgotPassword:baseUrl+authRoute+'/forgot-password',
+        confirmAccount:baseUrl+authRoute+'/confirm-account',
+        resetPassword:baseUrl+authRoute+'/reset-password'
     }
 }
