@@ -7,6 +7,7 @@ export type authForm = {
 }
 
 const formSchema = authFormSchema("sign-up")
+
 export type customInput = {
     control: Control<z.infer<typeof formSchema>>,
     name: FieldPath<z.infer<typeof formSchema>>,
@@ -35,3 +36,9 @@ export type RecommendationsPanelProps = {
     onClose: () => void
     isConnected: boolean
   }
+
+export interface IAlertService {
+    show:boolean,
+    text:string,
+    type:string,
+}  

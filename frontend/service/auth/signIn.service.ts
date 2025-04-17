@@ -1,9 +1,10 @@
 import { authFormSchema } from "@/models/schemas";
 import { z } from "zod";
 import { WebService } from "../generalWebService";
+import { methods } from "@/lib/endpoints";
 
-const formSchema = authFormSchema("sign-in");
+const formSchema:any = authFormSchema("sign-in");
 
-export async function authService(values:z.infer<typeof formSchema>) {
-    return await WebService.postAsync(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, values);
+export async function onSignIn(values:z.infer<typeof formSchema>) {
+    return await WebService.postAsync(methods.auth.signIn, values);
 }

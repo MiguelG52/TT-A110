@@ -9,8 +9,9 @@ import {
 import { Input } from './ui/input'
 import { customInput } from '@/models/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { z } from 'zod'
 
-const CustomInput = ({control, name,label, placeholder, type}:customInput) => {
+const CustomInput = ({ control, name, label, placeholder, type }:any) => {
   return (
     <>
       <FormField
@@ -32,8 +33,8 @@ const CustomInput = ({control, name,label, placeholder, type}:customInput) => {
                                 <SelectValue placeholder={placeholder}/>
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="5">Profesor</SelectItem>
-                                <SelectItem value="6">Alumno</SelectItem>
+                                <SelectItem value="2">Profesor</SelectItem>
+                                <SelectItem value="3">Alumno</SelectItem>
                               </SelectContent>
                             </Select>
                           </>):(<>
