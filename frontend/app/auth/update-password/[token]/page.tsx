@@ -1,7 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import { useParams, useSearchParams } from 'next/navigation'
-import { WebService } from '@/service/generalWebService';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { updatePasswordSchema } from '@/models/schemas';
@@ -12,8 +10,10 @@ import { Form } from '@/components/ui/form';
 import CustomInput from '@/components/customInput';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { AlertDialogService } from '@/service/alert/alert.service';
 import Header from '@/components/header';
+import { WebService } from '@/lib/generalWebService';
+import { AlertDialogService } from '@/lib/alert/alert.service';
+import { verify } from 'crypto';
 
 type UpdatePasswordPage ={
   params:{

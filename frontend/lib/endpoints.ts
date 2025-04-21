@@ -8,6 +8,7 @@ export const methods = {
         signIn:baseUrl+authRoute+"/login",
         forgotPassword:baseUrl+authRoute+'/forgot-password',
         confirmAccount:baseUrl+authRoute+'/confirm-account',
-        resetPassword:baseUrl+authRoute+'/reset-password'
+        resetPassword:baseUrl+authRoute+'/reset-password',
+        getUserData:baseUrl+authRoute+'/get-user-data',
     }
 }

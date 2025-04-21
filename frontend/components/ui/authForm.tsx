@@ -1,28 +1,29 @@
-'use client'
+'use client';
 import React, { useState } from 'react'
 import { authFormSchema } from '@/models/schemas'
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from 'next/link'
 import { authForm } from '@/models/types'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { set, z } from 'zod'
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { onSignIn } from '@/service/auth/signIn.service'
-import { onSignUp } from '@/service/auth/signUp.service'
-import { AlertDialogService } from '@/service/alert/alert.service'
+import { AlertDialogService } from '@/lib/alert/alert.service'
+import { onSignIn } from '@/lib/auth/signIn.service'
+import { onSignUp } from '@/lib/auth/signUp.service'
 
 const AuthForm = ({ type }: authForm) => {
   const [isLoading, setIsLoading] = useState(false);
   const [dialogPropierties, setDialogpropierties] = useState({show:false, text:"", type:""})
 
+  
   const router = useRouter();
 
   const formSchema = authFormSchema(type);
-
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,10 +43,20 @@ const AuthForm = ({ type }: authForm) => {
       } else {
         result = await onSignUp(values);
       }
-      console.log(result);
 
       if (result.success) {
-        setDialogpropierties({show:true,text:result.message,type:"success"})
+        if (type != 'sign-in') setDialogpropierties({show:true,text:result.message,type:"success"})
+        else{
+          let token:string = result.token
+          if (token) {
+            await fetch('/api/set-token', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: token })
+            });
+            router.push('/odemia/home')
+          }
+        }
       } else {
         setDialogpropierties({show:true,text:result.message,type:"error"})
       }

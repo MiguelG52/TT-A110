@@ -1,30 +1,15 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "@/assets/css/globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { verifySession } from "@/lib/verifySession";
 
-const geistSans = localFont({
-    src: "./../fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
-    weight: "100 900",
-});
-const geistMono = localFont({
-    src: "./../fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
-    weight: "100 900",
-});
 
-export const metadata: Metadata = {
-    title: "Home de Usuario | TTA-110",
-    description: "Página principal de usuario en TTA-110",
-};
-
-export default function UserProfileLayout({
+export default function Home({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    verifySession();
     return (
         <SidebarProvider>
             <div className="flex min-h-screen w-full">

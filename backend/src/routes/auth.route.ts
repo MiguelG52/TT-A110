@@ -7,7 +7,7 @@ import { authenticate } from "../middleware/auth.middleware";
 
 const authRouter = Router();
 
-authRouter.use(limiter)
+//authRouter.use(limiter)
 
 authRouter.post('/create-account',
     body('name')
@@ -77,6 +77,6 @@ authRouter.post("/update-password",
     AuthController.resetPasswordWithToken
 )
 
-authRouter.get("/user", authenticate ,AuthController.user)
+authRouter.get("/get-user-data", authenticate ,AuthController.user)
 
 export default authRouter;

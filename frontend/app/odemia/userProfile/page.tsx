@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { WebService } from "@/service/generalWebService";
+import { WebService } from "@/lib/generalWebService";
 import { Pencil, Key } from "lucide-react";
 
 export default function UserProfilePage() {

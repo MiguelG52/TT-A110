@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { WebService } from "@/service/generalWebService";
+import { WebService } from "@/lib/generalWebService";
 import "@/assets/css/globals.css";
 
 const geistSans = localFont({
