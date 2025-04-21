@@ -1,25 +1,5 @@
 "use client";
 import { useState } from "react";
-import localFont from "next/font/local";
-import type { Metadata } from "next";
-
-
-
-const geistSans = localFont({
-    src: "./../../fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
-    weight: "100 900",
-});
-const geistMono = localFont({
-    src: "./../../fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
-    weight: "100 900",
-});
-
-// export const metadata: Metadata = {
-//     title: " Cambio de contraseña | TTA-110",
-//     description: "Página de edicion de contraseña de usuario en TTA-110",
-// };
 
 
 export default function ChangePasswordPage() {

@@ -1,17 +1,19 @@
-import "@/assets/css/globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { verifySession } from "@/lib/verifySession";
+import { UserProvider } from "@/context/authContext";
 
 
-export default function Home({
+export default async function Home({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    verifySession();
+    const {user} = await verifySession();
+    
     return (
-        <SidebarProvider>
+        <UserProvider  user={user}>
+            <SidebarProvider>
             <div className="flex min-h-screen w-full">
                 {/* Sidebar a la izquierda */}
                 <AppSidebar />
@@ -31,5 +33,6 @@ export default function Home({
                 </div>
             </div>
         </SidebarProvider>
+        </UserProvider>
     );
 }
