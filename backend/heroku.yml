@@ -1,0 +1,4 @@
+build:
+  languages:
+    - nodejs
+  root: backend
