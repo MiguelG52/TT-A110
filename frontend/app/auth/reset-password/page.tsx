@@ -1,3 +1,4 @@
+'use client'
 import CustomInput from '@/components/customInput';
 import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,6 @@ import { AlertDialogService } from '@/lib/alert/alert.service';
 import { WebService } from '@/lib/generalWebService';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import Link from 'next/link';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
