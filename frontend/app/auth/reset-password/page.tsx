@@ -28,8 +28,7 @@ const ResetPassword = () => {
     setIsLoading(true);
     hideAlert()
     try{
-        let result = await WebService.postAsync(methods.auth.forgotPassword, values)
-          console.log(result);
+        const result = await WebService.postAsync(methods.auth.forgotPassword, values)
         if (result.success) {
             showAlert(result.message,"success")
         } else {
