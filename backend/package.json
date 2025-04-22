@@ -12,6 +12,7 @@
   "author": "ESCOM",
   "main": "index.js",
   "scripts": {
+    "start":"node index.ts",
     "dev": "nodemon src/index.ts",
     "dev:api": "nodemon src/api/index.ts --api",
     "build": "tsc",
