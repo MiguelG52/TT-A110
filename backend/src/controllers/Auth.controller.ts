@@ -9,15 +9,16 @@ import { error } from 'console';
 export class AuthController {
     static async createAccount(req: Request, res: Response) {    
         //validate if email is already registered
-        const { email, password } = req.body;
-        const userExists = await User.findOne({ where: { email } });
-        if (userExists) {
-            const error = new Error('El usuario ya existe');
-            res.status(400).json({error:error.message});
-            return
-        }
-        // Create user
+        const { email, password} = req.body;
+
         try {
+            const userExists = await User.findOne({ where: { email } });
+            if (userExists) {
+                const error = new Error('El usuario ya existe');
+                res.status(400).json({error:error.message});
+                return
+            }
+
             const user = new User(req.body);
             const passwordEncrypted = await hashPassword(password);
             const token = generateToken();
@@ -30,10 +31,14 @@ export class AuthController {
                 email: user.dataValues.email,
                 token: user.dataValues.token
             })
-            if(emailStatus.error) res.status(500).json({message:"Ocurrio un error al enviar el correo"})
-            res.status(201).json('Cuenta creada exitosamente');
+            if(emailStatus.error){
+                res.status(500).json({error:"Ocurrio un error al enviar el correo"})
+                return
+            }
+            res.status(200).json({message:"Cuenta creada correctamente, por favor revise su cuenta de correo para verificar su cuenta."});
             return
         } catch (error) {
+            console.log(error)
             res.status(500).json({
                 error:"Error al crear usuario",
             });
@@ -128,8 +133,7 @@ export class AuthController {
     }
 
     static async resetPasswordWithToken(req:Request, res:Response){
-        const {token} = req.params;
-        const {newPassword} = req.body
+        const {password, token} = req.body
 
         try {
             const user = await User.findOne({where:{token}})
@@ -138,7 +142,7 @@ export class AuthController {
                 res.status(404).json({error:error.message})
                 return    
             }
-            const passwordEncrypted = await hashPassword(newPassword);
+            const passwordEncrypted = await hashPassword(password);
             await user.update({
                 password: passwordEncrypted,
                 token: null

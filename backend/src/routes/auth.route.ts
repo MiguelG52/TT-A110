@@ -3,7 +3,7 @@ import { AuthController } from "../controllers/Auth.controller";
 import { body, param } from 'express-validator';
 import { handleInputErrors } from "../middleware/validation.middleware";
 import { limiter } from "../config/limiter";
-import { authenticate } from "../middleware/auth.middleware";
+import { authenticate, rejectAdminInjection } from "../middleware/auth.middleware";
 
 const authRouter = Router();
 
@@ -21,8 +21,9 @@ authRouter.post('/create-account',
     body('password')
         .notEmpty().withMessage("La contraseña no puede ir vacia"),
     body('password')
-        .isLength({min:10}).withMessage("La contraseña debe tener al menos 10 caracteres"),
+        .isLength({min:8}).withMessage("La contraseña debe tener al menos 8 caracteres"),
     handleInputErrors,
+    rejectAdminInjection,
     AuthController.createAccount
 );
 
@@ -58,23 +59,23 @@ authRouter.post("/validate-token",
     AuthController.verifyToken
 )
 
-authRouter.post("/reset-password/:token", 
-    param("token")
+authRouter.post("/reset-password", 
+    body("token")
         .notEmpty()
         .isLength({min:6,max:6})
         .withMessage("Token no válido"),
-    body("newPassword").notEmpty().withMessage("La contraseña no puede ir vacia")
-        .isLength({min:10}).withMessage("La contraseña debe tener al menos 10 caracteres"),
+    body("password").notEmpty().withMessage("La contraseña no puede ir vacia")
+        .isLength({min:8}).withMessage("La contraseña debe tener al menos 8 caracteres"),
     handleInputErrors,
     AuthController.resetPasswordWithToken
 )
 authRouter.post("/update-password", 
     body("currentPassword").notEmpty().withMessage("La contraseña no puede ir vacia"),
     body("newPassword").notEmpty().withMessage("La contraseña no puede ir vacia")
-        .isLength({min:10}).withMessage("La contraseña debe tener al menos 10 caracteres"),
+        .isLength({min:8}).withMessage("La contraseña debe tener al menos 10 caracteres"),
     authenticate,
     handleInputErrors,
-    AuthController.resetPasswordWithToken
+    AuthController.updatePassword
 )
 
 authRouter.get("/get-user-data", authenticate ,AuthController.user)
