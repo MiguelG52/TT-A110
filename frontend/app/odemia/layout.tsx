@@ -2,6 +2,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { verifySession } from "@/lib/verifySession";
 import { UserProvider } from "@/context/authContext";
+import BackButton from "@/components/backButton";
+import LogoutButton from "@/components/logoutButton";
 
 
 export default async function Home({
@@ -21,9 +23,18 @@ export default async function Home({
                 {/* Contenedor del contenido */}
                 <div className="flex flex-col flex-1 min-h-screen w-full">
                     {/* Header con botón de menú */}
-                    <header className="bg-blue-600 text-white p-4 shadow-md flex items-center w-full">
-                        <SidebarTrigger className="mr-4 text-white" />
-                        <h1 className="text-xl font-bold">Odemia</h1>
+                    <header className="bg-blue-500 text-white p-4 shadow-md flex justify-between w-full">
+                       <div className="flex items-center">
+                            <BackButton/>
+                            <SidebarTrigger className="mr-4 text-white" />
+                            <h1 className="text-xl font-bold">
+                                Odemia
+                            </h1>
+                       </div>
+
+                       <div>
+                          <LogoutButton/>
+                       </div>
                     </header>
 
                     {/* Contenido principal con ancho completo */}

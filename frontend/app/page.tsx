@@ -1,6 +1,4 @@
 import "../assets/css/globals.css";
-import { AuthProvider } from "@/context/authContext";
-import { AuthGuard } from "@/components/authGuard";
 
 export default function Home() {
   return (
