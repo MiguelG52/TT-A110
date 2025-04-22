@@ -12,7 +12,8 @@
   "author": "ESCOM",
   "main": "index.js",
   "scripts": {
-    "start":"node index.ts",
+    "start": "node dist/index.js",
+    "heroku-postbuild": "tsc",
     "dev": "nodemon src/index.ts",
     "dev:api": "nodemon src/api/index.ts --api",
     "build": "tsc",
