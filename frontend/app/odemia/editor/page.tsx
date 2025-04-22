@@ -12,7 +12,7 @@ const Editor = ()=>{
     const handleCodeChange = () => console.log("cambios en el editor");
 
     return (
-    <section className='flex flex-col h-screen bg-white text-gray-900"'> 
+    <section className='flex flex-col w-full min-h-full bg-white text-gray-900"'> 
         <EditorHeader isConnected={true}/>
 
         <div className="flex flex-1 overflow-hidden">
@@ -20,7 +20,7 @@ const Editor = ()=>{
             <MonacoEditor code={code} onChange={handleCodeChange} theme="light" language="java" />
           </div>
 
-          <div className="w-80 border-l border-gray-200 overflow-y-auto bg-gray-50">
+          <div className="w-85 border-l border-gray-200 overflow-y-auto bg-gray-50">
           <Tabs defaultValue="comments" className="h-full">
             <TabsList className="w-full bg-white">
               <TabsTrigger value="recommendations" className="flex-1 data-[state=active]:bg-gray-100">

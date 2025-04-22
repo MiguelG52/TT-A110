@@ -78,6 +78,6 @@ authRouter.post("/update-password",
     AuthController.updatePassword
 )
 
-authRouter.get("/user", authenticate ,AuthController.user)
+authRouter.get("/get-user-data", authenticate ,AuthController.user)
 
 export default authRouter;

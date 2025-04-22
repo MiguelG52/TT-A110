@@ -15,17 +15,17 @@ import {
 const items = [
     {
         title: "Inicio",
-        url: "/home",
+        url: "/odemia/home",
         icon: Home,
     },
     {
         title: "Editor de Código",
-        url: "/",
+        url: "/odemia/editor",
         icon: SquareChevronRight
     },
     {
         title: "Temario",
-        url: "/temario",
+        url: "/odemia/temario",
         icon: List,
     },
     // {
@@ -40,7 +40,7 @@ const items = [
     // },
     {
         title: "Perfil",
-        url: "/userProfile",
+        url: "/odemia/userProfile",
         icon: UserCog2,
     },
 ]

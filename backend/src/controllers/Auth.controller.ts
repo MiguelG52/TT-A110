@@ -59,7 +59,7 @@ export class AuthController {
                 token: null,
                 isVerified: true
             });
-            res.status(201).json({ message: "Cuenta verificada correctamente" });
+            res.status(200).json({ message: "Cuenta verificada correctamente" });
             return 
         } catch (error) {
             console.log(error)
@@ -90,7 +90,8 @@ export class AuthController {
             }
             //generate jwt
             const jwt = await generateJWT(user.dataValues.userId)
-            res.json({token:jwt}) 
+            res.status(200).json({token:jwt}) 
+            return
         }catch(error){
             res.status(500).json({error:`"Error al iniciar sesión ${error}`})
             return

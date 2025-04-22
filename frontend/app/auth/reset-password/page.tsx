@@ -1,4 +1,3 @@
-'use client'
 import CustomInput from '@/components/customInput';
 import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
@@ -6,8 +5,8 @@ import { Form } from '@/components/ui/form';
 import { useAlert } from '@/hooks/useAlert';
 import { methods } from '@/lib/endpoints';
 import { resetPasswordSchema } from '@/models/schemas';
-import { AlertDialogService } from '@/service/alert/alert.service';
-import { WebService } from '@/service/generalWebService';
+import { AlertDialogService } from '@/lib/alert/alert.service';
+import { WebService } from '@/lib/generalWebService';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
@@ -42,7 +41,6 @@ const ResetPassword = () => {
           setIsLoading(false);
       }
   }
-  
   return (
     <section className='bg-white w-full h-full md:w-1/2 lg:w-1/3 p-5 flex flex-col justify-center rounded-lg shadow-md'>
         <Header description="Recupera tu contraseña"></Header>
