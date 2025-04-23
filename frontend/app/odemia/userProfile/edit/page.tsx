@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { WebService } from "@/lib/generalWebService";
+import { getAsync, putAsync } from "@/lib/generalWebService";
 import "@/assets/css/globals.css";
 
 
@@ -11,7 +11,7 @@ export default function EditProfilePage() {
 
     useEffect(() => {
         async function fetchUserData() {
-            const result = await WebService.getAsync("/api/user");
+            const result = await getAsync("/api/user");
             if (result.success) {
                 setUser(result.response);
             }
@@ -25,7 +25,7 @@ export default function EditProfilePage() {
         e.preventDefault();
         setMessage("");
 
-        const result = await WebService.putAsync("/api/user/update", user, "Perfil actualizado con éxito.");
+        const result = await putAsync("/api/user/update", user, "Perfil actualizado con éxito.");
         setMessage(result.message);
     };
 

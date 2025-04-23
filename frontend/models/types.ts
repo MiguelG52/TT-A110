@@ -42,3 +42,17 @@ export interface IAlertService {
     text:string,
     type:string,
 }  
+
+export interface Option {
+    value: string;
+    label: string;
+  }
+
+export interface ICustomInput {
+    control: any;
+    name: any;
+    label: string;
+    placeholder?: string;
+    type: 'text' | 'textarea' | 'select' | 'email' | 'password' | 'number';
+    options?: Option[]; // Solo para select
+  }

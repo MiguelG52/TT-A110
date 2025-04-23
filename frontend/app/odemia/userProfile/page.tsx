@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { WebService } from "@/lib/generalWebService";
 import { Pencil, Key } from "lucide-react";
 import { useUser } from "@/context/authContext";
 import Link from "next/link";

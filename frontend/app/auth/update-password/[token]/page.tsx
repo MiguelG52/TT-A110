@@ -11,9 +11,8 @@ import CustomInput from '@/components/customInput';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import Header from '@/components/header';
-import { WebService } from '@/lib/generalWebService';
+import { postAsync } from '@/lib/generalWebService';
 import { AlertDialogService } from '@/lib/alert/alert.service';
-import { verify } from 'crypto';
 
 type UpdatePasswordPage ={
   params:{
@@ -32,13 +31,12 @@ const UpdatePasswordPage = ({params}:UpdatePasswordPage) => {
       }
     })
     async function onSubmit(values:z.infer<typeof updatePasswordSchema>){
-      let newValues = {...values,token:""}
+      const newValues = {...values,token:""}
       setIsLoading(true);
       hideAlert()
       newValues.token = params.token
       try{
-          let result = await WebService.postAsync(methods.auth.resetPassword, newValues)
-            console.log(result);
+          const result = await postAsync(methods.auth.resetPassword, newValues)
           if (result.success) {
               showAlert(result.message,"success")
           } else {
