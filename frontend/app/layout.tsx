@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../assets/css/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "TTA-110",
@@ -17,6 +18,7 @@ export default function RootLayout({
         className={` bg-neutral-200 antialiased min-h-screen w-full`}
       >
         {children} 
+        <Toaster/>
       </body>
     </html>
   );

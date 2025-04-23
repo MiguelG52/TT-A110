@@ -7,7 +7,7 @@ import { useAlert } from '@/hooks/useAlert';
 import { methods } from '@/lib/endpoints';
 import { resetPasswordSchema } from '@/models/schemas';
 import { AlertDialogService } from '@/lib/alert/alert.service';
-import { WebService } from '@/lib/generalWebService';
+import { postAsync } from '@/lib/generalWebService';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import React, { useState } from 'react'
@@ -28,7 +28,7 @@ const ResetPassword = () => {
     setIsLoading(true);
     hideAlert()
     try{
-        const result = await WebService.postAsync(methods.auth.forgotPassword, values)
+        const result = await postAsync(methods.auth.forgotPassword, values)
         if (result.success) {
             showAlert(result.message,"success")
         } else {

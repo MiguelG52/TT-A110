@@ -21,3 +21,9 @@ export const updatePasswordSchema = z.object({
     message: 'Las contraseñas no coinciden',
     path: ['confirmPassword'], 
   });
+
+export const createTeamSchema = z.object({
+  userId: z.number().optional(),
+  name: z.string().min(3, { message: 'El nombre del proyecto es requerido' }),
+  description: z.string().min(3, { message: 'La descripción es requerida' }),
+})

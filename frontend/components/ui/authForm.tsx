@@ -18,7 +18,10 @@ import { onSignUp } from '@/lib/auth/signUp.service'
 const AuthForm = ({ type }: authForm) => {
   const [isLoading, setIsLoading] = useState(false);
   const [dialogPropierties, setDialogpropierties] = useState({show:false, text:"", type:""})
-
+  const selectOptions = [
+    { value: "3", label: "Alumno" },
+    { value: "2", label: "Profesor" },
+  ]
   
   const router = useRouter();
 
@@ -91,7 +94,7 @@ const AuthForm = ({ type }: authForm) => {
               <CustomInput control={form.control} label='Nombre' name='name' type='text' placeholder='Miguel' />
               <CustomInput control={form.control} label='Apellidos' name='lastName' type='text' placeholder='Lechuga Salazar' />
               <CustomInput control={form.control} label='Nombre de usuario' name='username' type='text' placeholder='Mike' />
-              <CustomInput control={form.control} label='Selecciona tu rol' name='roleId' type='select' placeholder='Profesor/Alumno' />
+              <CustomInput control={form.control} options={selectOptions} label='Selecciona tu rol' name='roleId' type='select' placeholder='Profesor/Alumno' />
             </>
           )}
 

@@ -7,54 +7,58 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from './ui/input'
-import { customInput } from '@/models/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
-import { z } from 'zod'
+import { ICustomInput } from '@/models/types'
+import { Textarea } from './ui/textarea'
 
-const CustomInput = ({ control, name, label, placeholder, type }:any) => {
+
+const CustomInput = ({ control, name, label, placeholder, type, options = [] }:ICustomInput) => {
   return (
-    <>
-      <FormField
-        control={control}
-                name={name}
-                render={({ field }) => (
-                  <FormItem>
-                    <div className='form-item w-full'>
-                      <FormLabel className='form-label font-md'>
-                        {label}
-                      </FormLabel>
-                    </div>
-                    <div className='flex w-full flex-col'>
-                      <FormControl>
-                        {
-                          type==="select"?(<>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <SelectTrigger className='w-full'>
-                                <SelectValue placeholder={placeholder}/>
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="2">Profesor</SelectItem>
-                                <SelectItem value="3">Alumno</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </>):(<>
-                            <Input
-                              type={type}
-                              placeholder={placeholder}
-                              className='input-class'
-                              {...field}
-                            />
-                          </>)
-                        }
-                        
-                      </FormControl>
-                      <FormMessage className='form-message'/>
-
-                    </div>
-                  </FormItem>
-                )}
-              />
-    </>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <div className='form-item w-full'>
+            <FormLabel className='form-label font-md'>
+              {label}
+            </FormLabel>
+          </div>
+          <div className='flex w-full flex-col'>
+            <FormControl>
+              {type === "select" ? (
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger className='w-full'>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : type === "textarea" ? (
+                <Textarea
+                  placeholder={placeholder}
+                  className='input-class'
+                  {...field}
+                />
+              ) : (
+                <Input
+                  type={type}
+                  placeholder={placeholder}
+                  className='input-class'
+                  {...field}
+                />
+              )}
+            </FormControl>
+            <FormMessage className='form-message' />
+          </div>
+        </FormItem>
+      )}
+    />
   )
 }
 

@@ -11,7 +11,7 @@ import CustomInput from '@/components/customInput';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import Header from '@/components/header';
-import { WebService } from '@/lib/generalWebService';
+import { postAsync } from '@/lib/generalWebService';
 import { AlertDialogService } from '@/lib/alert/alert.service';
 
 type UpdatePasswordPage ={
@@ -36,7 +36,7 @@ const UpdatePasswordPage = ({params}:UpdatePasswordPage) => {
       hideAlert()
       newValues.token = params.token
       try{
-          const result = await WebService.postAsync(methods.auth.resetPassword, newValues)
+          const result = await postAsync(methods.auth.resetPassword, newValues)
           if (result.success) {
               showAlert(result.message,"success")
           } else {
