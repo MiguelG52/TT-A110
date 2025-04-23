@@ -4,6 +4,7 @@ import UserTeam from "../models/userTeam.model";
 import User from "../models/user.model";
 import { verfyJWT } from "../helpers/jwt.helper";
 import Project from "../models/project.model";
+import { generateTeamToken } from "../helpers/token.helper";
 
 export class TeamController {
 
@@ -23,12 +24,14 @@ export class TeamController {
       if (!name || !description) {
         res.status(400).json({ error: "Nombre y descripción son obligatorios" });
         return 
-      }
+      } 
+      const teamCode = generateTeamToken()
       
       const team = await Team.create({
         name:name,
         description:description,
         userId:userId, 
+        teamCodeId:teamCode
       });
       
       await UserTeam.create({
