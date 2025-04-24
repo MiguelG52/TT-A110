@@ -11,32 +11,65 @@ export class UserController {
     }
     
     static async getUserTeams(req: Request, res: Response) {
-        try {
-          const { userId } = req.body; 
+      try {
+          const { userId, page = '1', limit = '6' } = req.query;
+          
           if (!userId) {
-            res.status(400).json({ error: "userId es obligatorio" });
-            return 
+              res.status(400).json({ error: "userId es obligatorio" });
+              return 
           }
-      
-          const teams = await Team.findAll({
-            include: [
-              {
-                model: UserTeam,
-                where: { userId }, 
-                attributes: [] 
-              }
-            ],
-            attributes: ["teamId", "name", "description"] 
+  
+          const pageNum = parseInt(page as string);
+          const limitNum = parseInt(limit as string);
+          const offset = (pageNum - 1) * limitNum;
+  
+          // Consulta para obtener los equipos paginados
+          const { count, rows: teams } = await Team.findAndCountAll({
+              include: [
+                  {
+                      model: UserTeam,
+                      where: { userId },
+                      attributes: [],
+                      required: true
+                  },
+                  {
+                      model: UserTeam,
+                      as: 'members',
+                      include: [
+                          {
+                              model: User,
+                              attributes: ["username"],
+                              as: 'user'
+                          }
+                      ],
+                      attributes: ["userId"]
+                  }
+              ],
+              attributes: ["teamId", "name", "description", "teamCodeId"],
+              limit: limitNum,
+              offset: offset,
+              distinct: true // Importante para el conteo correcto con includes
           });
-      
-          res.status(200).json({ teams });
+  
+          const totalPages = Math.ceil(count / limitNum);
+  
+          res.status(200).json({ 
+              teams,
+              pagination: {
+                  currentPage: pageNum,
+                  totalPages,
+                  totalItems: count,
+                  itemsPerPage: limitNum
+              }
+          });
           return
-        } catch (error) {
+          
+      } catch (error) {
           console.error(error);
           res.status(500).json({ error: "Error al obtener los equipos del usuario" });
           return
-        }
-    }
+      }
+  }
 
     // Obtener todos los proyectos de un usuario
   static async getUserProjects(req: Request, res: Response) {

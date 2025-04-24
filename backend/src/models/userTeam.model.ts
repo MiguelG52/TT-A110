@@ -20,7 +20,7 @@ import  Team  from "./team.model";
   @BelongsTo(() => Team)
   team!: Team;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { as: 'user' })
   user!: User;
   
 }
