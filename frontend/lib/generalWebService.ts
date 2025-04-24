@@ -74,17 +74,24 @@ export async function getAsync(endpoint: string) {
 
 export async function getAsyncAuth(endpoint: string) {
   try {
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: getAuthHeaders()
-    })
+      const response = await fetch(endpoint, {
+          method: 'GET',
+          headers: getAuthHeaders()
+      });
 
-    const json = await response.json()
-    if (!response.ok) return { success: false, message: json.error }
+      const json = await response.json();
+      if (!response.ok) return { success: false, message: json.error };
 
-    return { success: true, data: json }
+      return { 
+          success: true, 
+          data: json,
+          pagination: json.pagination 
+      };
   } catch (error) {
-    return { success: false, message: (error as Error).message || "Error inesperado" }
+      return { 
+          success: false, 
+          message: (error as Error).message || "Error inesperado" 
+      };
   }
 }
 
