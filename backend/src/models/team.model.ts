@@ -44,7 +44,7 @@ class Team extends Model {
   @BelongsTo(() => User)
   user!: User;
 
-  @HasMany(() => UserTeam)
+  @HasMany(() => UserTeam, { as: 'members' })
   userTeams!: UserTeam[];
 
   @BelongsToMany(() => Project, () => TeamProject)
