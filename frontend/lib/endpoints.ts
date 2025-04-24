@@ -1,9 +1,8 @@
-import { createTeam } from "./actions/team-actions";
 
 const baseUrl:string | undefined = process.env.NEXT_PUBLIC_API_URL;
 const authRoute:string = "auth"
 const teamRoute:string = "team"
-
+const userRoute:string = "user"
 export const methods = {
     auth:{
         signUp:baseUrl+authRoute+"/create-account",
@@ -15,7 +14,9 @@ export const methods = {
     },
     team:{
         createTeam:baseUrl+teamRoute+"/create",
-        getTeam:baseUrl+teamRoute+"/get-team",
+    },
+    user:{
+        getTeamsByUserId:baseUrl+userRoute+"/get-user-teams",
     }
 
 }

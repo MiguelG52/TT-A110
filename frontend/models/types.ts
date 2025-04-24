@@ -56,3 +56,17 @@ export interface ICustomInput {
     type: 'text' | 'textarea' | 'select' | 'email' | 'password' | 'number';
     options?: Option[]; // Solo para select
   }
+
+export interface IMember{
+  user:{
+    username:string
+  },
+  userId:number
+}
+export interface ITeam {
+    teamId: string;
+    name: string;
+    description?: string;
+    teamCodeId:string,
+    members:IMember[],
+  }
