@@ -9,7 +9,7 @@ export class EmailService {
                 to: user.email,
                 subject: "TTA110 - Confirma tu cuenta",
                 html: `<p>Hola ${user.name}, has creado tu cuenta correctamente.</p>
-                <p>Ingresa en el siguiente enlace para confirmar tu cuenta:<a href="<a href="http://localhost:3000/auth/confirm-account/${user.token}">">Confirmar cuenta</a></p>`,
+                <p>Ingresa en el siguiente enlace para confirmar tu cuenta:<a href="http://localhost:3000/auth/confirm-account/${user.token}">Confirmar cuenta</a></p>`,
             });
             console.log("Correo de confirmación enviado:", email.messageId);
             return { success: true, messageId: email.messageId };
