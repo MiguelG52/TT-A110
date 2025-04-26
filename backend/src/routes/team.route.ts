@@ -2,12 +2,13 @@ import { Router } from "express";
 import { body } from 'express-validator';
 import { handleInputErrors } from "../middleware/validation.middleware";
 import { limiter } from "../config/limiter";
-import { authenticate } from "../middleware/auth.middleware";
+import { authenticateContent } from "../middleware/auth.middleware";
 import { TeamController } from "../controllers/Team.controller";
+import { isTeamOwner, teamExists } from "../middleware/team.middleware";
 
 const teamRouter = Router();
 
-teamRouter.use(authenticate)
+teamRouter.use(authenticateContent)
 
 teamRouter.post('/create',
     body('name')
@@ -30,6 +31,16 @@ teamRouter.post("/add-user",
 
 teamRouter.get("/get-members",
     TeamController.getTeamMembers
+)
+
+teamRouter.post("/join-team",
+    TeamController.joinTeam
+)
+
+teamRouter.delete("/delete/:teamId",
+    teamExists,
+    isTeamOwner,
+    TeamController.deleteTeam
 )
 
 

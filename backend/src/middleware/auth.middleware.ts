@@ -3,11 +3,13 @@ import { verfyJWT } from '../helpers/jwt.helper';
 import User from '../models/user.model';
 import { extractTokenFromHeader } from '../helpers/auth.helper';
 import { sendAuthError } from '../helpers/errors.helper';
+import Project from '../models/project.model';
 
 declare global{
     namespace Express {
         interface Request{
             user?: User
+            project?:Project
         }
     }
 }
