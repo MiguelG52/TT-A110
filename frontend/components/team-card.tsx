@@ -4,10 +4,13 @@ import { Avatar, AvatarFallback } from './ui/avatar'
 import { Button } from './ui/button'
 import { ITeam } from '@/models/types'
 import { getInitials } from '@/lib/utils'
+import { Trash, UserPlus } from 'lucide-react'
 
 const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
   
-  console.log(members)
+  const handleClickCode = ()=> {
+    
+  }
 
   return (
     
@@ -15,7 +18,10 @@ const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
       <CardContent className="p-0 mb-4">
         <div className='flex justify-between items-center'>
           <h3 className="text-2xl font-bold mb-1">{name}</h3>
-          <p className="text-gray-500 text-sm mb-6">{teamCodeId}</p>
+          
+          <div className='cursos'>
+            <p className="text-blue-400 rounded-full text-sm p-1 px-3 bg-gray-200/90">{teamCodeId}</p>
+          </div>
         </div>
         <p className="text-gray-500 mb-6">{description}</p>
 
@@ -38,10 +44,10 @@ const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
         </div>
 
       </CardContent>
-      <CardFooter className="p-0">
-        <Button variant="outline" className="w-full">
-          Ver Detalles
-        </Button>
+      <CardFooter className="p-0 flex flex-col md:flex-row justify-between gap-2">
+            <Button variant="secondary" className="p-0 m-0 w-full">
+              Ver detalles
+            </Button>
       </CardFooter>
     </Card>
   )

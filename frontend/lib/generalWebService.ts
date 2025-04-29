@@ -78,14 +78,14 @@ export async function getAsyncAuth(endpoint: string) {
           method: 'GET',
           headers: getAuthHeaders()
       });
-
+      
       const json = await response.json();
       if (!response.ok) return { success: false, message: json.error };
-
-      return { 
-          success: true, 
-          data: json,
-          pagination: json.pagination 
+      const { data, pagination, ...rest } = json;
+      return {
+        success: true,
+        data: data || rest, 
+        pagination: json.pagination
       };
   } catch (error) {
       return { 
@@ -126,7 +126,6 @@ export async function putAsyncAuth(endpoint: string, values: any, successMessage
 
     const json = await response.json()
     if (!response.ok) return { success: false, message: json.error }
-
     return {
       success: true,
       message: successMessage || json.message,

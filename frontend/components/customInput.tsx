@@ -12,7 +12,7 @@ import { ICustomInput } from '@/models/types'
 import { Textarea } from './ui/textarea'
 
 
-const CustomInput = ({ control, name, label, placeholder, type, options = [] }:ICustomInput) => {
+const CustomInput = ({ control, name, label, placeholder, type, options = [], maxLength }:ICustomInput) => {
   return (
     <FormField
       control={control}
@@ -27,16 +27,31 @@ const CustomInput = ({ control, name, label, placeholder, type, options = [] }:I
           <div className='flex w-full flex-col'>
             <FormControl>
               {type === "select" ? (
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  >
                   <SelectTrigger className='w-full'>
                     <SelectValue placeholder={placeholder} />
                   </SelectTrigger>
                   <SelectContent>
-                    {options.map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </SelectItem>
-                    ))}
+                  {options.map((opt) => {
+                      if ('value' in opt && 'label' in opt) {
+                        return (
+                          <SelectItem key={opt.value} value={opt.value.toString()}>
+                            {opt.label}
+                          </SelectItem>
+                        )
+                      }
+                      else if ('teamId' in opt && 'name' in opt) {
+                        return (
+                          <SelectItem key={opt.teamId} value={opt.teamId.toString()}>
+                            {opt.name}
+                          </SelectItem>
+                        )
+                      }
+                      return null
+                    })}
                   </SelectContent>
                 </Select>
               ) : type === "textarea" ? (
@@ -47,6 +62,7 @@ const CustomInput = ({ control, name, label, placeholder, type, options = [] }:I
                 />
               ) : (
                 <Input
+                  maxLength={maxLength}
                   type={type}
                   placeholder={placeholder}
                   className='input-class'

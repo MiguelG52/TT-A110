@@ -27,8 +27,19 @@ export const createTeamSchema = z.object({
   name: z.string().min(3, { message: 'El nombre del proyecto es requerido' }),
   description: z.string().min(3, { message: 'La descripción es requerida' }),
 })
+export const createProjectSchema = z.object({
+  userId: z.number().optional(),
+  description: z.string().min(5,{message: 'La descripcion es requerida'}),
+  teamId: z.string().min(1,{message:'El equipo es requerido'}),
+  name: z.string().min(1,{message: 'El nombre es requerida'})
 
+})
 
 export const verifyAccountSchema = z.object({
   token:z.string().min(6).max(6)
+})
+
+export const joinToTeamSchema = z.object({
+  teamCodeId:z.string().min(8,{message:'El código debe ser de 8 carácteres'}).max(8,{message:'El código debe ser de 8 carácteres'}),
+  userId:z.number().optional()
 })
