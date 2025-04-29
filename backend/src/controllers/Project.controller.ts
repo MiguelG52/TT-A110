@@ -12,7 +12,7 @@ export class ProjectController {
   static async createProject(req: Request, res: Response) {
     const transaction = await sequelize.transaction();
     try {
-      const { userId, description, teamId } = req.body;
+      const { userId, description, teamId,name } = req.body;
 
       // Validaciones mejoradas
       if (!userId || !description) {
@@ -32,6 +32,7 @@ export class ProjectController {
       const project = await Project.create({
         userId,
         description,
+        name
       }, { transaction });
 
       // Asignar a equipo si se especificó
@@ -96,8 +97,7 @@ export class ProjectController {
           description: project.dataValues.description,
           originalCode: project.dataValues.originalCode,
           improveCode: project.dataValues.improveCode,
-          createdAt: project.createdAt,
-          updatedAt: project.updatedAt,
+          name:project.dataValues.name,
         }
       };
       sendSuccessResponse(res, 200, "Proyecto obtenido exitosamente", response);
