@@ -1,27 +1,20 @@
 "use client"
-
 import type React from "react"
-
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+import {Dialog,DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogTitle,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useForm } from "react-hook-form"
-import { createProjectSchema } from "@/models/schemas"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useUser } from "@/context/authContext"
 import { z } from "zod"
 import { Form } from "../ui/form"
+import { useToast } from "@/hooks/use-toast"
+import { createProjectSchema } from "@/models/schemas"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import CustomInput from "../customInput"
+import { getAllTeamsByUserId } from "@/lib/actions/team-actions"
+import { IIteamTeam } from "@/models/types"
+import { createProject } from "@/lib/actions/projects-actions"
 
 interface CreateProjectModalProps {
   isOpen: boolean
@@ -29,74 +22,105 @@ interface CreateProjectModalProps {
 }
 
 export function CreateProjectModal({ isOpen, onClose }: CreateProjectModalProps) {
-  const [projectName, setProjectName] = useState("")
-  const [description, setDescription] = useState("")
-  const [teamId, setTeamId] = useState("")
+    const [loading, setLoading] = useState(false);
+    const { toast } = useToast()
+    const { user } = useUser()
+    const [error, setError] = useState<string | null>(null)
+    const [teams, setTeams] = useState<IIteamTeam[]>([])
 
+    const form = useForm<z.infer<typeof createProjectSchema>>({
+      resolver:zodResolver(createProjectSchema),
+      defaultValues:{
+        teamId:"",
+        description:"",
+        name:""
+      }
+    })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Aquí iría la lógica para crear el proyecto
-    console.log("Crear proyecto:", { projectName, description, teamId })
-    onClose()
-    setProjectName("")
-    setDescription("")
-    setTeamId("")
+  const fetchAllTeams = useCallback(async()=>{
+    try{
+      if(user?.userId !== undefined) {
+          setLoading(true)
+          const result = await getAllTeamsByUserId(user.userId)
+          if (!result.success) {
+            throw new Error(result.message || "Error al cargar equipos")
+          }      
+          if(result.data.length == 0) setTeams([{teamId:"0",name:"No hay equipos registrados"}])
+          else setTeams(result.data || [])
+          
+          setError(null)
+      } 
+      else {
+        throw new Error("El id del usuario está indefinido")
+      }
+    } catch (err: any) {
+        setError(err.message || "Error al cargar equipos")
+        setTeams([])
+    } finally {
+      setLoading(false)
+    }
+  },[user?.userId])
+
+  useEffect(()=>{
+    fetchAllTeams()
+  }, [isOpen])
+  
+  const onHandleSubmit = async(values: z.infer<typeof createProjectSchema>) => {
+    setLoading(true);
+    values.userId = user?.userId
+    try{
+      let result = await createProject(values)
+      if(result.success){
+      toast({
+              title: "Exito",
+              description: result.message,
+              variant: 'default'})
+      }else{
+            toast({
+              title: "Error",
+              description: result.message,
+              variant: "destructive"})
+          }
+          form.reset()
+          onClose()
+    }catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false);
+    } 
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onHandleSubmit)}>
+            <DialogHeader>
+              <DialogTitle>Crear Nuevo Proyecto</DialogTitle>
+              <DialogDescription>Completa la información para crear un nuevo proyecto.</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <CustomInput control={form.control} label="Nombre del Proyecto" name="name" type="text" placeholder="Ej: Práctica 2 - Encapsulación "/>
+              </div>
+              <div className="grid gap-2">
+                <CustomInput control={form.control} label="Descripción" name="description" type="textarea" placeholder="Describe el proposito del proyecto "/>
+              </div>
+              <div className="grid gap-2">
+              {
+                teams.length && <CustomInput maxLength={8} options={teams} control={form.control} label="Equipo a cargo" placeholder="Equipo 2"  name="teamId" type="select"/>
+              }
+              </div>
 
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Crear Nuevo Proyecto</DialogTitle>
-            <DialogDescription>Completa la información para crear un nuevo proyecto.</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="project-name">Nombre del Proyecto</Label>
-              <Input
-                id="project-name"
-                value={projectName}
-                onChange={(e) => setProjectName(e.target.value)}
-                placeholder="Ej: Sistema de Gestión"
-                required
-              />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="project-description">Descripción</Label>
-              <Textarea
-                id="project-description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe el propósito del proyecto"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="team-select">Equipo</Label>
-              <Select value={teamId} onValueChange={setTeamId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecciona un equipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">Equipo 1</SelectItem>
-                  <SelectItem value="2">Equipo 2</SelectItem>
-                  <SelectItem value="3">Equipo 3</SelectItem>
-                  <SelectItem value="4">Equipo 4</SelectItem>
-                  <SelectItem value="5">Equipo 5</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit">Crear Proyecto</Button>
-          </DialogFooter>
-        </form>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button type="submit">Crear Proyecto</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )

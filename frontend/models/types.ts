@@ -54,7 +54,8 @@ export interface ICustomInput {
     label: string;
     placeholder?: string;
     type: 'text' | 'textarea' | 'select' | 'email' | 'password' | 'number';
-    options?: Option[]; // Solo para select
+    options?: Array<Option | IIteamTeam>; // Solo para select
+    maxLength?:number;
   }
 
 export interface IMember{
@@ -69,4 +70,30 @@ export interface ITeam {
     description?: string;
     teamCodeId:string,
     members:IMember[],
-  }
+}
+export interface IIteamTeam{
+  name:string,
+  teamId:string,
+}
+
+export interface ITeamProject{
+  name:string,
+  teamId:number
+}
+export interface IProjectCard{
+  description:string,
+  name:string,
+  projectId:number,
+  teams: ITeamProject[]
+}
+
+export interface IStat{
+  title:string
+  diff:number,
+  diffText:string,
+  total:number
+}
+export interface ISummaryCard{
+  projects:IStat
+  teams:IStat
+}
