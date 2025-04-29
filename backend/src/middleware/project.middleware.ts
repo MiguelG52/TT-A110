@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import Project from "../models/project.model";
 import { sendErrorResponse } from "../helpers/responses.helper";
+import Team from "../models/team.model";
 
 export const projectExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
