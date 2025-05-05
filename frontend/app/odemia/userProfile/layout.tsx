@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
 export const metadata: Metadata = {
     title: "Perfil de Usuario | TTA-110",
@@ -12,7 +11,7 @@ export default function UserProfileLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className={` antialiased min-h-screen w-full`}>
+        <div className={` antialiased h-full w-full`}>
             {children}
         </div>
     );

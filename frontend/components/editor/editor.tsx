@@ -1,7 +1,7 @@
 "use client"
 import { useRef } from 'react';
 import MonacoEditor from '@monaco-editor/react';
-import type { OnMount, OnChange } from "@monaco-editor/react"
+import type { OnChange } from "@monaco-editor/react"
 
 interface EditorProps {
   code: string
@@ -12,7 +12,7 @@ interface EditorProps {
 
 const Editor = ({ code, onChange, theme = "light", language = "java" }: EditorProps)=>{
     const editorRef = useRef<any>(null);
-    function handleEditorDidMount(editor:any, monaco:any) {
+    function handleEditorDidMount(editor:any) {
         editorRef.current = editor;
         editor.focus()
       }

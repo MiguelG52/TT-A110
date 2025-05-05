@@ -13,6 +13,7 @@ export const methods = {
         confirmAccount:baseUrl+authRoute+'/confirm-account',
         resetPassword:baseUrl+authRoute+'/reset-password',
         getUserData:baseUrl+authRoute+'/get-user-data',
+        updatePassword:baseUrl+authRoute+'/update-password/user',
     },
     team:{
         createTeam:baseUrl+teamRoute+"/create",
@@ -22,7 +23,8 @@ export const methods = {
         getTeamsByUserId:baseUrl+userRoute+"/get-user-teams",
         getProjectsByUserId:baseUrl+userRoute+"/get-user-projects",
         getUserStadictics:baseUrl+userRoute+"/get-stadistics",
-        getAllTeams:baseUrl+userRoute+"/get-all-teams"
+        getAllTeams:baseUrl+userRoute+"/get-all-teams",
+        updateUserData:baseUrl+userRoute+"/update-data",
     },
     projects:{
         create:baseUrl+projectRoute+"/create"

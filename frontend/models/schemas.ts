@@ -1,3 +1,4 @@
+import { Lasso } from 'lucide-react';
 import {z} from 'zod'
 
 export const authFormSchema = (type:string) => z.object({
@@ -43,3 +44,20 @@ export const joinToTeamSchema = z.object({
   teamCodeId:z.string().min(8,{message:'El código debe ser de 8 carácteres'}).max(8,{message:'El código debe ser de 8 carácteres'}),
   userId:z.number().optional()
 })
+
+export const updateUserSchema = z.object({
+  name: z.string().min(3,{message:'El nombre es requerido'}),
+  lastName: z.string().min(3,{message:'Los apellidos son requeridos'}),
+  username: z.string().min(3,{message:'El nombre de usuario es requerido'}),
+  email: z.string().email({ message: 'El correo electrónico no es válido' }),
+  userId: z.number().optional(),
+})
+
+export const updateActualPassword = z.object({
+  actualPassword: z.string().min(1,{ message: 'La contraseña es requerida' }),
+  newPassword: z.string().min(8, { message: 'La contraseña debe tener al menos 8 caracteres' }),
+  confirmPassword: z.string()
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: 'Las contraseñas no coinciden',
+  path: ['confirmPassword'], 
+});
