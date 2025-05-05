@@ -4,7 +4,6 @@ import { hashPassword, verifyPassword } from '../helpers/auth.helper';
 import { generateToken } from '../helpers/token.helper';
 import { EmailService } from '../services/Email.Service';
 import { generateJWT, verfyJWT} from '../helpers/jwt.helper';
-import { error } from 'console';
 
 export class AuthController {
     static async createAccount(req: Request, res: Response) {    
@@ -155,35 +154,35 @@ export class AuthController {
         }
     }
 
-    //Corregir la funcion
-    static async updatePassword(req:Request, res:Response){
-        const {currentPassword, newPassword} = req.body
-        const {userId} = req.user
+    
+    static async updatePassword(req: Request, res: Response) {
+        const userId = req.params.userId;
+        const { actualPassword, newPassword } = req.body;
         
         try {
-            const user = await User.findByPk(userId)
-            if(!user){
-                const error = new Error("El token no es valido")
-                res.status(404).json({error:error.message})
-                return    
+        
+            const user = await User.findByPk(userId);
+            if (!user) {
+                res.status(404).json({ error: "Usuario no encontrado" });
+                return 
             }
-            const isActualPassword = await verifyPassword(currentPassword, user.dataValues.password);
-    
-            if(!isActualPassword){
-                const error = new Error("La contraseña actual ingresada no es correcta.")
-                res.status(401).json({error:error.message})
-                return
+            
+            const isActualPassword = await verifyPassword(actualPassword, user.dataValues.password);
+            if (!isActualPassword) {
+                res.status(401).json({ error: "La contraseña actual ingresada no es correcta." });
+                return 
             }
             const passwordEncrypted = await hashPassword(newPassword);
-            await user.update({
-                password: passwordEncrypted,
-                token: null
-            })
-            res.status(200).json({message:"Contraseña actualizada correctamente"})
-        }catch (error) {
-            console.log(error)
-            res.status(500).json({error:"Error al cambiar la contraseña"})
-            return
+            await user.update({ password: passwordEncrypted });
+    
+            
+           res.status(200).json({ message: "Contraseña actualizada correctamente" });
+           return 
+    
+        } catch (error) {
+            console.error("Error en updatePassword:", error);
+            res.status(500).json({ error: "Error al cambiar la contraseña" });
+            return 
         }
     }
 

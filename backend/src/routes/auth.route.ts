@@ -69,15 +69,18 @@ authRouter.post("/reset-password",
     handleInputErrors,
     AuthController.resetPasswordWithToken
 )
-authRouter.post("/update-password", 
-    body("currentPassword").notEmpty().withMessage("La contraseña no puede ir vacia"),
-    body("newPassword").notEmpty().withMessage("La contraseña no puede ir vacia")
-        .isLength({min:8}).withMessage("La contraseña debe tener al menos 10 caracteres"),
+authRouter.put("/update-password/user/:userId",
+    body("actualPassword").notEmpty().withMessage("La contraseña actual es requerida"),
+    body("newPassword")
+      .notEmpty().withMessage("La nueva contraseña es requerida")
+      .isLength({ min: 8 }).withMessage("Mínimo 8 caracteres"),
+    body("confirmPassword")
+      .custom((value, { req }) => value === req.body.newPassword)
+      .withMessage("Las contraseñas no coinciden"),
     authenticate,
     handleInputErrors,
     AuthController.updatePassword
-)
-
+  );
 authRouter.get("/get-user-data", authenticate ,AuthController.user)
 
 export default authRouter;

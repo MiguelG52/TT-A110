@@ -1,14 +1,10 @@
-import app from './server';
+import app from './servers/http.server';
 import { createServer } from 'http';
-import { Server } from 'socket.io';
+import { initSocketServer } from './servers/socket.server';
 
 const httpServer = createServer(app);   
-const io = new Server(httpServer, {
-  cors: {   
-    origin: '*',   
-  },
-});
 
+initSocketServer(httpServer);
 
 const PORT = 4000;
 httpServer.listen(PORT, () => {

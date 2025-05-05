@@ -20,8 +20,7 @@ userRouter.get("/get-all-teams",
     UserController.getAllUserTeams
 )
 
-userRouter.put("/update",
-    
+userRouter.put("/update-data",
     UserController.updateUser
 )
 export default userRouter

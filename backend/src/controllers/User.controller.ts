@@ -9,9 +9,7 @@ import { verfyJWT } from '../helpers/jwt.helper';
 
 export class UserController {
 
-    static getUserByID(){
 
-    }
     
     static async getUserTeams(req: Request, res: Response) {
       try {
@@ -302,6 +300,9 @@ static async updateUser(req: Request, res: Response) {
         const { userId } = req.query;
         const updateData = req.body;
 
+
+        console.log("userId",userId)
+
         // Verificar que el usuario que hace la petición es el mismo que se va a modificar
         const jwt = req.headers.authorization?.split(' ')[1];
         const userIdFromHeader = await verfyJWT(jwt);
@@ -323,10 +324,21 @@ static async updateUser(req: Request, res: Response) {
             }
         });
 
-        if(updateData.email){
-            const user = await User.findOne({ where: { email: updateData.email } })
-            if(user) {
-                res.status(400).json({error:"El email ingresado ya esta registrado por otro usuario"})
+        
+        const currentUser = await User.findByPk(userId);
+        if (updateData.email !== currentUser.email) {
+            const existingUser = await User.findOne({ 
+                where: { 
+                    email: updateData.email,
+                    userId: { [Op.ne]: userId } // Excluye al usuario actual
+                } 
+            });
+            
+            if (existingUser) {
+                 res.status(400).json({
+                    success: false,
+                    error: "El email ingresado ya está registrado por otro usuario"
+                });
                 return
             }
         }
@@ -346,11 +358,12 @@ static async updateUser(req: Request, res: Response) {
 
         // Obtener el usuario actualizado
         const updatedUser = await User.findByPk(userId, {
-            attributes: { exclude: ['password', 'token',"createdAt","updatedAt"] }
+            attributes: { exclude: ['password', 'token',"createdAt","updatedAt","isVerified"] }
         });
 
         res.status(200).json({
             success: true,
+            message: "información actualizada correctamente",
             data:updatedUser
         });
         return
