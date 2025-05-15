@@ -12,6 +12,7 @@ interface EditorProps {
 
 const Editor = ({ code, onChange, theme = "light", language = "java" }: EditorProps)=>{
     const editorRef = useRef<any>(null);
+    
     function handleEditorDidMount(editor:any) {
         editorRef.current = editor;
         editor.focus()

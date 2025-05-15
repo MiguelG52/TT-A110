@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { verifySession } from "@/lib/verifySession";
-import { UserProvider, useUser } from "@/context/authContext";
+import { UserProvider } from "@/context/authContext";
 import ClientLayout from "./client-layot";
 
 

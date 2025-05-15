@@ -9,7 +9,7 @@ export default function UserProfilePage() {
     const [isLoading, setIsLoading] = useState(false)
 
     return (
-        <section className="flex-1 w-full h-full flex flex-col items-left justify-up bg-white p-6 rounded-lg shadow-lg">
+        <>
             <h1 className="text-3xl font-bold mb-6">Mi Perfil</h1>
             <div className="flex flex-col md:flex-row gap-6">
                 <UserInformation/>
@@ -29,6 +29,6 @@ export default function UserProfilePage() {
                 </div>
             </div>
             
-        </section>
+        </>
     );
 }

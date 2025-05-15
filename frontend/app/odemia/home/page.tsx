@@ -15,7 +15,7 @@ export default function DashboardPage() {
     const [createProjectModalOpen, setCreateProjectModalOpen] = useState(false)
     const tabsTitles = ['resumen','proyectos','equipos']
     return (
-        <section className="flex-1 w-full h-full flex flex-col items-left justify-up bg-white p-6">
+        <>
             <HomeHeader
                 setCreateProjectModalOpen={setCreateProjectModalOpen}
                 setJoinTeamModalOpen={setJoinTeamModalOpen}
@@ -50,6 +50,6 @@ export default function DashboardPage() {
             <JoinTeamModal isOpen={joinTeamModalOpen} onClose={() => setJoinTeamModalOpen(false)} />
             <CreateTeamModal isOpen={createTeamModalOpen} onClose={() => setCreateTeamModalOpen(false)} />
             <CreateProjectModal isOpen={createProjectModalOpen} onClose={() => setCreateProjectModalOpen(false)} />
-        </section>
+        </>
     );
 }

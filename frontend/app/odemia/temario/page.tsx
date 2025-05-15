@@ -1,6 +1,6 @@
 export default function temarioPage() {
     return (
-        <div className="flex-1 w-full h-full flex flex-col items-left justify-up bg-white p-6">
+        <>
             <h1 className="text-2xl font-bold space-y-4">Temario:</h1>
             <br></br>
             <p>
@@ -23,6 +23,6 @@ export default function temarioPage() {
                 <a href=""><li>Encapsulamiento</li></a>
             </ul>
             {/* </div> */}
-        </div>
+        </>
     );
 }

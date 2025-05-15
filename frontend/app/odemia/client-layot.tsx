@@ -7,7 +7,7 @@ import { useUser } from '@/context/authContext'
 import React, { useEffect, useRef } from 'react'
 
 const ClientLayout = ({user,children}: {user: any;children: React.ReactNode;}) => {
-    const { updateUser, user: currentUser } = useUser();
+    const { updateUser } = useUser();
     const initialLoad = useRef(true);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const ClientLayout = ({user,children}: {user: any;children: React.ReactNode;}) =
                     {/* Header con botón de menú */}
                     <header className="bg-blue-500 text-white p-4 shadow-md flex justify-between w-full">
                        <div className="flex items-center">
-                            <BackButton/>
+                            
                             <SidebarTrigger className="mr-4 text-white" />
                             <h1 className="text-xl font-bold">
                                 Odemia
@@ -39,8 +39,11 @@ const ClientLayout = ({user,children}: {user: any;children: React.ReactNode;}) =
                     </header>
 
                     {/* Contenido principal con ancho completo */}
-                    <main className="flex-1 flex flex-col items-center justify-center bg-gray-100 p-6 w-full">
-                        {children}
+                    <main className="h-full bg-gray-100 p-6 w-full">
+                        <section className='w-full h-full flex flex-col items-left  bg-white p-6'>
+                            <BackButton/>
+                            {children}
+                        </section>           
                     </main>
                 </div>
             </div>

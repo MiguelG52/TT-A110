@@ -12,7 +12,7 @@ const Editor = ()=>{
     const handleCodeChange = () => console.log("cambios en el editor");
 
     return (
-    <section className='flex flex-col w-full min-h-full bg-white text-gray-900"'> 
+    <> 
         <EditorHeader isConnected={true}/>
 
         <div className="flex flex-1 overflow-hidden">
@@ -33,7 +33,7 @@ const Editor = ()=>{
           </Tabs>
         </div>
         </div>
-    </section>
+    </>
     )
 }
 

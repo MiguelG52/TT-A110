@@ -19,7 +19,7 @@ const ProjectCard = ({name, description, teams, projectId}:IProjectCard) => {
           </div>
       </CardContent>
       <CardFooter className="p-0">
-          <Link href={`/project-detail/${projectId}`} className="w-full">
+          <Link href={`/odemia/project/${projectId}`} className="w-full">
                     <Button variant="secondary" className="w-full">
                       Ver Detalles
                     </Button>

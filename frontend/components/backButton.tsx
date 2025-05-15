@@ -1,24 +1,15 @@
-'use client'
-
-import { useRouter, usePathname } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft} from 'lucide-react'
+import Link from 'next/link'
 
 export default function BackButton() {
-  const router = useRouter()
-  const pathname = usePathname()
-  console.log(pathname == '/odemia/home')
-
-  if (pathname == '/odemia/home') return <></>
   
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => router.back()}
-      className="mr-4"
+    <Link
+      className='flex items-center gap-2 text-sm mb-4 text-gray-800 hover:text-gray-400 dark:text-gray-100 dark:hover:text-gray-300 capitalize'
+      href='/odemia/home'
     >
-      <ArrowLeft className="" />
-    </Button>
+      <ArrowLeft size={"1rem"} className="" />
+      volver al inicio
+    </Link>
   )
 }
