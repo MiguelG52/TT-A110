@@ -1,0 +1,14 @@
+# Ignorar el directorio del dataset
+Python module/dataset/dataset_final.csv
+
+# Ignorar el archivo env con el APIKEY
+/Python module/.env
+
+# Ignorar la carpeta del modelo
+/Python module/codet5-fine-tuned/
+/Python module/codet5-fine-tuned
+
+# Ignoramos documento erroneo
+Python module/first.ipynb
+/Python module/first.ipynb
+/Python module/codigo.txt
