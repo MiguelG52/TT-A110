@@ -48,7 +48,7 @@ export default function TemarioPage() {
                     setSearch(e.target.value);
                     setCurrentPage(1);
                 }}
-                className="w-full max-w-md mx-auto p-2 border border-gray-300 rounded mb-6"
+                className="w-full max-w-md mx-auto p-2 border border-gray-300 rounded mb-6 black"
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 flex-grow">
@@ -78,8 +78,8 @@ export default function TemarioPage() {
                     onClick={goToPreviousPage}
                     disabled={currentPage === 1}
                     className={`px-4 py-2 border-2 rounded-l font-semibold ${currentPage === 1
-                            ? 'bg-gray-200 text-gray-500 border-blue-300 cursor-not-allowed'
-                            : 'bg-white text-blue-600 border-blue-500 hover:bg-blue-50'
+                        ? 'bg-gray-200 text-gray-500 border-blue-300 cursor-not-allowed'
+                        : 'bg-white text-blue-600 border-blue-500 hover:bg-blue-50'
                         }`}
                 >
                     {"<"}
@@ -91,8 +91,8 @@ export default function TemarioPage() {
                     onClick={goToNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
                     className={`px-4 py-2 border-2 rounded-r font-semibold ${currentPage === totalPages || totalPages === 0
-                            ? 'bg-gray-200 text-gray-500 border-blue-300 cursor-not-allowed'
-                            : 'bg-white text-blue-600 border-blue-500 hover:bg-blue-50'
+                        ? 'bg-gray-200 text-gray-500 border-blue-300 cursor-not-allowed'
+                        : 'bg-white text-blue-600 border-blue-500 hover:bg-blue-50'
                         }`}
                 >
                     {">"}
