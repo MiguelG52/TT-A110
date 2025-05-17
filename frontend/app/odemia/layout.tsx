@@ -9,10 +9,10 @@ export default async function Home({
 }: {
     children: React.ReactNode;
 }) {
-    const {user} = await verifySession();
+    const { user } = await verifySession();
 
     return (
-        <UserProvider  initialUser={user}>
+        <UserProvider initialUser={user}>
             <SidebarProvider>
                 <ClientLayout user={user}>
                     {children}
