@@ -76,29 +76,60 @@ export class ProjectController {
   // Obtener un proyecto por su ID con información completa
   static async getProjectById(req: Request, res: Response) {
     try {
-      const { projectId } = req.query;
+      const { projectId } = req.params;
 
       if (typeof projectId !== 'string') {
         sendErrorResponse(res, 400, "Id invalido");
         return;
       }
 
-      const project = await Project.findByPk(projectId);
+      const project = await Project.findByPk(projectId, {
+        attributes: ['projectId', 'name', 'description', 'originalCode', 'improveCode'],
+        include: [{
+          model: Team,
+          as: 'teams',
+          attributes: ['teamId', 'name', 'description'],
+          through: { attributes: [] }, // Excluye atributos de TeamProject
+          include: [{
+            model: UserTeam,
+            as: 'members', 
+            attributes: ['teamId'],
+            include: [{
+              model: User,
+              as: 'user', // Coincide con el alias en el modelo UserTeam
+              attributes: ['userId', 'name', 'lastName', 'email', 'username']
+            }],
+          }],
+        }]
+      });
 
       if (!project) {
         sendErrorResponse(res, 404, "Proyecto no encontrado");
-        return 
+        return;
       }
 
-      // Formatear respuesta para incluir miembros del equipo
+      const { teamId, name, description } = project.dataValues.teams[0].dataValues;
+      const members = project.dataValues.teams[0].dataValues.members.map(member => (
+        {
+          userId: member.dataValues.user.dataValues.userId,
+          name: member.dataValues.user.dataValues.name,
+          lastName: member.dataValues.user.dataValues.lastName,
+          email: member.dataValues.user.dataValues.email,
+          username: member.dataValues.user.dataValues.username
+        }
+      ));
+      const team = { teamId, name, description };
+
+
       const response = {
-        project: {
           projectId: project.dataValues.projectId,
           description: project.dataValues.description,
           originalCode: project.dataValues.originalCode,
           improveCode: project.dataValues.improveCode,
           name:project.dataValues.name,
-        }
+          team,
+          members
+
       };
       sendSuccessResponse(res, 200, "Proyecto obtenido exitosamente", response);
       return 
@@ -201,7 +232,7 @@ export class ProjectController {
   }
 
   // Nuevo método: Añadir usuarios al proyecto a través del equipo
-  static async addTeamMembersToProject(req: Request, res: Response) {
+  static async getProjectMembers(req: Request, res: Response) {
     const transaction = await sequelize.transaction();
     try {
       const { projectId, teamId } = req.params;
@@ -239,7 +270,6 @@ export class ProjectController {
         include: [User],
         transaction
       });
-
 
 
       await transaction.commit();

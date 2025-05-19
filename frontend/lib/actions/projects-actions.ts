@@ -14,3 +14,8 @@ export const createProject = async(values:z.infer<typeof createProjectSchema>)=>
     let response = await postAsyncAuth(methods.projects.create, values)
     return response
 }
+
+export const getProjectById = async(projectId:string)=>{
+    let response = await getAsyncAuth(`${methods.projects.getById}/${projectId}`)
+    return response
+}

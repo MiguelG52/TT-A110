@@ -24,7 +24,7 @@ const ProjectsTab = () => {
       if (user?.userId !== undefined) {
         setLoading(true)
         const result = await getProjectsByUserId(user.userId, page)
-
+        
         if (!result.success) {
           throw new Error(result.message || "Error al cargar equipos")
         }

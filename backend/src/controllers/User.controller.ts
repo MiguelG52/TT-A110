@@ -161,7 +161,7 @@ export class UserController {
                 required: true,
                 include: [{
                     model: User,
-                    as: 'user'  // <-- Usa el alias exacto definido en UserTeam
+                    as: 'user'  
                 }]
             }]
         }],

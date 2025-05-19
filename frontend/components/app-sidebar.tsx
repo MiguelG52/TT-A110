@@ -14,44 +14,20 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { generateTempId } from "@/lib/generateID";
 
 const items = [
     { title: "Inicio", url: "/odemia/home", icon: Home },
-    { title: "Editor de Código", url: "/odemia/editor", icon: SquareChevronRight },
+    { title: "Editor de Código", url: ``, icon: SquareChevronRight },
     { title: "Temario", url: "/odemia/temario", icon: List },
     { title: "Perfil", url: "/odemia/userProfile", icon: UserCog2 },
 ];
 
 export function AppSidebar() {
-    const [open, setOpen] = useState(false);
-
+   const [editorId] = useState(() => generateTempId());
     return (
         <>
-            {/* Botón para móviles */}
-            <button
-                onClick={() => setOpen(!open)}
-                className="sm:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded shadow"
-            >
-                <Menu />
-            </button>
-
-            {/* Fondo oscuro en móvil cuando el menú está abierto */}
-            {open && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-40 z-40 sm:hidden"
-                    onClick={() => setOpen(false)}
-                />
-            )}
-
-            {/* Sidebar responsive */}
-            <div
-                className={`
-          fixed top-0 left-0 h-full w-64 bg-white shadow z-50 transform transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-          sm:translate-x-0 sm:static sm:block
-        `}
-            >
-                <Sidebar>
+                <Sidebar variant="sidebar">
                     <SidebarContent>
                         <SidebarGroup>
                             <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -60,10 +36,13 @@ export function AppSidebar() {
                                     {items.map((item) => (
                                         <SidebarMenuItem key={item.title}>
                                             <SidebarMenuButton asChild>
-                                                <Link href={item.url} onClick={() => setOpen(false)}>
-                                                    <item.icon />
-                                                    <span>{item.title}</span>
-                                                </Link>
+                                                <Link href={item.title === "Editor de Código" 
+                                                ? `/odemia/editor/${editorId}?temp=true` 
+                                                : item.url
+                                              } 
+                                            ><item.icon />
+                                                <span>{item.title}</span>
+                                            </Link>
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
                                     ))}
@@ -72,7 +51,7 @@ export function AppSidebar() {
                         </SidebarGroup>
                     </SidebarContent>
                 </Sidebar>
-            </div>
+
         </>
     );
 }

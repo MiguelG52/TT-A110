@@ -15,7 +15,7 @@ projectRouter.post("/create",
     handleInputErrors,
     ProjectController.createProject
 )
-projectRouter.get("/getProjectById",
+projectRouter.get("/getProjectById/:projectId",
     ProjectController.getProjectById
   );
   
@@ -31,9 +31,9 @@ projectRouter.get("/getProjectById",
     ProjectController.deleteProject
   );
   
-  projectRouter.get("/addMember/:projectId/team/:teamId/members",
+  projectRouter.get("/getMembers/:projectId/team/:teamId/",
     projectExists,
-    ProjectController.addTeamMembersToProject
+    ProjectController.getProjectMembers
   );
 
 

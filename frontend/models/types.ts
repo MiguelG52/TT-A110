@@ -97,12 +97,23 @@ export interface ISummaryCard{
   projects:IStat
   teams:IStat
 }
+export interface ITeamMember{
+  userId: number,
+  name: string,
+  lastName: string,
+  email: string, 
+  username: string
+}
 export interface IProject{
   projectId:number,
   name:string,
   description:string,
-  teams?:ITeam[],
-  originalCode:string,
-  improveCode:string,
-  members:IMember[]
+  originalCode?:string,
+  improveCode?:string,
+  team:{
+    "teamId":string,
+    "name":string,
+    "description":string,
+  }
+  members:ITeamMember[]
 }

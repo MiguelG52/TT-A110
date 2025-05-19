@@ -1,3 +1,4 @@
+import { get } from "http";
 
 const baseUrl:string | undefined = process.env.NEXT_PUBLIC_API_URL;
 const authRoute:string = "auth"
@@ -27,6 +28,8 @@ export const methods = {
         updateUserData:baseUrl+userRoute+"/update-data",
     },
     projects:{
-        create:baseUrl+projectRoute+"/create"
+        create:baseUrl+projectRoute+"/create",
+        getById:baseUrl+projectRoute+"/getProjectById",
+        getMembers:baseUrl+projectRoute+"/getMembers",
     }
 }
