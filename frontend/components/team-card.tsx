@@ -4,13 +4,9 @@ import { Avatar, AvatarFallback } from './ui/avatar'
 import { Button } from './ui/button'
 import { ITeam } from '@/models/types'
 import { getInitials } from '@/lib/utils'
-import { Trash, UserPlus } from 'lucide-react'
 
 const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
   
-  const handleClickCode = ()=> {
-    
-  }
 
   return (
     

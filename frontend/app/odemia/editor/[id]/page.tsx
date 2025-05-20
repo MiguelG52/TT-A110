@@ -1,5 +1,4 @@
 "use client"
-import { useState } from 'react';
 import EditorHeader from '@/components/editor/editorHeader';
 import MonacoEditor from '@/components/editor/editor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,7 +9,6 @@ import { useCodeEditorSocket } from '@/hooks/useWebSockt';
 
 const EditorPage = ()=>{
 
-    const [showRecommendations, setShowRecommendations] = useState(false)
     const searchParams = useSearchParams()
     const {id} = useParams()
     const isTemporary = searchParams.get('temp')

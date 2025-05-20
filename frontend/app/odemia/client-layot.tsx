@@ -4,9 +4,10 @@ import BackButton from '@/components/backButton'
 import LogoutButton from '@/components/logoutButton'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useUser } from '@/context/authContext'
+import { IUser } from '@/models/models'
 import React, { useEffect, useRef } from 'react'
 
-const ClientLayout = ({user,children}: {user: any;children: React.ReactNode;}) => {
+const ClientLayout = ({user,children}: {user: IUser;children: React.ReactNode;}) => {
     const { updateUser } = useUser();
     const initialLoad = useRef(true);
 

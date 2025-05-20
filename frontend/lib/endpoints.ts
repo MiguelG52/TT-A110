@@ -1,4 +1,3 @@
-import { get } from "http";
 
 const baseUrl:string | undefined = process.env.NEXT_PUBLIC_API_URL;
 const authRoute:string = "auth"

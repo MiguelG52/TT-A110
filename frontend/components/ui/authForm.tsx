@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Link from 'next/link'
 import { authForm } from '@/models/types'
 import { useForm } from 'react-hook-form'
-import { set, z } from 'zod'
+import { z } from 'zod'
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
@@ -50,7 +50,7 @@ const AuthForm = ({ type }: authForm) => {
       if (result.success) {
         if (type != 'sign-in') setDialogpropierties({show:true,text:result.message,type:"success"})
         else{
-          let token:string = result.token
+          const token:string = result.token
           if (token) {
             await fetch('/api/set-token', {
               method: 'POST',
