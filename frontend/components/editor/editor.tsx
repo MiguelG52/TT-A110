@@ -26,9 +26,8 @@ const Editor = ({ code, onChange, theme = "light", language = "java" }: EditorPr
         <MonacoEditor
           height="100%"
           width="100%"
-          defaultLanguage={language}
-          defaultValue={code}
-          value={code}
+          language={language}
+          value={code} 
           theme={theme === "dark" ? "vs-dark" : "light"}
           onChange={handleEditorChange}
           onMount={handleEditorDidMount}
@@ -47,6 +46,7 @@ const Editor = ({ code, onChange, theme = "light", language = "java" }: EditorPr
           }}
           className="border-0"
         />
+
       )
 }
 

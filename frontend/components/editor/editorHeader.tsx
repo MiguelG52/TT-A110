@@ -4,42 +4,18 @@ import { Lightbulb, Wifi, WifiOff } from "lucide-react"
 import { Button } from '../ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { IUser } from '@/models/models'
 
 type EditorHeaderProps = {
   isConnected:boolean
+  isTemporary?:boolean
+  connectedUsers?:IUser[]
 }
-const EditorHeader = ({isConnected}:EditorHeaderProps) => {
+const EditorHeader = ({isConnected, isTemporary,connectedUsers}:EditorHeaderProps) => {
 
   const handleGetRecommendations = () => {
     console.log("Recomendaciones chidas")
   }
-  const connectedUsers = [
-    {
-      id: "1",
-      name: "Alice Johnson",
-      avatar: "https://randomuser.me/api/portraits/women/1.jpg"
-    },
-    {
-      id: "2",
-      name: "Bob Smith",
-      avatar: "https://randomuser.me/api/portraits/men/2.jpg"
-    },
-    {
-      id: "3",
-      name: "Carlos López",
-      avatar: "https://randomuser.me/api/portraits/men/3.jpg"
-    },
-    {
-      id: "4",
-      name: "Diana Martínez",
-      avatar: "https://randomuser.me/api/portraits/women/4.jpg"
-    },
-    {
-      id: "5",
-      name: "Elena García",
-      avatar: "https://randomuser.me/api/portraits/women/5.jpg"
-    }
-  ]
   
 
   return (
@@ -68,16 +44,15 @@ const EditorHeader = ({isConnected}:EditorHeaderProps) => {
           </div>
 
           {/* Connected users */}
-          {isConnected && connectedUsers.length > 0 && (
+          {!isTemporary && isConnected && connectedUsers && connectedUsers.length > 0 && (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="flex items-center">
                     <div className="flex -space-x-2">
                       {connectedUsers.slice(0, 3).map((user, i) => (
-                        <Avatar key={user.id} className="h-6 w-6 border border-white">
-                          <AvatarImage src={user.avatar} alt={user.name} />
-                          <AvatarFallback className="text-xs bg-gray-100">{user.name.charAt(0)}</AvatarFallback>
+                        <Avatar key={user.userId} className="h-6 b w-6 border border-white">
+                          <AvatarFallback className="text-xs bg-gray-200">{user.name.charAt(0)}</AvatarFallback>
                         </Avatar>
                       ))}
                     </div>
@@ -89,7 +64,7 @@ const EditorHeader = ({isConnected}:EditorHeaderProps) => {
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Usuarios Conectadis: {connectedUsers.map((u) => u.name).join(", ")}</p>
+                  <p>Usuarios Conectados: {connectedUsers.map((u) => u.name).join(", ")}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
