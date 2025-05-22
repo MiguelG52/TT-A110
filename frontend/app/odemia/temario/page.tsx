@@ -4,17 +4,56 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const temario = [
-    { id: 1, icon: "📘", title: "Clases en Java", description: "Aprende a declarar y usar clases en Java." },
-    { id: 2, icon: "🔒", title: "Acceso a miembros", description: "Controla el acceso a los atributos y métodos." },
-    { id: 3, icon: "🏗️", title: "Constructores", description: "Crea objetos con constructores personalizados." },
-    { id: 4, icon: "➕", title: "Sobrecarga de Constructores", description: "Define múltiples constructores para flexibilidad." },
-    { id: 5, icon: "🧯", title: "Try-Catch", description: "Manejo de excepciones en Java." },
-    { id: 6, icon: "🔗", title: "Relaciones entre Clases", description: "Asocia clases para modelar comportamientos complejos." },
-    { id: 7, icon: "👪", title: "Herencia simple", description: "Hereda comportamientos de clases base." },
-    { id: 8, icon: "🧩", title: "Composición", description: "Usa clases como componentes internos de otras." },
-    { id: 9, icon: "🌀", title: "Polimorfismo", description: "Interfaz única para diferentes tipos de datos." },
-    { id: 10, icon: "🔐", title: "Encapsulamiento", description: "Protege los datos dentro de una clase." },
+    {
+        id: 1,
+        icon: "📘",
+        title: "Clases y objetos en Java",
+        description: "Aprende sobre las clases y los objetos en Java",
+    },
+    {
+        id: 2,
+        icon: "📘",
+        title: "Relaciones entre clases",
+        description: "Aprende como estas relaciones definen cómo interactúan y se conectan las clases entre sí.",
+    },
+    {
+        id: 3,
+        icon: "📘",
+        title: "Manejo de excepciones",
+        description: "Aprende sobre como manejar los errores que puede producir al ejecutar el código.",
+    },
+    {
+        id: 4,
+        icon: "📘",
+        title: "Polimorfismo",
+        description: "Define múltiples constructores para flexibilidad.",
+    },
+    {
+        id: 5,
+        icon: "📘",
+        title: "Programación Orientada a Objetos Avanzada",
+        description: "Aprende temas un tanto más avanzados en Programación Orientada a Objetos Avanzada",
+    },
+    {
+        id: 6,
+        icon: "📘",
+        title: "Java Constructores this() y super()",
+        description: "Static Method vs instance method",
+    },
+    {
+        id: 7,
+        icon: "📘",
+        title: "Sobre escritura de métodos (@Override)",
+        description: "Sobre escritura de métodos (@Override)",
+    },
+    {
+        id: 8,
+        icon: "📘",
+        title: "Principios SOLID y buenas prácticas",
+        description: "SOLID",
+    },
 ];
+
 
 const itemsPerPage = 4;
 
