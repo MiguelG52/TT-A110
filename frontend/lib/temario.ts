@@ -191,7 +191,7 @@ public class Animal {
     },
     {
         id: 2,
-        icon: "🔒",
+        icon: "📕",
         title: "Relaciones entre clases",
         description: "Aprende como estas relaciones definen cómo interactúan y se conectan las clases entre sí.",
         content: `
@@ -276,7 +276,7 @@ Pato hereda el comportamiento de Nadador y Volador al mismo tiempo.
     },
     {
         id: 3,
-        icon: "📘",
+        icon: "📗",
         title: "Manejo de excepciones",
         description: "Aprende sobre como manejar los errores que puede producir al ejecutar el código.",
         content: `
@@ -329,7 +329,7 @@ Esta práctica mejora la claridad y especificidad en el manejo de errores dentro
     },
     {
         id: 4,
-        icon: "➕",
+        icon: "📚",
         title: "Polimorfismo",
         description: "Define múltiples constructores para flexibilidad.",
         content: `
@@ -414,7 +414,7 @@ En este ejemplo, aunque miAnimal es de tipo Animal, se comporta como un Perro en
     },
     {
         id: 5,
-        icon: "🧯",
+        icon: "📘",
         title: "Programación Orientada a Objetos Avanzada",
         description: "Aprende temas un tanto más avanzados en Programación Orientada a Objetos Avanzada",
         content: `
@@ -434,7 +434,7 @@ El uso adecuado de clases anidadas en Java puede mejorar la modularidad y la org
     },
     {
         id: 6,
-        icon: "🔗",
+        icon: "📕",
         title: "Java Constructores this() y super()",
         description: "Static Method vs instance method",
         content: `
@@ -646,7 +646,7 @@ Si la clase padre tiene un constructor sin parámetros entonces no es necesario 
     },
     {
         id: 7,
-        icon: "👪",
+        icon: "📗",
         title: "Sobre escritura de métodos (@Override)",
         description: "Sobre escritura de métodos (@Override)",
         content: `
@@ -708,7 +708,7 @@ Facilita el refactoring: Si en algún momento decides cambiar la estructura de t
     },
     {
         id: 8,
-        icon: "🧩",
+        icon: "📘",
         title: "Principios SOLID y buenas prácticas",
         description: "SOLID",
         content: `Los Principios SOLID tienen cinco principios de diseño de clases Orientado a Objetos. Son un conjunto de reglas y mejores prácticas a seguir al diseñar una estructura de clase.
@@ -852,7 +852,7 @@ Ahora nuestra estructura de clases obedece al principio de responsabilidad únic
     },
     {
         id: 9,
-        icon: "🌀",
+        icon: "📕",
         title: "Polimorfismo",
         description: "Interfaz única para diferentes tipos de datos.",
         content: ``,
@@ -860,7 +860,7 @@ Ahora nuestra estructura de clases obedece al principio de responsabilidad únic
     },
     {
         id: 10,
-        icon: "🔐",
+        icon: "📗",
         title: "Encapsulamiento",
         description: "Protege los datos dentro de una clase.",
         content: ``,
