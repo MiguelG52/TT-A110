@@ -4,316 +4,204 @@ export const temario = [
     {
         id: 1,
         icon: "📘",
-        title: "Clases en Java",
-        description: "Aprende a declarar y usar clases en Java.",
-        content: `En Java todo está encapsulado en clases. La clase es el núcleo del lenguaje Java. Se puede definir como una plantilla que describe los comportamientos y estados de una entidad en particular.
-Una clase define un nuevo tipo de datos. Una vez definido, este nuevo tipo se puede utilizar para crear un objeto de ese tipo.
+        title: "Clases y objetos en Java",
+        description: "Aprende sobre las clases y los objetos en Java",
+        content: `
+En Java, las clases y los objetos son los bloques de construcción fundamentales del lenguaje. Java es un lenguaje orientado a objetos, lo que significa que el diseño de programas se basa en la creación y manipulación de objetos.
 
-En Java, para declarar una clase se utiliza la palabra clave. Una clase contiene datos y métodos que operan con esos datos. Los datos o variables definidos dentro de una clase se denominan variables de instancia y el código que opera con estos datos se conoce como métodos.
+¿Qué es una Clase en Java?
 
-Por lo tanto, las variables y métodos de instancia se conocen como miembros de clase.
+Una clase en Java es una plantilla o modelo que define las propiedades (atributos) y comportamientos (métodos) de los objetos que se crean a partir de ella. Las clases son las definiciones de los tipos de objetos que pueden existir en el sistema.
 
-Reglas para la clase Java:
+Ejemplo de Declaración de una Clase
 
-- Una clase solo puede tener un especificador de acceso público o predeterminado (sin modificador).
-- Puede ser abstracto, final o concreto (clase normal).
-- Debe tener la palabra clave class y la clase debe ir seguida de un identificador legal.
-- Opcionalmente, puede extener solo una clase principal. De forma predeterminada, extiende la clase Object.
-- Las variables y los métodos se declaran dentro de un conjunto de llaves.
+public class Persona {
+    // Atributos
+    String nombre;
+    int edad;
 
-Una clase Java puede contener campos, métodos, constructores y bloques. Veamos una estructura general de una clase.
+    // Constructor
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
 
-Sintaxis de la clase Java
-
-class class_name {
-    field;
-    method;
+    // Métodos
+    public void saludar() {
+        System.out.println("Hola, mi nombre es " + nombre);
+    }
 }
 
+Explicación del Ejemplo
+- Atributos: La clase Persona tiene dos atributos: nombre y edad, que almacenan el estado de los objetos que se crean a partir de la clase.
+- Constructor: Un constructor es un método especial que se usa para inicializar objetos. Aquí, el constructor toma dos parámetros para inicializar los atributos nombre y edad.
+- Métodos: El método saludar permite que los objetos de tipo Persona ejecuten una acción, en este caso, imprimir un mensaje en consola.
+
+¿Qué es un Objeto en Java?
+
+Un objeto es una instancia de una clase. Cuando se crea un objeto, se reserva memoria y se inicializan los atributos definidos en la clase.
+
+Ejemplo de Creación de un Objeto
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear un objeto de la clase Persona
+        Persona persona1 = new Persona("Carlos", 25);
+        persona1.saludar(); // Llamar al método del objeto
+    }
+}
+
+Explicación del Ejemplo
+
+- Creación del Objeto: Se usa la palabra clave new para crear un nuevo objeto de la clase Persona. El constructor se llama con los parámetros "Carlos" y 25 para inicializar los atributos.
+- Acceso a Métodos: Luego de crear el objeto persona1, se llama al método saludar usando la notación de punto (.).
+
+Encapsulamiento
+
+El encapsulamiento es una característica de la programación orientada a objetos que oculta los detalles internos de una clase y expone solo lo necesario a través de métodos públicos.
+
+Los atributos de una clase se suelen declarar como private para evitar el acceso directo desde fuera de la clase, y se proporcionan métodos get y set para acceder y modificar estos atributos.
+
+Ejemplo de Encapsulamiento
+
+public class Coche {
+    // Atributo privado
+    private String marca;
+
+    // Constructor
+    public Coche(String marca) {
+        this.marca = marca;
+    }
+
+    // Método getter
+    public String getMarca() {
+        return marca;
+    }
+
+    // Método setter
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+}
+
+Explicación
+
+- Atributo privado: El atributo marca está declarado como private, lo que significa que no se puede acceder directamente desde fuera de la clase.
+- Métodos get y set: Los métodos getMarca() y setMarca() proporcionan una manera controlada de acceder y modificar el valor del atributo marca.
+
+Métodos en las Clases
+Los métodos en las clases definen las acciones o comportamientos que los objetos pueden realizar. Los métodos pueden recibir parámetros y devolver valores.
+
+Ejemplo de Métodos
+
+public class Calculadora {
+    // Método para sumar dos números
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    // Método para restar dos números
+    public int restar(int a, int b) {
+        return a - b;
+    }
+}
+
+En este ejemplo, la clase Calculadora tiene dos métodos: sumar y restar, que realizan operaciones matemáticas simples.
+
+Llamada a Métodos
+
+public class Main {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+        int resultadoSuma = calc.sumar(5, 3);
+        int resultadoResta = calc.restar(10, 4);
+
+        System.out.println("Resultado de la suma: " + resultadoSuma);
+        System.out.println("Resultado de la resta: " + resultadoResta);
+    }
+}
+
+Constructores en Java
+Un constructor es un tipo especial de método que se llama automáticamente cuando se crea un objeto de una clase. El constructor se utiliza para inicializar el estado del objeto. En Java, si no se define un constructor, el compilador proporcionará uno por defecto.
+
+Sobrecarga de Constructores
+Java permite tener múltiples constructores con diferentes parámetros, lo que se conoce como sobrecarga de constructores.
+
+Ejemplo de Sobrecarga de Constructores
+
+public class Persona {
+    String nombre;
+    int edad;
+
+    // Constructor sin parámetros
+    public Persona() {
+        this.nombre = "Desconocido";
+        this.edad = 0;
+    }
+
+    // Constructor con parámetros
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+}
+
+Explicación
+
+- Constructor sin parámetros: Inicializa los atributos con valores predeterminados.
+- Constructor con parámetros: Permite inicializar los atributos con valores proporcionados por el usuario.
+
+Tipos de Métodos
+Java soporta varios tipos de métodos según su funcionalidad y comportamiento. A continuación, se describen algunos tipos importantes de métodos.
+
+Métodos Estáticos
+Un método estático pertenece a la clase en sí, no a las instancias (objetos) de la clase. Se accede a ellos usando el nombre de la clase, en lugar de un objeto.
+
+Métodos de Instancia
+Los métodos de instancia dependen de los objetos de la clase y necesitan ser llamados a través de una instancia.
+
+Ejemplo Completo: Clases y Objetos en Java
+
+A continuación, un ejemplo completo que muestra cómo definir una clase, crear objetos y utilizar sus métodos.
+
+public class Animal {
+    String nombre;
+    String especie;
+
+    // Constructor
+    public Animal(String nombre, String especie) {
+        this.nombre = nombre;
+        this.especie = especie;
+    }
+
+    // Método para describir el animal
+    public void describir() {
+        System.out.println("Soy un " + especie + " y me llamo " + nombre);
+    }
+
+    public static void main(String[] args) {
+        // Crear un objeto de la clase Animal
+        Animal perro = new Animal("Max", "perro");
+        perro.describir(); // Llamar al método
+    }
+}
 
 `,
-        videoUrl: "https://www.youtube.com/embed/grEKMHGYyns",
+        videoUrl: "https://www.youtube.com/watch?v=SI7O81GMG2A",
     },
     {
         id: 2,
-        icon: "🔒",
-        title: "Acceso a miembros",
-        description: "Controla el acceso a los atributos y métodos.",
+        icon: "📕",
+        title: "Relaciones entre clases",
+        description: "Aprende como estas relaciones definen cómo interactúan y se conectan las clases entre sí.",
         content: `
-Los modificadores de acceso en Java controlan el nivel de visibilidad o accesibilidad de clases, métodos y variables en un programa. Estos modificadores son esenciales para implementar el principio de encapsulamiento, una de las bases de la programación orientada a objetos.
+En la programación orientada a objetos, las clases no siempre trabajan solas. Muchas veces se relacionan entre sí para construir soluciones más completas. Estas relaciones permiten que los objetos se comuniquen, compartan información o incluso se construyan unos con otros.
 
-¿Qué son los Modificadores de Acceso?
+Asociación, Agregación y Composición
+Estas tres son formas de conectar clases, pero cada una tiene un nivel diferente de dependencia.
 
-Los modificadores de acceso determinan qué partes del programa pueden acceder a una clase, método o variable. Los modificadores de acceso en Java son:
-
-1. public: El miembro es accesible desde cualqueir lugar del programa.
-2. private: El miembro es accesible solo desde dentro de la clase en la que está declarado.
-3. protected: El miembro es accesible dentro del mismo parquete y por las sublcases, incluso si están en diferentes paquetes.
-4. Sin modificador (package-private): Si no se especifica ningún modificador, el miembro es accesible solo dentro del mismo paquete.
-
-Modificador public
-
-El modificador public permite que una clase, método o variable sea accesible desde cualquier parte del código, ya sea dentro del mismo paquete o en paquetes diferentes.
-
-Explicación:
-El atributo nombre y el método saludar están declarados como public, por lo que son accesibles desde cualquier clase, incluso desde fuera del paquete donde se encuentran.
-Ventajas de public
-
-- Permite el acceso desde cualquier lugar del código.
-- Útil cuando necesitas que un método o atributo sea accesible globalmente.
-
-
-Consideraciones:
-
-- El uso excesivo de public puede romper el principio de encapsulamiento. Es recomendable utilizarlo solo cuando sea necesario.
-
-Modificador private
-
-El modificador private limita el acceso a la clase en la que se define. Los miembros private no son accesibles fuera de su clase, lo que refuerza el encapsulamiento.
-
-Explicación:
-- El atributo declarado como private, por lo que no se puede acceder directamente desde fuera de la clase. Sim embargo podemos acceder a él mediante el método público.
-
-Ventajas de private
-- Protege los datos de accesos no deseados o modificaciones accidentales.
-- Refuerza el principio de encapsulamiento.
-
-Consideraciones: 
-- Es recomendable declarar los atributos como private y proporcionar métodos getter y setter para controlarlos.
-
-Modificador protected
-El modificador protected permite que un miembro sea accesible dentro del mismo paquete y en clases que heredan de la clase original, incluso si estas clases están en un paquete diferente.
-
-Explicación:
-- El atributo nombre está declarado como protected, lo que permite que la clase Empleado (subclase de Persona) acceda a él a través de la herencia, aunque esté en un paquete diferente.
-
-Ventajas de protected
-- Proporciona un acceso controlado en las jerarquías de herencia.
-- Es más restrictivo que public, pero menos restrictivo que private.
-
-Consideraciones:
-- El acceso protected es útil en clases que están destinadas a ser extendidas, pero debes evitar exponer datos sensibles.
-
-Mejores Prácticas en el Uso de Modificadores de Acceso
-
-1. Encapsula siempre que sea posible: Declara los atributos como private y proporciona métodos getter y setter para un acceso controlado.
-2. Usa protected cuando las clases están diseñadas para ser extendidas: El acceso protected es útil cuando esperas que otras clases hereden y accedan a ciertos miembros.
-3. Evita el uso excesivo de public: Exponer demasiados miembros como public puede hacer que el código sea más difícil de mantener y menos seguro.
-4. Usa el modificador adecuado según el contexto: La elección del modificador debe basarse en la necesidad real de visibilidad y en la intención de proteger los datos o métodos.
-`,
-        videoUrl: "https://www.youtube.com/embed/8cmx7V4oY0A",
-    },
-    {
-        id: 3,
-        icon: "📘",
-        title: "Constructores",
-        description: "Crea objetos con constructores personalizados.",
-        content: `
-Un constructor es un método especial que se utiliza para inicializar un objeto. Cada clase tiene un constructor, ya sea implícita o explícitamente.
-
-Si no declaramos un constructor en la clase, JVM crea un constructor predeterminado para esa clase. Esto se conoce como constructor predeterminado.
-
-Un constructor tiene el mismo nombre que el nombre de la clase en la que se declara. El constructor no debe tener ningún tipo de valor devuelto explícito. El constructor en Java no puede ser abstracto, estático, final o sincronizado. Estos modificadores no están permitidos para el constructor.
-
-Sintaxis para declarar el constructor:
-
-className (parameter-list){
-        code-statements
-}
-
-className es el nombre de la clase, ya que el nombre del constructor es el mismo que el nombre de la clase.
-
-parameter-list es opcional, ya que los constructores también pueden ser parametrizados y no parametrizados.
-
-Ejemplo de constructor
-
-En Java, el constructor estructuralmente se ve como se da en el siguiente programa. Una clase Car tiene un constructor que proporciona valores a las variables de instancia.
-
-class Car
-{
-    String name;
-    Steing model;
-    car() //Constructor
-    {
-        model="";
-        name="";
-    }
-}
-
-ipos de constructor
-Java admite dos tipos de constructores:
-
-- Constructor predeterminado
-- Constructor parametrizado
-
-Cada vez que se crea un nuevo objeto, se invocará al menos un constructor.
-
-onstructor predeterminado
-En Java, se dice que un constructor es el constructor predeterminado si no tiene ningún parámetro. El constructor predeterminado puede ser definido por el usuario o proporcionado por JVM.
-
-Si una clase no contiene ningún constructor, durante el tiempo de ejecución, JVM genera un constructor predeterminado que se conoce como constructor predeterminado definido por el sistema.
-
-Si una clase contiene un constructor sin parámetro, se conoce como constructor predeterminado definido por el usuario. En este caso, JVM no crea un constructor predeterminado.
-
-El propósito de crear un constructor es inicializar los estados de un objeto.
-        `,
-        videoUrl: "https://www.youtube.com/watch?v=5EGS6lnghYE",
-
-    },
-    {
-        id: 4,
-        icon: "➕",
-        title: "Sobrecarga de Constructores",
-        description: "Define múltiples constructores para flexibilidad.",
-        content: `Al igual que los métodos, un constructor también puede estar sobrecargado. Los constructores sobrecargados se diferencian en función de su tipo de parámetros o número de parámetros. La sobrecarga de constructores no es muy diferente de la sobrecarga de métodos. En caso de sobrecarga de métodos, tiene varios métodos con el mismo nombre pero con diferente firma, mientras que en la sobrecarga de constructores tiene varios constructores con diferente firma, pero la única diferencia es que el constructor no tiene tipo de retorno.
-        
-        Ejemplo de sobrecarga de constructores
-
-        class Cricketer
-        {
-            String name;
-            String team;
-            int age;
-            Cricketer() //contructor por defecto
-            {
-                name = "";
-                team = "";
-                age = 0;
-            }
-            Cricketer(String n, String t, int a) // Sobrecarga de constructor
-            {
-                name = n;
-                team = t;
-                age = a;
-            }
-            Cricketer (Cricketer ckt)
-            {
-                name = ckt.name;
-                team = ckt.team;
-                age = ckt.age;
-            }
-            public String toString()
-            {
-                return "this is " + name + " of " + team;
-            }
-        }
-
-        Class test:
-        {
-            public static void main (String[] args)
-            {
-                Cricketer c1 = new Cricketer();
-                Cricketer c2 = new Cricketer("sachin", "India", 32);
-                Cricketer c3 = new Cricketer(c2 );
-                System.out.println(c2);
-                System.out.println(c3);
-                c1.name = "Virat";
-                c1.team= "India";
-                c1.age = 32;
-                System .out. print in (c1);
-            }
-        }
-
-        Encadenamiento de constructores
-El encadenamiento de constructores es un proceso de llamar a un constructor desde otro constructor de la misma clase. Dado que solo se puede llamar al constructor desde otro constructor, se utiliza el encadenamiento de constructores para este propósito.
-
-Para llamar al constructor desde otro constructor, se utiliza esta palabra clave. Esta palabra clave se utiliza para hacer referencia al objeto actual.
-
-Veamos un ejemplo para entender el encadenamiento de constructores.
-
-
-    class Test
-    {
-        Test()
-        {
-            this(10);
-        }
-        Test(int x)
-        {
-            System.out.println("x="+x);
-        }
-        public static void main(String arg[])
-        {
-            Test object = new Test();
-        }
-    }
-
-    El encadenamiento de constructores se utiliza cuando queremos realizar varias tareas creando un solo objeto de la clase.
-  
-        `,
-        videoUrl: "",
-    },
-    {
-        id: 5,
-        icon: "🧯",
-        title: "Try-Catch",
-        description: "Manejo de excepciones en Java.",
-        content: `Los errores durante la ejecución de un programa pueden comprometer seriamente su funcionamiento. El manejo de excepciones en Java se convierte en una herramienta fundamental para la gestión efectiva de estos errores. 
-        
-        La creación de jerarquías de clases de excepción representan diversos tipos de errores de manera estructurada y coherente. Además, mediante la implementación de mecanismos como la sobre escritura de métodos, los desarrolladores pueden personalizar y adaptar el manejo de excepciones a las necesidades específicas de sus aplicaciones, asegurando un flujo controlado y predecible en situaciones de error. En resumen, el manejo de excepciones en Java no solo simplifica la gestión de errores, sino que también promueve una estructura de código más organizada y fácil de mantener, crucial para el desarrollo de software escalable y robusto en entornos de programación complejos y en constante evolución.
-
-En el paradigma de la programación orientada a objetos, la integridad de los objetos implica la garantía de condiciones preestablecidas, también conocidas como estados, tanto antes como después de la ejecución de un método en respuesta a un mensaje. Antes de responder a un mensaje, un objeto debe encontrarse en un estado consistente y válido según las restricciones definidas por la clase. Tras la ejecución del método, el objeto debe mantener su estado coherente en relación con las reglas de negocio y las restricciones del sistema. Mediante el uso de conceptos como encapsulación, validación de datos y abstracción, los objetos pueden preservar su integridad interna y asegurar la coherencia en su interacción con otros objetos, promoviendo así un diseño orientado a objetos sólido y fáciles de mantener.
-
-En Java, una excepción es un evento que interrumpe el flujo normal de un programa durante su ejecución. Las excepciones se dividen en tres categorías principales:
-
-1. Excepciones comprobadas (checked exceptions):Son aquellas que el compilador obliga a controlar mediante bloques try-catch o declaraciones throws. Estas excepciones suelen estar relacionadas con problemas externos al programa, como la entrada/salida de datos y el manejo de archivos.
-2. Excepciones no comprobadas (uncheked exceptions):Son aquellas que el compilador no obliga a controlar. Por lo general, surgen debido a errores en la lógica del programa, como intentos de división entre cero, acceso a índices fuera de los límites de un arreglo, entre otros.
-3. Errores(errors): Representan problemas graves que surgen en tiempo de ejecución y que generalmente están fuera del control del programador. Estos errores no se pueden manejar y generalmetne indican problemas graves en el entorno de ejecución, como la falta de memoria.
-
-Un manejador de excepciones se refiere a un bloque de código que se utiliza para gestionar y controlar las excepciones que pueden ocurrir durante la ejecución de un programa. El manejo de excepciones en Java se logra mediante el uso de bloques try-catch. El bloque try contiene el código propenso a generar excepciones, mientras que el bloque catch se utiliza para capturar y manejar esas excepciones.
-
-public class ManejadorExcepcionesEjemplo {
-public static void main(String[] args) {
-    try {
-        int[] arreglo = new int[4];
-        System.out.println("Intentando acceder a un índice inválido del arreglo...");
-        int valor = arreglo[5]; // Esto generará una excepción ArrayIndexOutOfBoundsException
-    } catch (ArrayIndexOutOfBoundsException e) {
-        System.out.println("Se ha producido un error: Acceso a un índice inválido del arreglo.");
-    } finally {
-        System.out.println("El bloque finally se ejecuta siempre, independientemente de si hay una excepción o no.");
-    }
- }
-}
-
-
-`,
-        videoUrl: "",
-    },
-    {
-        id: 6,
-        icon: "🔗",
-        title: "Relaciones entre Clases",
-        description: "Asocia clases para modelar comportamientos complejos.",
-        content: `
-En la programación orientada a objetos, las **clases** representan cosas o conceptos del mundo real. A veces, estas clases necesitan trabajar juntas o estar conectadas entre sí. A eso le llamamos **relaciones entre clases**.
-
-Existen dos relaciones principales:
-
-1. Composición
-
-Una clase usa a otra como parte de sí misma. Por ejemplo:
-
-
-class Motor {
-        void encender() {
-        System.out.println("Motor encendido");
-    }
-}
-
-class Auto {
-    Motor motor = new Motor();
-
-    void arrancar() {
-    motor.encender();
-}
-}
-En este caso, un 'Auto' **tiene un** 'Motor'. El motor no vive por sí solo, solo existe dentro del auto.
-
-2. Asociación
-
-Una clase se conecta con otra, pero no la contiene. Por ejemplo:
-
+Asociación
+Es una relación general entre dos clases. Por ejemplo, un Profesor puede estar asociado a un Curso.
 
 class Profesor {
     String nombre;
@@ -323,339 +211,659 @@ class Curso {
     Profesor profesor;
 }
 
+Ambas clases pueden existir de forma independiente.
 
-Aquí, un 'Curso' usa un 'Profesor', pero el profesor no es parte del curso: puede existir por separado y trabajar en otros cursos.
+Agregación
+Es un tipo de asociación donde una clase contiene a otra, pero cada una puede vivir por separado.
 
----
+class Estudiante {
+    String nombre;
+}
 
-¿Por qué es útil esto?
+class Curso {
+    List<Estudiante> estudiantes;
+}
 
-* Ayuda a dividir problemas grandes en partes pequeñas y fáciles de manejar.
-* Permite reutilizar código.
-* Hace que tus programas sean más organizados y realistas.
+Si el Curso se elimina, los Estudiantes pueden seguir existiendo.
+
+Composición
+Es una relación más fuerte: una clase es dueña de otra. Si la clase principal desaparece, también lo hacen sus componentes.
+
+class Motor {
+    void encender() { ... }
+}
+
+class Auto {
+    Motor motor = new Motor();
+}
+
+Si eliminás el Auto, el Motor también desaparece.
+
+Herencia Simple
+La herencia permite que una clase herede atributos y métodos de otra. Con herencia simple, una clase solo hereda de una única clase base.
+
+class Animal {
+    void dormir() { ... }
+}
+
+class Perro extends Animal {
+    void ladrar() { ... }
+}
+
+Perro hereda de Animal, así que también puede dormir().
+
+La herencia se usa para reutilizar código y modelar relaciones "es un tipo de".
+
+Herencia Múltiple
+La herencia múltiple significa que una clase puede heredar de más de una clase base. En lenguajes como Java, esto no está permitido con clases, pero sí se puede hacer usando interfaces.
+
+interface Nadador {
+    void nadar();
+}
+
+interface Volador {
+    void volar();
+}
+
+class Pato implements Nadador, Volador {
+    public void nadar() { ... }
+    public void volar() { ... }
+}
+
+Pato hereda el comportamiento de Nadador y Volador al mismo tiempo.
+`,
+        videoUrl: "https://www.youtube.com/watch?v=U9-iM-gA7-E",
+    },
+    {
+        id: 3,
+        icon: "📗",
+        title: "Manejo de excepciones",
+        description: "Aprende sobre como manejar los errores que puede producir al ejecutar el código.",
+        content: `
+En Java, las excepciones son eventos que interrumpen el flujo normal de un programa debido a errores o situaciones inesperadas. El manejo adecuado de excepciones permite que los programas sean más robustos y puedan recuperarse de errores sin finalizar abruptamente.
+
+Jerarquía de Excepciones
+Todas las excepciones en Java derivan de la clase base Throwable, que se divide en dos subclases principales:
+
+Error: Representa errores graves del sistema que generalmente no pueden ser manejados por la aplicación, como OutOfMemoryError.
+Studocu
+
+Exception: Representa condiciones que una aplicación puede manejar. A su vez, se divide en:
+
+Excepciones comprobadas (Checked Exceptions): El compilador obliga a manejarlas explícitamente, ya sea mediante bloques try-catch o declarando su propagación con throws. Ejemplo: IOException.
+
+Excepciones no comprobadas (Unchecked Exceptions): No es obligatorio manejarlas explícitamente. Derivan de RuntimeException. Ejemplo: NullPointerException.
+
+Esta jerarquía permite organizar y manejar las excepciones de manera estructurada.
+
+Excepciones Encadenadas
+A veces, una excepción ocurre como resultado directo de otra. Java permite encadenar excepciones para preservar la causa original del error. Esto es útil para diagnosticar problemas complejos.
+
+Ejemplo:
+
+try {
+    // Código que puede lanzar IOException
+} catch (IOException e) {
+    throw new CustomException("Error al procesar el archivo", e);
+}
+
+En este ejemplo, CustomException encapsula la IOException original, permitiendo acceder a la causa raíz mediante métodos como getCause().
+
+Declaración de Nuevos Tipos de Excepciones
+Java permite crear excepciones personalizadas para representar errores específicos de una aplicación. Para ello, se define una nueva clase que extiende Exception o RuntimeException, según se desee que sea una excepción comprobada o no comprobada.
+
+Ejemplo:
+
+public class MiExcepcionPersonalizada extends Exception {
+    public MiExcepcionPersonalizada(String mensaje) {
+        super(mensaje);
+    }
+}
+
+Esta práctica mejora la claridad y especificidad en el manejo de errores dentro de una aplicación.
+
 
 `,
-        videoUrl: "",
+        videoUrl: "https://www.youtube.com/watch?v=VHy6xFXJ1Rw",
+
     },
     {
-        id: 7,
-        icon: "👪",
-        title: "Herencia simple",
-        description: "Hereda comportamientos de clases base.",
-        content: `La herencia es una de las características clave de la Programación Orientada a Objetos. La herencia proporcionaba un mecanismo que permitía a una clase heredar la propiedad de otra clase. Cuando una clase extiende otra clase, hereda todos los miembros no privados, incluidos los campos y los métodos. La herencia en Java se puede entender mejor en términos de relación padre e hijo, también conocida como superclase (padre) y subclase (hijo) en el lenguaje Java.
-
-La herencia define como una relación entre una clase Super y su Sub clase. y las palabras clave se utilizan para describir la herencia en Java.extendsimplements
-
-
-Veamos cómo se usa la palabra clave extends para lograr la herencia. Muestra la relación de superclase y subclase.
-
-class Vehicle
-{
-    ......
-}
-class Car extends Vehicle
-{
-    .......    //extends the property of vehicle class
-}
-
-Ahora, basado en el ejemplo anterior. En términos de POO podemos decir que,
-
-- El vehículo es una súper clase de coche.
-- El automóvil es una subclase de vehículo.
-- Coche IS-A Vehículo.
-
-Finalidad de la herencia
-- Promueve la reutilizabilidad del código, es decir, los mismos métodos y variables que se definen en una clase padre/super/base se pueden usar en la clase hija/sub/derivada.
-- Promueve el polimorfismo al permitir la anulación del método.
-
-Desventajas de la herencia
-- La principal desventaja de usar la herencia es que las dos clases (clase principal y secundaria) se acoplan estrechamente.
-- Esto significa que si cambiamos el código de la clase padre, afectará a todas las clases hijas que heredan/derivan la clase padre y, por lo tanto, no pueden ser independientes entre sí.
-
-Ejemplo sencillo de Herencia
-Antes de seguir adelante tomemos un ejemplo rápido y tratemos de entender mejor el concepto de Herencia:
-
-class Parent
-{
-    public void p1()
-    {
-        System.out.println("Parent method");
-    }
-}
-public class Child extends Parent {
-
-    public void c1()
-    {
-        System.out.println("Child method");
-    }
-    public static void main(String[] args)
-    {
-        Child cobj = new Child();
-        cobj.c1();  //method of Child class
-        cobj.p1();  //method of Parent class
-    }
-}
-
-En el código anterior tenemos una clase Parent que tiene un método . A continuación, creamos una nueva clase Child que hereda la clase Parent utilizando la palabra clave y define su propio método . Ahora, en virtud de la herencia, la clase Child también puede acceder al método de la clase Parent.p1()extendsc1()publicp1()
-
-Tipos de herencia
-Java admite principalmente solo tres tipos de herencia que se enumeran a continuación.
-
-1. Herencia única
-2. Herencia multinivel
-3. Herencia jerárquica
-`,
-        videoUrl: "",
-    },
-    {
-        id: 8,
-        icon: "🧩",
-        title: "Composición",
-        description: "Usa clases como componentes internos de otras.",
-        content: ``,
-        videoUrl: "",
-    },
-    {
-        id: 9,
-        icon: "🌀",
+        id: 4,
+        icon: "📚",
         title: "Polimorfismo",
-        description: "Interfaz única para diferentes tipos de datos.",
-        content: `El polimorfismo es uno de los pilares fundamentales de la Programación Orientada a Objetos (POO), junto con la herencia y el encapsulamiento. En Java, el polimorfismo permite que un objeto de una clase se comporte de diferentes maneras dependiendo del contexto.
+        description: "Define múltiples constructores para flexibilidad.",
+        content: `
+El polimorfismo es uno de los pilares fundamentales de la Programación Orientada a Objetos (POO), junto con la herencia y el encapsulamiento. En Java, el polimorfismo permite que un objeto de una clase se comporte de diferentes maneras dependiendo del contexto.
 
 El polimorfismo mejora la flexibilidad y reutilización del código, lo que hace que los programas sean más extensibles y fáciles de mantener.
 
+¿Qué es el Polimorfismo?
 El polimorfismo significa “muchas formas”, y en Java, se refiere a la capacidad de un objeto de adoptar diferentes formas. A través de la herencia y la sobrescritura de métodos, un objeto puede comportarse de diferentes maneras según su tipo en tiempo de ejecución. Hay dos tipos principales de polimorfismo en Java:
 
 1. Polimorfismo en tiempo de compilación (sobrecarga): Ocurre cuando se define más de un método con el mismo nombre pero diferentes parámetros dentro de una clase.
 2. Polimorfismo en tiempo de ejecución (sobrescritura): Se refiere a la capacidad de un método sobrescrito para ser invocado en tiempo de ejecución según el tipo del objeto.
 
 Diferencia entre Sobrecarga y Sobrescritura
+
 - Sobrecarga: El método tiene el mismo nombre pero diferentes parámetros dentro de la misma clase (polimorfismo en tiempo de compilación).
 - Sobrescritura: Una subclase redefine un método heredado de la superclase con la misma firma (polimorfismo en tiempo de ejecución).
 
-Polimorfismo en Tiempo de Ejecución
-En Java, el polimorfismo en tiempo de ejecución se logra a través de la sobrescritura de métodos. Un objeto de una subclase puede ser tratado como si fuera de su superclase, pero el comportamiento que adopta dependerá de la clase real del objeto en tiempo de ejecución.
+Ventajas del Polimorfismo
 
-// Superclase
-class Animal {
-    public void hacerSonido() {
-        System.out.println("El animal hace un sonido.");
-    }
+- Flexibilidad: Puedes escribir código que trabaje con la superclase, pero en tiempo de ejecución, los objetos se comportarán según su clase real.
+- Reutilización de Código: Evita la duplicación de código, ya que las subclases pueden sobrescribir el comportamiento sin reescribir todo el código de la superclase.
+- Extensibilidad: Facilita la ampliación del sistema, ya que puedes agregar nuevas clases sin cambiar el código existente que utiliza la superclase.
+
+Clases Abstractas y Polimorfismo
+
+Las clases abstractas son una característica importante de la programación orientada a objetos en Java. Una clase abstracta es una clase que no se puede instanciar directamente y se utiliza como base para otras clases. Una clase abstracta puede tener métodos abstractos, que son métodos que no tienen una implementación y deben ser implementados por las clases que heredan de la clase abstracta.
+
+Las clases abstractas también juegan un papel importante en la implementación del polimorfismo. Una clase abstracta puede tener métodos abstractos (sin implementación), que las subclases deben sobrescribir, permitiendo comportamientos específicos en cada subclase.
+
+Ejemplo de Polimorfismo con Clases Abstractas
+
+// Clase abstracta
+abstract class Forma {
+    abstract void dibujar();
 }
 
 // Subclase 1
-class Perro extends Animal {
+class Circulo extends Forma {
     @Override
-    public void hacerSonido() {
-        System.out.println("El perro ladra.");
+    public void dibujar() {
+        System.out.println("Dibujando un círculo.");
     }
 }
 
 // Subclase 2
-class Gato extends Animal {
+class Cuadrado extends Forma {
     @Override
-    public void hacerSonido() {
-        System.out.println("El gato maúlla.");
+    public void dibujar() {
+        System.out.println("Dibujando un cuadrado.");
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Animal animal1 = new Perro(); // Polimorfismo
-        Animal animal2 = new Gato();  // Polimorfismo
+        Forma forma1 = new Circulo();  // Polimorfismo
+        Forma forma2 = new Cuadrado(); // Polimorfismo
 
-        animal1.hacerSonido(); // Llama al método de la clase Perro
-        animal2.hacerSonido(); // Llama al método de la clase Gato
+        forma1.dibujar(); // Llama al método dibujar() de Circulo
+        forma2.dibujar(); // Llama al método dibujar() de Cuadrado
     }
 }
 
 Explicación:
-- Animal: Es la superclase que define un método genérico hacerSonido().
-- Perro y Gato: Son subclases que sobrescriben el método hacerSonido() con un comportamiento específico.
-- Polimorfismo: Los objetos animal1 y animal2 son de tipo Animal, pero en tiempo de ejecución, se comportan según sus clases concretas (Perro y Gato).
 
-Ventajas del Polimorfismo
-- Flexibilidad: Puedes escribir código que trabaje con la superclase, pero en tiempo de ejecución, los objetos se comportarán según su clase real.
-- Reutilización de Código: Evita la duplicación de código, ya que las subclases pueden sobrescribir el comportamiento sin reescribir todo el código de la superclase.
-- Extensibilidad: Facilita la ampliación del sistema, ya que puedes agregar nuevas clases sin cambiar el código existente que utiliza la superclase.
+- Forma: Es una clase abstracta que define el método abstracto dibujar().
+- Circulo y Cuadrado: Son subclases que proporcionan implementaciones específicas del método dibujar().
+- Polimorfismo: El tipo de referencia es Forma, pero el comportamiento es determinado por la clase concreta (Circulo o Cuadrado).
+
+Variables y Funciones Polimórficas
+En Java, una variable polimórfica es aquella que puede referirse a objetos de diferentes tipos, siempre que estos sean subtipos de la clase o interfaz declarada. Esto permite escribir código más flexible y reutilizable.
+Studocu
+
+Ejemplo:
+
+Animal miAnimal = new Perro();
+miAnimal.hacerSonido(); // Llama al método de la clase Perro
+
+En este ejemplo, aunque miAnimal es de tipo Animal, se comporta como un Perro en tiempo de ejecución. Esto es posible gracias al enlace dinámico, donde la llamada al método se resuelve en tiempo de ejecución.
 `,
-        videoUrl: "",
+        videoUrl: "https://www.youtube.com/watch?v=EFL2U4MsNZw",
     },
     {
-        id: 10,
-        icon: "🔐",
-        title: "Encapsulamiento",
-        description: "Protege los datos dentro de una clase.",
-        content: `El encapsulamiento en Java es el proceso de ocultar los detalles internos de una clase y exponer solo lo necesario a través de métodos públicos. Este principio permite proteger los datos sensibles y asegurar que los objetos se utilicen de manera controlada y predecible.
+        id: 5,
+        icon: "📘",
+        title: "Programación Orientada a Objetos Avanzada",
+        description: "Aprende temas un tanto más avanzados en Programación Orientada a Objetos Avanzada",
+        content: `
+En esta sección vas a descrubrir herramientas más avanzadas de la Programación Orientada a Objetos que te va a permitir escribir código más limpio, modular y reutilizable.
 
-Beneficios del Encapsulamiento
-1. Control sobre el acceso a los datos: Los datos sensibles están protegidos y solo pueden ser modificados a través de métodos controlados.
-2. Facilidad para realizar cambios internos: Puedes cambiar la implementación interna de una clase sin afectar el código externo.
-3. Mantenimiento y depuración más sencilla: El encapsulamiento hace que el código sea más fácil de mantener y depurar, ya que los errores tienden a estar confinados dentro de la clase.
+Clases anidadas en Java
 
-Implementación del Encapsulamiento en Java
+El anidamiento de una clase tiene por objetivo favorecer el encapsulamiento. Una clase anidada se dice que es interna si se la declara dentro de otra clase pero fuera de cualquier método de la clase contenedora.
 
-El encapsulamiento en Java se logra mediante:
-1. Declarar los atributos como private: Esto restringe el acceso directo a los atributos desde fuera de la clase.
-2. Proveer métodos públicos getter y setter: Estos métodos controlan cómo se accede y modifica el valor de los atributos.
+Puede declararse con cualquiera de los modificadores: private, protected o public.
 
-Ejemplo Básico de Encapsulamiento:
+Una característica fundamental es que una clase interna tiene acceso a todos los atributos de la clase que la contiene, luego para que exista una clase anidada interna es necesario que exista un objeto de la clase contenedora.
 
-public class Persona {
-    // Atributos privados
+El uso adecuado de clases anidadas en Java puede mejorar la modularidad y la organización del código, así como facilitar la implementación de ciertos patrones de diseño, como el patrón Strategy o el patrón Observer. Sin embargo, es importante tener en cuenta que un mal uso de clases anidadas puede complicar la compresión del código y aumentar la complejidad, por lo que se debe utilizar con moderación y siempre con el objetivo de mejorar la estructura y la claridad del código.
+        `,
+        videoUrl: "https://www.youtube.com/watch?v=4GS-ZsdEW8w",
+    },
+    {
+        id: 6,
+        icon: "📕",
+        title: "Java Constructores this() y super()",
+        description: "Static Method vs instance method",
+        content: `
+Las palabras reservadas this y super de Java nos sirven para poder acceder a los atributos, métodos y constructores de la clase en la que se encuentran y de la clase padre respectivamente.
+
+Las palabras reservadas this y super de Java nos sirven para poder acceder a los atributos, métodos y constructores de la clase en la que se encuentran y de la clase padre respectivamente.
+
+This en java
+This hace referencia al objeto actual de la clase, es decir, a una instancia concreta de la clase y nos sirve para usar los métodos y atributos de esa clase desde alguno de sus métodos, para llamar a otro de sus constructores o simplemente para pasarle el objeto completo a algún otro método u objeto.
+
+Aunque normalmente podemos omitir el this cuando hacemos una llamada a un método o atributo de la misma clase ya que el compilador sabe que pertenece a la clase desde la que se usa porque si no ese método o atributo debería de llevar delante el nombre del objeto al que se refiere, si lo usamos el código puede ser un poco más claro y nos evitamos problemas si alguien crea una variable con el mismo nombre que uno de los atributos de la clase, porque en este caso sí que es necesario usar el this para acceder a la variable de la clase ya que la variable local «oculta» a la de clase.
+
+Por eso normalmente siempre veremos el this. delante de los atributos en los constructores y en los setters ya que lo normal es que los parámetros tengan los mismos nombres que los atributos de la clase, mientras que en los getters no se suele poner porque no hay ninguna duda de a que es a lo que estamos accediendo.
+
+Super en java
+Si this nos sirve para hacer referencia a la instancia actual del objeto, super nos sirve para hacer lo propio con la clase padre de nuestro objeto (la clase de la se hace el extends), vamos que nos permite acceso a los constructores, métodos y atributos de la clase de la que hereda.
+
+Constructor this()
+Cuando una clase tiene varios constructores podemos usar this() para hacer uso de otro de los constructores de la clase y de este modo nos ahorramos tener que repetir el mismo código en todos los constructores y así solo necesitamos hacer una llamada a otro constructor y añadir el código necesario para las diferencias.
+
+Si se llama a otro constructor con this() siempre hay que hacerlo desde la primera línea del constructor (la primera línea de código, delante puede haber comentario o líneas en blanco) porque si intentamos hacerlo después de otra línea nuestro IDE nos mostrará un error como este Constructor call must be the first statement in a constructor, y no nos compilará.
+
+HomeJavaThis y super en Java
+This y super en JavaJava  31 octubre, 2018  0  Iván Salas 
+reset css
+Las palabras reservadas this y super de Java nos sirven para poder acceder a los atributos, métodos y constructores de la clase en la que se encuentran y de la clase padre respectivamente.
+
+This en java
+This hace referencia al objeto actual de la clase, es decir, a una instancia concreta de la clase y nos sirve para usar los métodos y atributos de esa clase desde alguno de sus métodos, para llamar a otro de sus constructores o simplemente para pasarle el objeto completo a algún otro método u objeto.
+
+Aunque normalmente podemos omitir el this cuando hacemos una llamada a un método o atributo de la misma clase ya que el compilador sabe que pertenece a la clase desde la que se usa porque si no ese método o atributo debería de llevar delante el nombre del objeto al que se refiere, si lo usamos el código puede ser un poco más claro y nos evitamos problemas si alguien crea una variable con el mismo nombre que uno de los atributos de la clase, porque en este caso sí que es necesario usar el this para acceder a la variable de la clase ya que la variable local «oculta» a la de clase.
+
+Por eso normalmente siempre veremos el this. delante de los atributos en los constructores y en los setters ya que lo normal es que los parámetros tengan los mismos nombres que los atributos de la clase, mientras que en los getters no se suele poner porque no hay ninguna duda de a que es a lo que estamos accediendo.
+
+
+package thisysuper;
+
+public class Archivo {
     private String nombre;
-    private int edad;
-
-    // Constructor
-    public Persona(String nombre, int edad) {
+    private String extension;
+    private String ruta;
+        
+    public Archivo(String nombre, String extension) {
         this.nombre = nombre;
-        this.edad = edad;
+        this.extension = extension;
+        this.ruta = "";
     }
 
-    // Método getter para acceder al atributo nombre
+    public Archivo(String nombre, String extension, String ruta) {
+        this(nombre, extension);
+        this.ruta = ruta;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
-    // Método setter para modificar el atributo nombre
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    // Método getter para acceder al atributo edad
-    public int getEdad() {
-        return edad;
+    public String getExtension() {
+        return extension;
     }
 
-    // Método setter para modificar el atributo edad
-    public void setEdad(int edad) {
-        if (edad > 0) {
-            this.edad = edad;
-        } else {
-            System.out.println("La edad no puede ser negativa.");
-        }
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+
+    @Override
+    public String toString() {
+        return this.getRuta() + this.getNombre() + "." + this.getExtension();
+    }
+
 }
+En el código anterior también podemos ver como this también se puede usar para llamar a otro de los constructores de la clase.
+
+Super en java
+Si this nos sirve para hacer referencia a la instancia actual del objeto, super nos sirve para hacer lo propio con la clase padre de nuestro objeto (la clase de la se hace el extends), vamos que nos permite acceso a los constructores, métodos y atributos de la clase de la que hereda.
+
+
+package thisysuper;
+
+import java.awt.Dimension;
+
+public class Imagen extends Archivo {
+    private Integer ancho;
+    private Integer alto;
+
+    public Imagen(String nombre, String extension, String ruta) {
+        super(nombre, extension, ruta);
+        this.ancho = 1920;
+        this.alto = 1080;
+    }
+
+    public Imagen(String nombre, String extension, String ruta, Integer ancho, Integer alto) {
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    public Imagen(String nombre, String extension, String ruta, Dimension dimensiones) {
+        this(nombre, extension, ruta, dimensiones.width, dimensiones.height);
+    }
+
+    public Integer getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(Integer ancho) {
+        this.ancho = ancho;
+    }
+
+    public Integer getAlto() {
+        return alto;
+    }
+
+    public void setAlto(Integer alto) {
+        this.alto = alto;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Dimensiones: " + this.ancho + " X " + this.alto;
+    }
+
+}
+En este ejemplo vemos como en el método toString() usamos el super para hacer la llamada al método del padre, aunque en este caso estamos haciendo la llamada al método con el mismo nombre del padre no existe nada que nos impida llamar a otro de sus métodos o a todos los que queramos.
+
 
 public class Main {
+
     public static void main(String[] args) {
-        Persona persona = new Persona("Carlos", 30);
-
-        // Acceso a través de los métodos getter
-        System.out.println("Nombre: " + persona.getNombre());
-        System.out.println("Edad: " + persona.getEdad());
-
-        // Modificación a través de los métodos setter
-        persona.setNombre("Ana");
-        persona.setEdad(28);
-
-        System.out.println("Nuevo nombre: " + persona.getNombre());
-        System.out.println("Nueva edad: " + persona.getEdad());
+        Archivo imagen1 = new Imagen("foto", "png", "/home/ivan/Documents/Proyecto/");
+        System.out.println(imagen1.toString());
+        // /home/ivan/Documents/Proyecto/foto.png, Dimensiones: 1920 X 1080
     }
 }
+Como el toString() de la clase Imagen llama al de la clase Archivo y luego le concatena los valores de los atributos de la clase imagen el resultado final es nombre del archivo junto con las dimensiones.
+
+También tenemos un ejemplo de una llamada a uno de los constructores de la clase padre desde uno de los constructores para inicializar las propiedades de la clase padre al crear una nueva instancia de la clase hija (en realidad, se está llamando a 2 de los constructores de la clase padre, pero eso lo veremos más adelante).
+
+En este caso no podemos acceder directamente a las propiedades de la clase padre con super. porque las declaramos como privadas y super solo nos permite acceder a los métodos y atributos declarados como public o protected, es decir que no nos otorga ningún privilegio de acceso extra.
+
+Constructor this()
+Cuando una clase tiene varios constructores podemos usar this() para hacer uso de otro de los constructores de la clase y de este modo nos ahorramos tener que repetir el mismo código en todos los constructores y así solo necesitamos hacer una llamada a otro constructor y añadir el código necesario para las diferencias.
+
+Si se llama a otro constructor con this() siempre hay que hacerlo desde la primera línea del constructor (la primera línea de código, delante puede haber comentario o líneas en blanco) porque si intentamos hacerlo después de otra línea nuestro IDE nos mostrará un error como este Constructor call must be the first statement in a constructor, y no nos compilará.
+
+Por ejemplo podríamos tener estos 4 constructores donde tenemos un constructor sin parámetros que rellena los atributos con los valores por defecto y un constructor con un parámetro, otro con 2 y otro con los 3 y cada uno de ellos llama al constructor que tiene un parámetro menos.
 
 
-Explicación del Ejemplo
-
-- Los atributos nombre y edad están declarados como private, lo que impide que se acceda a ellos directamente desde fuera de la clase Persona.
-- Los métodos getter (getNombre() y getEdad()) permiten acceder a los valores de estos atributos.
-- Los métodos setter (setNombre() y setEdad()) controlan cómo se modifican los atributos. En el caso del método setEdad(), se agrega una validación para asegurarse de que la edad no sea negativa.
-
-¿Por qué Usar Métodos Getter y Setter?
-El uso de getter y setter es una forma común de aplicar el principio de encapsulamiento en Java. Estos métodos ofrecen control sobre el acceso a los atributos privados, permitiendo la validación de los datos antes de ser asignados.
-
-Encapsulamiento en Clases Complejas
-El encapsulamiento también es esencial en clases más complejas, donde varios atributos dependen unos de otros. Al proporcionar un acceso controlado a los datos, puedes garantizar que el estado del objeto siempre sea consistente.
-
-Ejemplo complejo de encapsulamiento:
-
-public class Coche {
-    private String marca;
-    private String modelo;
-    private int año;
-    private int velocidad;
-
-    // Constructor
-    public Coche(String marca, String modelo, int año) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.año = año;
-        this.velocidad = 0; // Velocidad inicial es 0
-    }
-
-    // Getter y Setter para marca
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    // Getter y Setter para modelo
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    // Getter para año (sin setter, ya que no debería cambiarse)
-    public int getAño() {
-        return año;
-    }
-
-    // Método para aumentar la velocidad
-    public void acelerar(int incremento) {
-        if (incremento > 0) {
-            this.velocidad += incremento;
-            System.out.println("Velocidad actual: " + velocidad + " km/h");
-        } else {
-            System.out.println("El incremento debe ser positivo.");
-        }
-    }
-
-    // Método para frenar el coche
-    public void frenar(int decremento) {
-        if (decremento > 0 && this.velocidad >= decremento) {
-            this.velocidad -= decremento;
-            System.out.println("Velocidad actual: " + velocidad + " km/h");
-        } else {
-            System.out.println("El decremento debe ser positivo y menor que la velocidad actual.");
-        }
-    }
+public Archivo() {
+    this.nombre = "archivo";
+    this.extension = "txt";
+    this.ruta = "";
 }
+
+public Archivo(String nombre) {
+    this();
+    this.nombre = nombre;
+}
+    
+public Archivo(String nombre, String extension) {
+    this(nombre);
+    this.extension = extension;
+}
+    
+public Archivo(String nombre, String extension, String ruta) {
+    this(nombre, extension);
+    this.ruta = ruta;
+}
+Como la llamada desde cada constructor a otro de los constructores de la clase se hace en la primera línea en el caso de nuestro ejemplo primero se llama al constructor sin parámetros, luego al que tiene 1, después al que tiene 2 y finalmente al que tiene 3 y por lo tanto siempre conseguimos inicializar nuestro objeto correctamente.
+
 
 public class Main {
+
     public static void main(String[] args) {
-        Coche miCoche = new Coche("Toyota", "Corolla", 2021);
+        Archivo archivo1 = new Archivo();
+        System.out.println(archivo1.toString());
+        // archivo.txt
 
-        miCoche.acelerar(50); // Aumenta la velocidad
-        miCoche.frenar(20);   // Reduce la velocidad
+        Archivo archivo2= new Archivo("lista_compra");
+        System.out.println(archivo2.toString());
+        // lista_compra.txt
 
-        // Acceso a la marca y modelo
-        System.out.println("Marca: " + miCoche.getMarca());
-        System.out.println("Modelo: " + miCoche.getModelo());
+        Archivo archivo3 = new Archivo("lista_compra", "doc");
+        System.out.println(archivo3.toString());
+        // lista_compra.doc
+
+        Archivo archivo4 = new Archivo("lista_compra", "doc", "/home/ivan/Documents/");
+        System.out.println(archivo4.toString());
+        // /home/ivan/Documents/lista_compra.doc
     }
 }
+Constructor super()
+Si una clase hereda de otra sus constructores en su primera línea siempre tienen que llamar a alguno de los constructores de clase padre con super() o a otro de sus constructores con this() de forma que al final siempre se llame a alguno de los constructores de la clase padre.
 
-Explicación del ejemplo:
-- El acceso a los atributos marca, model y año está controlado a través de métodos getter y setter. El atributo año no tiene un setter, ya que el año de fabricación de un coche no debería cambiar.
-- Los métodos acelerar() y frenar() proporcionana una interfaz controlada para modificar la velocidad del coche, con validaciones para evitar comportamientos inesperados.
-
-Encapsulamiento y Modificadores de Acceso
-El encapsulamiento en Java está estrechamente relacionado con los modificadores de acceso. Como vimos en el artículo anterior, los modificadores de acceso como private, protected y public determinan qué partes de tu programa pueden acceder a los miembros de una clase.
-
-- private: Los atributos y métodos declarados como private solo son accesibles dentro de la propia clase, lo que refuerza el principio de encapsulamiento.
-- protected y public: Aunque no son tan restrictivos como private, aún permiten cierto grado de control sobre cómo se accede a los datos.
-
-
-Buenas Prácticas en el Encapsulamiento
-1. Mantén los atributos privados: Siempre que sea posible, declara los atributos como private y proporciona métodos getter y setter para acceder a ellos.
-2. Valida los valores en los setters: Aprovecha los métodos setter para asegurarte de que los valores asignados sean válidos.
-3. Evita exponer datos innecesarios: No todos los atributos necesitan ser accesibles o modificables desde fuera de la clase. Evalúa cuáles son realmente necesarios.
+Si la clase padre tiene un constructor sin parámetros entonces no es necesario hacer la llamada con super() porque por defecto Java hace la llamada al constructor sin parámetros de la clase padre, que es lo que sucede con este constructor.
 `,
+        videoUrl: "https://www.youtube.com/watch?v=p1GLnII4W2I&pp=ygUfY29uc3RydWN0b3JlcyB0aGlzIHkgc3VwZXIgamF2YQ%3D%3D",
+    },
+    {
+        id: 7,
+        icon: "📗",
+        title: "Sobre escritura de métodos (@Override)",
+        description: "Sobre escritura de métodos (@Override)",
+        content: `
+¿Qué es @Override en Java?
+@Override en Java es una anotación que se usa para dejar claro que un método en una clase hija está reemplazando o modificando el comportamiento de un método que ya existe en su clase padre. En otras palabras, con esta anotación te aseguras de que realmente estás sobrescribiendo un método que ya existe y no creando uno nuevo por equivocación.
+
+Te servirá mucho, ya que sin darte cuenta podrías cometer errores como cambiar el nombre del método o equivocarte en los parámetros. Cuando esto pasa, el compilador no sabría que estás intentando sobrescribir el método, lo que puede llevar a errores en el programa que son complicados de identificar.
+
+¿Por qué usar siempre @Override en Java?
+Existen unas ventajas técnicas que te dará el uso constante de @Override en Java:
+
+Evita errores de sobreescritura: Cuando no usas esta anotación, corres el riesgo de sobrecargar un método en lugar de sobrescribirlo. Esto genera que el método de la clase padre se siga utilizando y, por ende, se producen resultados incorrectos o inesperados en tu aplicación.
+Mejora la legibilidad del código: Al usar @Override, cualquier persona que lea tu código sabrá que ese método pertenece a una jerarquía de clases y que ha sido sobrescrito para proporcionar un comportamiento específico.
+Facilita la depuración: En el momento en el que trabajes con múltiples clases y jerarquías complejas, tener esta anotación te ayudará a identificar rápidamente si un método está sobrescrito y desde qué clase padre proviene.
+Ejemplo práctico de @Override en Java
+En este ejemplo vas a crear un programa en el que diferentes animales hacen distintos sonidos. Tienes una clase base llamada Animal, y luego dos clases hijas: Perro y Gato, cada una sobrescribiendo el método hacerSonido() de la clase padre.
+
+Código de las clases
+// Clase base
+package com.ejemplo;
+
+public class Animal {
+    public void hacerSonido() {
+        System.out.println("El animal hace un sonido");
+    }
+}
+En este caso, tienes un método hacerSonido() en la clase Animal que imprime un mensaje genérico. Ahora, vas a crear las clases hijas Perro y Gato que sobrescriben ese método para hacer un sonido específico.
+
+// Clase hija Perro
+package com.ejemplo;
+
+public class Perro extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro ladra: ¡Guau!");
+    }
+}
+
+// Clase hija Gato
+package com.ejemplo;
+
+public class Gato extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El gato maúlla: ¡Miau!");
+    }
+}
+Puedes ver que ya sobrescribiste el método hacerSonido() en ambas clases hijas. El perro ahora ladra y el gato maúlla, pero todo sigue dependiendo del método definido en la clase Animal.
+
+¿Por qué @Override no es opcional?
+La mayoría de los desarrolladores piensan que no pasará nada si no usan @Override. Sin embargo, ya viste que pueden surgir problemas serios en la gestión de clases y en la lógica de tu programa.
+
+Ventajas de usar @Override
+Detección temprana de errores: Si cometes un error tipográfico en el nombre de un método o en sus parámetros, el compilador te advertirá de inmediato que no estás sobrescribiendo ningún método, evitando así bugs potenciales.
+Claridad y mantenimiento: Con @Override en Java, tu código será más legible y fácil de mantener, ya que los futuros desarrolladores (o tú mismo) podrán entender rápidamente qué métodos están sobrescritos.
+Facilita el refactoring: Si en algún momento decides cambiar la estructura de tus clases, la presencia de @Override te ayudará a identificar fácilmente qué métodos se ven afectados por esos cambios.
+        `,
+        videoUrl: "https://www.youtube.com/watch?v=14Bo_fNtLZY",
+    },
+    {
+        id: 8,
+        icon: "📘",
+        title: "Principios SOLID y buenas prácticas",
+        description: "SOLID",
+        content: `Los Principios SOLID tienen cinco principios de diseño de clases Orientado a Objetos. Son un conjunto de reglas y mejores prácticas a seguir al diseñar una estructura de clase.
+
+Estos cinco principios nos ayudan a comprender la necesidad de ciertos patrones de diseño y arquitectura de software en general. Así que creo que es un tema que todo desarrollador debería aprender.
+
+Siguiendo el acrónimo inglés SOLID, son:
+
+- El Principio de responsabilidad única (Single Responsibility Principle)
+- El Principio Abierto-Cerrado (Open-Closed Principle)
+- El Principio de sustitución de Liskov (Liskov Substitution Principle)
+- El Principio de segregación de interfaz (Interface Segregation Principle)
+- El Principio de inversión de dependencia (Dependency Inversion Principle)
+
+Principio de responsabilidad única
+
+El Principio de Responsabilidad Única dice que una clase debe hacer una cosa y, por lo tanto, debe tener una sola razón para cambiar.
+
+Para enunciar este principio más técnicamente: Solo un cambio potencial (lógica de base de datos, lógica de registro, etc.) en la especificación del software debería poder afectar la especificación de la clase.
+
+Esto significa que si una clase es un contenedor de datos, como una clase Libro o una clase Estudiante, y tiene algunos campos relacionados con esa entidad, debería cambiar solo cuando cambiamos el modelo de datos.
+
+Es importante seguir el principio de responsabilidad única. En primer lugar, debido a que muchos equipos diferentes pueden trabajar en el mismo proyecto y editar la misma clase por diferentes motivos, esto podría dar lugar a módulos incompatibles.
+
+En segundo lugar, facilita el control de versiones. Por ejemplo, digamos que tenemos una clase de persistencia que maneja las operaciones de la base de datos y vemos un cambio en ese archivo en las confirmaciones de GitHub. Al seguir el PRU, sabremos que está relacionado con el almacenamiento o con cosas relacionadas con la base de datos.
+
+Los conflictos de fusión son otro ejemplo. Aparecen cuando diferentes equipos modifican el mismo archivo. Pero si se sigue el PRU, aparecerán menos conflictos: los archivos tendrán una sola razón para cambiar y los conflictos que existen serán más fáciles de resolver.
+
+Trampas comunes y Anti-patrones
+En esta sección, veremos algunos errores comunes que violan el Principio de Responsabilidad Única. Luego hablaremos sobre algunas formas de solucionarlos.
+
+Veremos el código de un programa simple de facturación de librería como ejemplo. Comencemos definiendo una clase de libro para usar en nuestra factura.
+
+class Libro {
+	String nombre;
+	String nombreAutor;
+	int anyo;
+	int precio;
+	String isbn;
+
+	public Libro(String nombre, String nombreAutor, int anyo, int precio, String isbn) {
+		this.nombre = nombre;
+		this.nombreAutor = nombreAutor;
+		this.anyo = anyo;
+        this.precio = precio;
+		this.isbn = isbn;
+	}
+}
+Esta es una clase de libro simple con algunos campos. Nada sofisticado. No estoy haciendo que los campos sean privados para que no tengamos que lidiar con getters y setters y podamos centrarnos en la lógica.
+
+Ahora vamos a crear la clase de factura que contendrá la lógica para crear la factura y calcular el precio total. Por ahora, suponga que nuestra librería solo vende libros y nada más.
+
+public class Factura {
+
+	private Libro libro;
+	private int cantidad;
+	private double tasaDescuento;
+	private double tasaImpuesto;
+	private double total;
+
+	public Factura(Libro libro, int cantidad, double tasaDescuento, double tasaImpuesto) {
+		this.libro = libro;
+		this.cantidad = cantidad;
+		this.tasaDescuento = tasaDescuento;
+		this.tasaImpuesto = tasaImpuesto;
+		this.total = this.calculaTotal();
+	}
+
+	public double calculaTotal() {
+	        double precio = ((libro.precio - libro.precio * tasaDescuento) * this.cantidad);
+
+		double precioConImpuestos = precio * (1 + tasaImpuesto);
+
+		return precioConImpuestos;
+	}
+
+	public void imprimeFactura() {
+            System.out.println(cantidad + "x " + libro.nombre + " " +          libro.precio + "$");
+            System.out.println("Tasa de Descuento: " + tasaDescuento);
+            System.out.println("Tasa de Impuesto: " + tasaImpuesto);
+            System.out.println("Total: " + total);
+	}
+
+        public void guardarArchivo(String nombreArchivo) {
+	// Crea un archivo con el nombre dado y escribe la factura.
+	}
+
+}
+Aquí está nuestra clase de Factura. También contiene algunos campos sobre facturación y 3 métodos:
+
+calculaTotal método que calcula el precio total,
+imprimeFactura método que debería imprimir la factura por consola, y
+guardaArchivo método responsable de escribir la factura en un archivo.
+Debe darse un segundo para pensar en lo que está mal con este diseño de clase antes de leer el siguiente párrafo.
+
+Bien, entonces, ¿qué está pasando aquí? Nuestra clase viola el Principio de Responsabilidad Única de múltiples maneras.
+
+La primera violación es el método imprimeFactura, el cual contiene nuestra lógica de impressión. El PRU establece que nuestra clase solo debería tener una única razón para cambiar, y esa razón debería ser un cambio en el cálculo de la factura para nuestra clase.
+
+Pero en esta arquitectura, si queremos cambiar el formato de impresión, necesitaríamos cambiar la clase. Esta es la razón por la que no deberíamos tener lógica de impresión mezclada con lógica de negocios en la misma clase.
+
+Hay otro método que viola el PRU en nuestra clase: el método guardarArchivo. También es un error extremadamente común mezclar la lógica de persistencia con la lógica de negocios.
+
+No piense solo en términos de escribir en un archivo, podría ser guardarlo en una base de datos, hacer una llamada a la API u otras cosas relacionadas con la persistencia.
+
+Entonces, ¿cómo podemos arreglar esta función de impresión?, puede preguntar.
+
+Podemos crear nuevas clases para nuestra lógica de impresión y persistencia, por lo que ya no necesitaremos modificar la clase de factura para esos fines.
+
+Creamos 2 clases, FacturaImpresion y FacturaPersistencia, y movemos los métodos.
+
+public class FacturaImpresion {
+    private Factura factura;
+
+    public FacturaImpresion(Factura factura) {
+        this.factura = factura;
+    }
+
+    public void imprimir() {
+        System.out.println(factura.cantidad + "x " + factura.libro.nombre + " " + factura.libro.precio + " $");
+        System.out.println("Tasa de Descuento: " + factura.tasaDescuento);
+        System.out.println("Tasa de Impuesto: " + factura.tasaImpuesto);
+        System.out.println("Total: " + factura.total + " $");
+    }
+}
+public class FacturaPersistencia {
+    Factura factura;
+
+    public FacturaPersistencia(Factura factura) {
+        this.factura = factura;
+    }
+
+    public void guardarArchivo(String nombreArchivo) {
+        // Crea un archivo con el nombre dado y escribe la factura.
+    }
+}
+Ahora nuestra estructura de clases obedece al principio de responsabilidad única y cada clase es responsable de un aspecto de nuestra aplicación.
+
+`,
+        videoUrl: "https://www.youtube.com/watch?v=2X50sKeBAcQ",
+    },
+    {
+        id: 9,
+        icon: "📕",
+        title: "Polimorfismo",
+        description: "Interfaz única para diferentes tipos de datos.",
+        content: ``,
+        videoUrl: "",
+    },
+    {
+        id: 10,
+        icon: "📗",
+        title: "Encapsulamiento",
+        description: "Protege los datos dentro de una clase.",
+        content: ``,
         videoUrl: "",
     },
 ];
