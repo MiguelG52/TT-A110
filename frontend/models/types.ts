@@ -23,11 +23,12 @@ export type editor = {
 }
 
 export type Recommendation = {
-    id: string
-    title: string
-    description: string
-    code?: string
-    type: "improvement" | "optimization" | "security" | "style"
+    javaCode:string
+    changes:{
+      variables?:object,
+      metodos?:object,
+      clases?:object,
+    }
   }
   
 export type RecommendationsPanelProps = {
@@ -116,4 +117,8 @@ export interface IProject{
     "description":string,
   }
   members:ITeamMember[]
+}
+
+export interface ICode{
+  javaCode:string
 }

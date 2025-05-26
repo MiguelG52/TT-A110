@@ -13,7 +13,7 @@ function getAuthHeaders() {
 
 export async function postAsync(endpoint: string | undefined, values: any) {
   if (!endpoint) throw new Error("La dirección del endpoint no está definida")
-
+  console.log(values)
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -22,11 +22,10 @@ export async function postAsync(endpoint: string | undefined, values: any) {
     })
     const json = await response.json()
     if (!response.ok) return { success: false, message: json.error }
-
     return {
       success: true,
-      message: json.message,
-      data: json.data,
+      message: json.javaCode ? null : json.message,
+      data: json.javaCode ? json : json.data,
       token: json.token
     }
   } catch (error) {

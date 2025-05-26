@@ -2,12 +2,15 @@ import { RecommendationsPanelProps, Recommendation } from '@/models/types'
 import { useState } from 'react'
 import React from 'react'
 
-const RecommendationsPanel = ({ code, isVisible, onClose, isConnected }: RecommendationsPanelProps) => {
-    const [recommendations, setRecommendations] = useState<Recommendation[]>([])
-    const [loading, setLoading] = useState(false)
+type RecomendationProps = {
+  recomendations:Recommendation
+}
 
+const RecommendationsPanel = ({recomendations}:RecomendationProps) => {
     return (
-    <div>RecommendationsPanel</div>
+    <div>
+      RecommendationsPanel
+    </div>
   )
 }
 

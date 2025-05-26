@@ -14,7 +14,7 @@ export const useCodeEditorSocket = (projectId: string) => {
   useEffect(() => {
     if (!projectId) return;
 
-    const newSocket = io(`http://localhost:4000/project-${projectId}`, {
+    const newSocket = io(`${process.env.NEXT_PUBLIC_WEB_SOCKET}-${projectId}`, {
       path: "/socket.io",
       transports: ["websocket"],
       reconnectionAttempts: 5,

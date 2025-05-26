@@ -1,5 +1,5 @@
 "use client"
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import type { OnChange } from "@monaco-editor/react"
 
@@ -9,9 +9,16 @@ interface EditorProps {
   theme?: string
   language?: string
 }
+interface AISuggestion {
+  line: number;
+  suggestion: string;
+  improvedCode?: string;
+  principle: string;
+}
 
 const Editor = ({ code, onChange, theme = "light", language = "java" }: EditorProps)=>{
     const editorRef = useRef<any>(null);
+    const [suggestions, setSuggestions] = useState<AISuggestion[]>([]);
     
     function handleEditorDidMount(editor:any) {
         editorRef.current = editor;

@@ -30,5 +30,9 @@ export const methods = {
         create:baseUrl+projectRoute+"/create",
         getById:baseUrl+projectRoute+"/getProjectById",
         getMembers:baseUrl+projectRoute+"/getMembers",
+        getRecomendations:process.env.NEXT_PUBLIC_API_RECOMENDACIONES
+    },
+    recomendations: {
+        generate: baseUrl + "recomendations/generate",
     }
 }

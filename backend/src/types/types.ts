@@ -20,3 +20,21 @@ export type email = {
     token:string
 }
 
+export interface RecommendationRequest {
+  javaCode: string;  
+  focusAreas?: string[]; 
+  strictness?: 'low' | 'medium' | 'high';
+}
+export interface RecommendationResponse {
+  recommendations: Recommendation[];
+  analysisSummary: string;
+  overallScore?: number;
+}
+export interface Recommendation {
+  type: 'improvement' | 'bestPractice' | 'optimization' | 'error' | 'security';
+  title: string;
+  description: string;
+  code?: string; 
+  line: number; 
+  severity?: 'low' | 'medium' | 'high'; 
+}
