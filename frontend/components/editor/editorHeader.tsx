@@ -38,8 +38,6 @@ const EditorHeader = ({
 }: EditorHeaderProps) => {
   const {id} = useParams();
   const {user} = useUser();
-  const userId = user?.userId;
-  const projectId = Array.isArray(id) ? id[0] : id;
 
   return (
     <header className="flex items-center justify-between my-4">
@@ -80,6 +78,7 @@ const EditorHeader = ({
           onClick={handleRecommendations}
           isLoading={isLoading}
           hasRecommendations={recommendations.length > 0}
+          recommendationsCount={recommendations.length}
         />
       </div>
     </header>

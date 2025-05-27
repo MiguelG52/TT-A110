@@ -27,7 +27,7 @@ export const RecommendationsButton = ({
             <Button 
               onClick={onClick} 
               className={cn(
-                "gap-2 relative",
+                "gap-2 relative flex w-full",
                 showRecommendationsPanel && "bg-accent/50",
                 hasRecommendations && "pr-8"
               )} 
@@ -38,7 +38,7 @@ export const RecommendationsButton = ({
               {isLoading ? "Generando..." : "Recomendaciones"}
               
               {hasRecommendations && (
-                <span className="absolute right-2 top-1/2 -translate-y-1/2">
+                <span className="">
                   <Badge 
                     variant="outline" 
                     className={cn(
