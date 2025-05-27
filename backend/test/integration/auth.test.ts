@@ -1,7 +1,7 @@
 import app from "./../../src/servers/http.server";
 import sequelize from '../../src/config/db';
 import request from 'supertest';
-import User from '../../src/models/user.model.ts';
+import User from '../../src/models/user.model';
 import Role from '../../src/models/roles.model'; // Necesario por la relación
 
 
