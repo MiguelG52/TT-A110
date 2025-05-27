@@ -71,14 +71,6 @@ const RecommendationsPanel = ({ recommendations }: RecommendationsPanelProps) =>
                 <pre className="bg-gray-50 p-3 rounded-md text-sm overflow-x-auto">
                   {recommendation.code}
                 </pre>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="mt-2 w-full"
-                  onClick={() => console.log("Aplicar recomendación", recommendation)}
-                >
-                  Aplicar recomendación
-                </Button>
               </CardContent>
             )}
           </Card>
