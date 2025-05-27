@@ -17,12 +17,15 @@
     "dev": "nodemon src/index.ts",
     "dev:api": "nodemon src/api/index.ts --api",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/nodemailer": "^6.4.17",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.3",
+    "supertest": "^...",
+    "ts-jest": "^...",
+    "typescript": "^..."
   },
   "dependencies": {
     "@types/express": "^5.0.0",
