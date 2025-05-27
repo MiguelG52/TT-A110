@@ -6,7 +6,7 @@ const httpServer = createServer(app);
 
 initSocketServer(httpServer);
 
-const PORT = 4000;
+const PORT = 4001;
 httpServer.listen(PORT, () => {
   console.log(`Servidor corriendo en pueto: ${PORT}`);
 });

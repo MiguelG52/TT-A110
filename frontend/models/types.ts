@@ -22,13 +22,6 @@ export type editor = {
     theme?:string
 }
 
-export type Recommendation = {
-    id: string
-    title: string
-    description: string
-    code?: string
-    type: "improvement" | "optimization" | "security" | "style"
-  }
   
 export type RecommendationsPanelProps = {
     code: string
@@ -116,4 +109,28 @@ export interface IProject{
     "description":string,
   }
   members:ITeamMember[]
+}
+
+export interface ICode{
+  javaCode:string
+}
+export interface Recommendation {
+  type: 'improvement' | 'bestPractice' | 'optimization' | 'error' | 'security';
+  title: string;
+  description: string;
+  code?: string;
+  line: number;
+  severity?: 'low' | 'medium' | 'high';
+  confidence?: number;
+}
+
+export interface RecommendationsResponse {
+  recommendations: Recommendation[];
+  analysisSummary: string;
+  overallScore?: number;
+}
+
+export interface saveChanges {
+  improvedCode: string,
+  userId:number
 }

@@ -190,6 +190,73 @@ export class ProjectController {
     }
   }
 
+  static async updateImprovedCode(req: Request, res: Response) {
+    const transaction = await sequelize.transaction()
+    try {
+      const { projectId } = req.params
+      const { improveCode, userId } = req.body
+      const decodedCode = JSON.parse(improveCode);
+
+      // Validaciones básicas
+      if (!decodedCode) {
+        await transaction.rollback()
+        sendErrorResponse(res, 400, "El código mejorado es requerido y debe ser un string")
+        return 
+      }
+
+      if (decodedCode.length > 100000) { // ~100KB como límite
+        await transaction.rollback()
+        sendErrorResponse(res, 400, "El código es demasiado grande (límite 100KB)")
+        return 
+      }
+
+      const project = await Project.findByPk(projectId, { transaction })
+      if (!project) {
+        await transaction.rollback()
+        sendErrorResponse(res, 404, "Proyecto no encontrado")
+        return 
+      }
+
+      // Verificación de permisos (propietario o miembro del equipo)
+      if (project.userId !== userId) {
+        const teamProject = await TeamProject.findOne({
+          where: { projectId },
+          include: [{
+            model: Team,
+            include: [{
+              model: UserTeam,
+              where: { userId }
+            }]
+          }],
+          transaction
+        });
+
+        if (!teamProject) {
+          await transaction.rollback();
+          sendErrorResponse(res, 403, "No tienes permiso para editar este proyecto");
+          return 
+        }
+      }
+
+
+      // Actualizar solo el campo decodedCode
+      await project.update({improveCode:decodedCode }, { transaction })
+      await transaction.commit()
+
+      sendSuccessResponse(res, 200, "Código mejorado actualizado exitosamente", {
+        projectId: project.id,
+        updatedAt: project.updatedAt
+      })
+      return 
+
+    } catch (error) {
+      await transaction.rollback()
+      console.error("Error en updateImprovedCode:", error)
+      sendErrorResponse(res, 500, "Error al actualizar el código mejorado")
+      return 
+    }
+  }
+
   // Eliminar un proyecto con todas sus relaciones
   static async deleteProject(req: Request, res: Response) {
     const transaction = await sequelize.transaction();

@@ -13,7 +13,7 @@ function getAuthHeaders() {
 
 export async function postAsync(endpoint: string | undefined, values: any) {
   if (!endpoint) throw new Error("La dirección del endpoint no está definida")
-
+  console.log(values)
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -22,11 +22,10 @@ export async function postAsync(endpoint: string | undefined, values: any) {
     })
     const json = await response.json()
     if (!response.ok) return { success: false, message: json.error }
-
     return {
       success: true,
-      message: json.message,
-      data: json.data,
+      message: json.javaCode ? null : json.message,
+      data: json.javaCode ? json : json.data,
       token: json.token
     }
   } catch (error) {
@@ -47,8 +46,9 @@ export async function postAsyncAuth(endpoint: string | undefined, values: any) {
       headers: getAuthHeaders(),
       body: JSON.stringify(values)
     })
-
     const json = await response.json()
+    console.log("Response JSON:", json)
+
     if (!response.ok) return { success: false, message: json.error }
 
     return {
@@ -116,7 +116,10 @@ export async function putAsync(endpoint: string, values: any, successMessage?: s
   }
 }
 
-export async function putAsyncAuth(endpoint: string, values: any, successMessage?: string) {
+export async function putAsyncAuth(endpoint: string, values: any) {
+  
+
+  
   try {
     const response = await fetch(endpoint, {
       method: "PUT",
@@ -128,8 +131,8 @@ export async function putAsyncAuth(endpoint: string, values: any, successMessage
     if (!response.ok) return { success: false, message: json.error }
     return {
       success: true,
-      message: successMessage || json.message,
-      data: json
+      message: json.message,
+      data: json.data
     }
   } catch (error) {
     return { success: false, message: (error as Error).message || "Error inesperado" }

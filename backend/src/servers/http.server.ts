@@ -8,6 +8,7 @@ import { limiter } from '../config/limiter';
 import teamRouter from '../routes/team.route';
 import projectRouter from '../routes/projects.route';
 import multimediaRouter from '../routes/multimedia.route';
+import recomendationsRouter from '../routes/recomendations.route';
 
 async function connectDB(){
     try{
@@ -33,6 +34,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/team', teamRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/multimedia', multimediaRouter)
+app.use('/api/recomendations', recomendationsRouter)
 
 
 
