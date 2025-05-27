@@ -18,7 +18,7 @@ const ClientLayout = ({user,children}: {user: IUser;children: React.ReactNode;})
         }
     }, [user, updateUser]);
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex max-h-svh w-full">
                 {/* Sidebar a la izquierda */}
                 <AppSidebar />
 
@@ -40,7 +40,7 @@ const ClientLayout = ({user,children}: {user: IUser;children: React.ReactNode;})
                     </header>
 
                     {/* Contenido principal con ancho completo */}
-                    <main className="h-full bg-gray-100 p-6 w-full">
+                    <main className="h-full overflow-y-scroll bg-gray-100 p-6 w-full">
                         <section className='w-full h-full flex flex-col items-left  bg-white p-6'>
                             <BackButton/>
                             {children}

@@ -1,39 +1,56 @@
-import React from 'react'
-import { IUser } from '@/models/models'
-import { Recommendation } from '@/models/types'
-import { SaveButton } from './buttons/saveButton'
-import { GenerateExampleButton } from './buttons/generateExampleButton'
-import { ConnectionStatusBadge } from './buttons/connectionStatusBadge'
-import { ConnectedUsers } from './buttons/ConnectedUsers'
-import { RecommendationsButton } from './buttons/RecomendationButton'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
-import { Avatar, AvatarFallback } from '../ui/avatar'
-import { Badge } from '../ui/badge'
+import { IUser } from '@/models/models';
+import { Recommendation } from '@/models/types';
+import { SaveButton } from './buttons/saveButton';
+import { GenerateExampleButton } from './buttons/generateExampleButton';
+import { ConnectionStatusBadge } from './buttons/connectionStatusBadge';
+import { ConnectedUsers } from './buttons/ConnectedUsers';
+import { RecommendationsButton } from './buttons/RecomendationButton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import { Badge } from '../ui/badge';
+import { putAsyncAuth } from '@/lib/generalWebService';
+import { methods } from '@/lib/endpoints';
+import { useParams } from 'next/navigation';
+import { useUser } from '@/context/authContext';
 
 type EditorHeaderProps = {
-  isConnected:boolean
-  isTemporary?:boolean
-  connectedUsers:IUser[]
-  isLoading: boolean,
-  handleRecommmentations: () => void
-  recomendations: Recommendation
-  showRecomendationsPanel?: boolean
-}
-const EditorHeader = ({showRecomendationsPanel,isConnected, handleRecommmentations, isLoading, recomendations,  isTemporary,connectedUsers}:EditorHeaderProps) => {
+  isConnected: boolean;
+  isTemporary?: boolean;
+  connectedUsers: IUser[];
+  isLoading: boolean;
+  handleRecommendations: () => void;
+  handleSaveChanges: () => void;
+  recommendations: Recommendation[];
+  showRecommendationsPanel?: boolean;
+  code?: string;
+};
 
 
+const EditorHeader = ({
+  showRecommendationsPanel,
+  isConnected, 
+  handleRecommendations, 
+  isLoading, 
+  recommendations,  
+  isTemporary,
+  connectedUsers,
+  handleSaveChanges,
+}: EditorHeaderProps) => {
+  const {id} = useParams();
+  const {user} = useUser();
+  const userId = user?.userId;
+  const projectId = Array.isArray(id) ? id[0] : id;
 
   return (
     <header className="flex items-center justify-between my-4">
       <div className='flex items-center gap-2'>
-        <SaveButton onSave={()=>console.log("save")} />
-        <GenerateExampleButton onGenerate={()=>console.log("generate example")} />
+        <SaveButton onSave={handleSaveChanges} />
       </div>
       
       <div className="flex items-center justify-between gap-4">
         <ConnectionStatusBadge isConnected={isConnected} />
         
-        {!isTemporary && isConnected && (
+         {!isTemporary && isConnected && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -60,13 +77,13 @@ const EditorHeader = ({showRecomendationsPanel,isConnected, handleRecommmentatio
         )}
         
         <RecommendationsButton 
-          onClick={handleRecommmentations}
+          onClick={handleRecommendations}
           isLoading={isLoading}
-
+          hasRecommendations={recommendations.length > 0}
         />
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default EditorHeader
+export default EditorHeader;

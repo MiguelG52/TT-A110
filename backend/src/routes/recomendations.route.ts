@@ -9,7 +9,7 @@ const recomendationsRouter = Router();
  recomendationsRouter.use(authenticateContent) 
  recomendationsRouter.use(limiter);
  recomendationsRouter.post('/generate',
-    body('code')
+    body('javaCode')
         .notEmpty().withMessage("El campo del codigo no puede ir vacio."),
     handleInputErrors,
     RecommendationsController.getRecommendations

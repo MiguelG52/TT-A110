@@ -36,5 +36,10 @@ projectRouter.get("/getProjectById/:projectId",
     ProjectController.getProjectMembers
   );
 
+   projectRouter.put("/save-changes/:projectId",
+    projectExists,
+    ProjectController.updateImprovedCode
+  );
+
 
 export default projectRouter

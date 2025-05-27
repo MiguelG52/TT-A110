@@ -46,8 +46,9 @@ export async function postAsyncAuth(endpoint: string | undefined, values: any) {
       headers: getAuthHeaders(),
       body: JSON.stringify(values)
     })
-
     const json = await response.json()
+    console.log("Response JSON:", json)
+
     if (!response.ok) return { success: false, message: json.error }
 
     return {
@@ -115,7 +116,10 @@ export async function putAsync(endpoint: string, values: any, successMessage?: s
   }
 }
 
-export async function putAsyncAuth(endpoint: string, values: any, successMessage?: string) {
+export async function putAsyncAuth(endpoint: string, values: any) {
+  
+
+  
   try {
     const response = await fetch(endpoint, {
       method: "PUT",
@@ -127,8 +131,8 @@ export async function putAsyncAuth(endpoint: string, values: any, successMessage
     if (!response.ok) return { success: false, message: json.error }
     return {
       success: true,
-      message: successMessage || json.message,
-      data: json
+      message: json.message,
+      data: json.data
     }
   } catch (error) {
     return { success: false, message: (error as Error).message || "Error inesperado" }
