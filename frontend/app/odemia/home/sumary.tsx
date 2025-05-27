@@ -1,5 +1,5 @@
 import StadisticSkeleton from '@/components/skeleton/StadisticSkeleton'
-import SummaryCard from '@/components/summary-card'
+import SummaryCard from '@/components/cards/summary-card'
 import { useUser } from '@/context/authContext'
 import { getUserStadictics } from '@/lib/actions/user-actions'
 import { ISummaryCard } from '@/models/types'

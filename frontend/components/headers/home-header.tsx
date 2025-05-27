@@ -1,6 +1,6 @@
 'use client';
 import React from 'react'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import { FileCode, UserPlus2, Users } from 'lucide-react'
 
 interface IHomeHeader {

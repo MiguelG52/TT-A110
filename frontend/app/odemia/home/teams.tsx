@@ -1,7 +1,7 @@
 'use client'
 import PaginationControls from '@/components/pagination-controller'
 import { TeamSkeleton } from '@/components/skeleton/TeamSkeleton'
-import TeamCard from '@/components/team-card'
+import TeamCard from '@/components/cards/team-card'
 import { Button } from '@/components/ui/button'
 import { useUser } from '@/context/authContext'
 import { getTeamsByUserId } from '@/lib/actions/team-actions'
@@ -71,7 +71,7 @@ const TeamsTab = () => {
       }
   
       return (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
           {teams.map((team) => (
             <TeamCard 
               key={team.teamId} 

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Card, CardContent, CardFooter } from './ui/card'
+import { Card, CardContent, CardFooter } from '../ui/card'
 import { IProjectCard } from '@/models/types'
 import { Users } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 
 const ProjectCard = ({name, description, teams, projectId}:IProjectCard) => {
   return (
