@@ -1,5 +1,5 @@
 import PaginationControls from '@/components/pagination-controller'
-import ProjectCard from '@/components/project-card'
+import ProjectCard from '@/components/cards/project-card'
 import { ProjectSkeleton } from '@/components/skeleton/ProjectsSkeleton'
 import { useUser } from '@/context/authContext'
 import { getProjectsByUserId } from '@/lib/actions/projects-actions'

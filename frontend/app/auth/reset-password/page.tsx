@@ -1,6 +1,6 @@
 'use client'
 import CustomInput from '@/components/customInput';
-import Header from '@/components/header';
+import Header from '@/components/headers/header';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useAlert } from '@/hooks/useAlert';
