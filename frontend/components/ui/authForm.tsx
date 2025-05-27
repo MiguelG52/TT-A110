@@ -11,9 +11,9 @@ import { Form } from "@/components/ui/form"
 import CustomInput from '../customInput'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { AlertDialogService } from '@/lib/alert/alert.service'
 import { onSignIn } from '@/lib/auth/signIn.service'
 import { onSignUp } from '@/lib/auth/signUp.service'
+import { toast } from '@/hooks/use-toast';
 
 const AuthForm = ({ type }: authForm) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,14 @@ const AuthForm = ({ type }: authForm) => {
       }
 
       if (result.success) {
-        if (type != 'sign-in') setDialogpropierties({show:true,text:result.message,type:"success"})
+        if (type != 'sign-in'){
+          toast({
+            title: "Exito",
+            description: `${result.message}`,
+            variant: "default"
+          });
+          router.push('/auth/sign-in');
+        }
         else{
           const token:string = result.token
           if (token) {
@@ -61,7 +68,11 @@ const AuthForm = ({ type }: authForm) => {
           }
         }
       } else {
-        setDialogpropierties({show:true,text:result.message,type:"error"})
+        toast({
+          title: "Error",
+          description: `${result.message}`,
+          variant: "destructive"
+        });
       }
     } catch (error) {
       console.log(error)
@@ -106,9 +117,6 @@ const AuthForm = ({ type }: authForm) => {
           )}
 
           <div className='flex flex-col gap-2`'>
-            <AlertDialogService show={dialogPropierties.show} 
-              text={dialogPropierties.text} type={dialogPropierties.type}
-            />
             <Button disabled={isLoading} className='bg-blue-500 hover:bg-blue-400 w-full text-white mt-2' type="submit">
               {isLoading ? <Loader2 size={20} className='animate-spin' /> : (type === 'sign-in' ? "Iniciar Sesión" : "Crear Cuenta")}
             </Button>
