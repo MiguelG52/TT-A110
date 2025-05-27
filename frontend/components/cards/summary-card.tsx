@@ -1,6 +1,6 @@
 import { IStat } from '@/models/types'
 import React from 'react'
-import { Card, CardContent } from './ui/card'
+import { Card, CardContent } from '../ui/card'
 
 const SummaryCard = ({title, total,diff, diffText}:IStat) => {
   return (

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Card, CardContent, CardFooter } from './ui/card'
-import { Avatar, AvatarFallback } from './ui/avatar'
-import { Button } from './ui/button'
+import { Card, CardContent, CardFooter } from '../ui/card'
+import { Avatar, AvatarFallback } from '../ui/avatar'
+import { Button } from '../ui/button'
 import { ITeam } from '@/models/types'
 import { getInitials } from '@/lib/utils'
+import { Delete, Edit2Icon, Trash } from 'lucide-react'
 
 const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
   
@@ -12,8 +13,8 @@ const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
     
     <Card key={teamId} className="p-6">
       <CardContent className="p-0 mb-4">
-        <div className='flex justify-between items-center'>
-          <h3 className="text-2xl font-bold mb-1">{name}</h3>
+        <div className='flex justify-between gap-2 items-center'>
+          <h3 className="text-base xl:text-xl font-bold mb-1">{name}</h3>
           
           <div className='cursos'>
             <p className="text-blue-400 rounded-full text-sm p-1 px-3 bg-gray-200/90">{teamCodeId}</p>
@@ -40,10 +41,18 @@ const TeamCard = ({teamId, name, description, teamCodeId, members}:ITeam) => {
         </div>
 
       </CardContent>
-      <CardFooter className="p-0 flex flex-col md:flex-row justify-between gap-2">
-            <Button variant="secondary" className="p-0 m-0 w-full">
-              Ver detalles
+      <CardFooter className="p-0 flex flex-row justify-end gap-2">
+            <Button variant="default" className="p-0 m-0 h-10 w-10 rounded-full shadow-lg hover:bg-blue-400 bg-blue-400/70">
+              <span className="">
+                <Edit2Icon className="h-10 w-10 rounded-full" />
+              </span>
             </Button>
+          <Button className="p-0 m-0 h-10 w-10 rounded-full shadow-lg border-red-500  bg-red-500/70 text-white hover:bg-red-500">
+              <span className="">
+                <Trash className=" h-10 w-10 rounded-full" />
+              </span>
+            </Button>
+            
       </CardFooter>
     </Card>
   )

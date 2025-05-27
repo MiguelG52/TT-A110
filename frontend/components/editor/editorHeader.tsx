@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Badge } from '../ui/badge';
 import { putAsyncAuth } from '@/lib/generalWebService';
 import { methods } from '@/lib/endpoints';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useUser } from '@/context/authContext';
 
 type EditorHeaderProps = {
@@ -39,10 +39,13 @@ const EditorHeader = ({
   const {id} = useParams();
   const {user} = useUser();
 
+
   return (
     <header className="flex items-center justify-between my-4">
       <div className='flex items-center gap-2'>
-        <SaveButton onSave={handleSaveChanges} />
+        {
+          isTemporary ? <></>:<SaveButton onSave={handleSaveChanges} />
+        }
       </div>
       
       <div className="flex items-center justify-between gap-4">
