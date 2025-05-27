@@ -1,5 +1,5 @@
 'use client';
-import HomeHeader from "@/components/home-header";
+import HomeHeader from "@/components/headers/home-header";
 import { CreateProjectModal } from "@/components/modals/create-project-modal";
 import { CreateTeamModal } from "@/components/modals/create-team-modal";
 import { JoinTeamModal } from "@/components/modals/join-team-modal";

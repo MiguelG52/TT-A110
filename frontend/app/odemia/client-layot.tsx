@@ -40,8 +40,8 @@ const ClientLayout = ({user,children}: {user: IUser;children: React.ReactNode;})
                     </header>
 
                     {/* Contenido principal con ancho completo */}
-                    <main className="h-full overflow-y-scroll bg-gray-100 p-6 w-full">
-                        <section className='w-full h-full flex flex-col items-left  bg-white p-6'>
+                    <main className="h-full bg-gray-100 p-6 w-full">
+                        <section className='w-full h-full overflow-y-auto flex flex-col items-left  bg-white p-6'>
                             <BackButton/>
                             {children}
                         </section>           
