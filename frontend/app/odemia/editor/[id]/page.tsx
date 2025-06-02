@@ -3,7 +3,7 @@ import EditorHeader from '@/components/editor/editorHeader';
 import MonacoEditor from '@/components/editor/editor';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useCodeEditorSocket } from '@/hooks/useWebSockt';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Recommendation} from '@/models/types';
 import { postAsync, postAsyncAuth, putAsyncAuth } from '@/lib/generalWebService';
 import { methods } from '@/lib/endpoints';
@@ -23,7 +23,8 @@ const EditorPage = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChanges, setLoadingChanges] = useState(false);
   const {user} = useUser();
-
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
   const onHandleRecommendations = async () => {
     try {
       setLoading(true);
@@ -89,6 +90,42 @@ const EditorPage = () => {
       setLoadingChanges(false);
     }
   }
+
+  const handleClearEditor = () => {
+    handleCodeChange('');
+  };
+
+  const handleImportFile = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        handleCodeChange(content);
+      };
+      reader.readAsText(file);
+    }
+    if (event.target) {
+      event.target.value = '';
+    }
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `code.java`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <> 
       <EditorHeader 
@@ -100,6 +137,16 @@ const EditorPage = () => {
         showRecommendationsPanel={showRecommendationsPanel}
         recommendations={recommendations}
         handleSaveChanges={onSaveChanges}
+        handleClearEditor={handleClearEditor}
+        handleImportFile={handleImportFile}
+        handleDownload={handleDownload}
+      />
+      <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+              accept=".java,.txt"
       />
       
       <div className="flex flex-1 overflow-hidden">
