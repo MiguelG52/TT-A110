@@ -14,7 +14,8 @@ interface EditorProps {
 
 const Editor = ({ code, onChange, theme = "light", language = "java", recommendations = [] }: EditorProps) => {
   const editorRef = useRef<any>(null);
-  
+  const fileInputRef = useRef<HTMLInputElement>(null) 
+
   useEffect(() => {
     if (editorRef.current && recommendations.length > 0) {
       const monaco = (window as any).monaco;
@@ -49,6 +50,45 @@ const Editor = ({ code, onChange, theme = "light", language = "java", recommenda
     if (value !== undefined) {
       onChange(value);
     }
+  };
+
+  const handleClearEditor = () => {
+    onChange('');
+    if (editorRef.current) {
+      editorRef.current.focus();
+    }
+  };
+
+  const handleImportFile = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        onChange(content);
+      };
+      reader.readAsText(file);
+    }
+    // Reset input para permitir seleccionar el mismo archivo otra vez
+    if (event.target) {
+      event.target.value = '';
+    }
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `code.${language}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (

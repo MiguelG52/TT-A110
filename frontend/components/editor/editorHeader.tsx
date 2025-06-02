@@ -1,17 +1,14 @@
 import { IUser } from '@/models/models';
 import { Recommendation } from '@/models/types';
-import { SaveButton } from './buttons/saveButton';
-import { GenerateExampleButton } from './buttons/generateExampleButton';
 import { ConnectionStatusBadge } from './buttons/connectionStatusBadge';
-import { ConnectedUsers } from './buttons/ConnectedUsers';
 import { RecommendationsButton } from './buttons/RecomendationButton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Badge } from '../ui/badge';
-import { putAsyncAuth } from '@/lib/generalWebService';
-import { methods } from '@/lib/endpoints';
 import { useParams, usePathname } from 'next/navigation';
 import { useUser } from '@/context/authContext';
+import { BrushIcon, DownloadCloudIcon, Eraser, Import, Save } from 'lucide-react';
+import ActionBarButton from './buttons/ActionBarButton';
 
 type EditorHeaderProps = {
   isConnected: boolean;
@@ -23,6 +20,9 @@ type EditorHeaderProps = {
   recommendations: Recommendation[];
   showRecommendationsPanel?: boolean;
   code?: string;
+  handleClearEditor:() => void;
+  handleImportFile:() => void;
+  handleDownload:() => void;
 };
 
 
@@ -35,17 +35,21 @@ const EditorHeader = ({
   isTemporary,
   connectedUsers,
   handleSaveChanges,
-}: EditorHeaderProps) => {
-  const {id} = useParams();
-  const {user} = useUser();
+  handleClearEditor,
+  handleImportFile,
+  handleDownload,
 
+}: EditorHeaderProps) => {
 
   return (
     <header className="flex items-center justify-between my-4">
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center justify-around gap-2'>
         {
-          isTemporary ? <></>:<SaveButton onSave={handleSaveChanges} />
+          isTemporary ? <></>:(<ActionBarButton icon={<Save className="h-4 w-4" />} text='/Guardar Cambios' onHandleButton={handleSaveChanges}/>)
         }
+        <ActionBarButton icon={<Import className="h-4 w-4" />} text='Importar Archivo' onHandleButton={handleImportFile}/>
+        <ActionBarButton icon={<DownloadCloudIcon className="h-4 w-4" />} text='Descargar' onHandleButton={handleDownload}/>
+        <ActionBarButton icon={<Eraser className="h-4 w-4" />} text='Limpiar' onHandleButton={handleClearEditor}/>
       </div>
       
       <div className="flex items-center justify-between gap-4">
@@ -76,7 +80,7 @@ const EditorHeader = ({
             </Tooltip>
           </TooltipProvider>
         )}
-        
+          
         <RecommendationsButton 
           onClick={handleRecommendations}
           isLoading={isLoading}
