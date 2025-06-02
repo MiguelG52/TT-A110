@@ -4,7 +4,7 @@ import User from "./user.model";
 
 
 @Table
-class Role extends Model{
+class Role extends Model {
     @AutoIncrement
     @PrimaryKey
     @Column({
@@ -12,12 +12,12 @@ class Role extends Model{
     })
     roleId!: number;
 
-    @Column({type: DataType.STRING})
+    @Column({ type: DataType.STRING })
     name!: string;
 
     @HasMany(() => User)
     users!: User[];
 
-    }
+}
 
 export default Role;
