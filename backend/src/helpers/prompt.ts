@@ -1,5 +1,5 @@
-export const createPrompt = (code:string): string => {
-    const prompt:string = `
+export const createPrompt = (code: string): string => {
+    const prompt: string = `
     Eres un experto en Java y Clean Code. Analiza el siguiente código Java y genera recomendaciones específicas para mejorarlo según los principios de Clean Code de Robert C. Martin y las mejores prácticas de Java.
     Instrucciones:
     1. Analiza el código línea por línea
@@ -16,6 +16,14 @@ export const createPrompt = (code:string): string => {
     - Incluye código de ejemplo cuando sea relevante
     - Especifica la línea afectada
     4. Clasifica cada recomendación por tipo y severidad
+
+    Restricciones:
+    1. Si las variables a renombrar ya tienen un nombre descriptivo dejalo tal cual esta
+    2. Analiza la complejidad del código y ve si aplica las oportunidades de mejora como:
+    - Estructura de funciones/métodos
+    - Principios SOLID
+    - Manejo de errores
+    - Eficiencia
 
     Formato de respuesta requerido (JSON):
     {
