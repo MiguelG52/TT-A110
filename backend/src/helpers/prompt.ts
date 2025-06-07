@@ -18,11 +18,11 @@ export const createPrompt = (code: string): string => {
     4. Clasifica cada recomendación por tipo y severidad
 
     Restricciones:
-    1. Si las variables a renombrar ya tienen un nombre descriptivo dejalo tal cual esta
+    1. Si las variables a renombrar ya tienen un nombre descriptivo dejalo tal cual esta, simplemente considera que las variables no contengan numeros
     2. Analiza la complejidad del código y ve si aplica las oportunidades de mejora como:
     - Estructura de funciones/métodos
     - Principios SOLID
-    - Manejo de errores
+    - Manejo de errores, en especial ve que tan complejo es el código, es decir si la tarea es algo básico o nivel principante omite el manejo de erroesss
     - Eficiencia
 
     Formato de respuesta requerido (JSON):
