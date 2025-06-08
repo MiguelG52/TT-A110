@@ -11,7 +11,7 @@ import { ContenidoTema } from '@/lib/temario';
 
 interface ContenidoTabProps {
   contenido: ContenidoTema;
-  duracion: string;
+  duracion?: string;
 }
 
 export function ContenidoTab({ contenido, duracion }: ContenidoTabProps) {

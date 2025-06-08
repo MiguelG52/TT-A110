@@ -39,10 +39,6 @@ export function TemaHeader({ tema, onComplete }: TemaHeaderProps) {
           <p className="text-gray-600 mb-4">{tema.description}</p>
           <div className="flex items-center gap-4 text-sm text-gray-500">
             <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-1" />
-              {tema.duration}
-            </div>
-            <div className="flex items-center">
               <Code className="h-4 w-4 mr-1" />
               {tema.content.exercises} ejercicios
             </div>
