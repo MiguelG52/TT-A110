@@ -6,7 +6,6 @@ export const createPrompt = (code:string): string => {
     2. Identifica oportunidades de mejora en:
     - Nombres significativos
     - Estructura de funciones/métodos
-    - Principios SOLID
     - Manejo de errores
     - Eficiencia
     - Convenciones Java
@@ -16,9 +15,15 @@ export const createPrompt = (code:string): string => {
     - Incluye código de ejemplo cuando sea relevante
     - Especifica la línea afectada
     4. Clasifica cada recomendación por tipo y severidad
+    5. Analiza la complegidad del código para generar recomendaciones acorde a esta. 
+    Ejemplo: si el código ingresado es de nivel basico es una operación aritmetica no es neceario mostrar recomendaciones sobre manejo de errores excepciones usando try-catch.
+    6. Cuando detectes que una recomendación ya se implemento ya no es necesario mostrar el mismo tema. 
+    Ejemplo: si mostraste una card sobre el tema de nombres sifnificativos para las variables y el usuario ya las agrego, elimina esa recomendación.
+    7. Valida si un código ya se encientra lo suficientemente bien estructurado y siguiendo las buenas practicas de programación,ya no muestres.
+    
 
     Formato de respuesta requerido (JSON):
-    {
+    
     "recommendations": [
         {
         "id": "hash-unico",
@@ -37,5 +42,5 @@ export const createPrompt = (code:string): string => {
     Código Java a analizar:
     ${code}
     `
-    return prompt
+    return prompt
 }
