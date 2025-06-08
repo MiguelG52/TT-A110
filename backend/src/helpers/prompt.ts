@@ -19,16 +19,16 @@ export const createPrompt = (code: string): string => {
     Ejemplo: si el código ingresado es de nivel basico es una operación aritmetica no es neceario mostrar recomendaciones sobre manejo de errores excepciones usando try-catch.
     6. Cuando detectes que una recomendación ya se implemento ya no es necesario mostrar el mismo tema. 
     Ejemplo: si mostraste una card sobre el tema de nombres sifnificativos para las variables y el usuario ya las agrego, elimina esa recomendación.
-    7. Valida si un código ya se encientra lo suficientemente bien estructurado y siguiendo las buenas practicas de programación,ya no muestres.
+    7. Valida si un código ya se encuentra lo suficientemente bien estructurado y siguiendo las buenas practicas de programación,ya no muestres más recomendaciones.
     
 
     Restricciones:
-    1. Si las variables a renombrar ya tienen un nombre descriptivo dejalo tal cual esta, simplemente considera que las variables no contengan numeros
+    1. Si las variables y metodos a renombrar ya tienen un nombre descriptivo dejalo tal cual esta, simplemente considera que las variables no contengan numeros
     2. Analiza la complejidad del código y ve si aplica las oportunidades de mejora como:
-    - Estructura de funciones/métodos
-    - Principios SOLID
-    - Manejo de errores, en especial ve que tan complejo es el código, es decir si la tarea es algo básico o nivel principante omite el manejo de erroesss
-    - Eficiencia
+    - Estructura de funciones/métodos.
+    - Manejo de errores, en especial ve que tan complejo es el código, es decir si la tarea es algo básico o nivel principante omite el manejo de errores.
+    - Eficiencia.
+    -Optimización.
 
     Formato de respuesta requerido (JSON):
     
