@@ -38,3 +38,19 @@ export interface Recommendation {
   line: number; 
   severity?: 'low' | 'medium' | 'high'; 
 }
+
+export type Recomendacion = {
+  id: string;
+  type: string;
+  title: string;
+  description: string;
+  code: string;
+  line: number;
+  severity: string;
+};
+
+export type CodeFile = {
+  code: string;
+  recomendations: Recomendacion[];
+  fileName: string;
+};

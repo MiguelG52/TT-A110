@@ -35,8 +35,7 @@ export const createPrompt = (code: string): string => {
         "description": "Explicación detallada",
         "code": "Código mejorado opcional",
         "line": numero-de-linea,
-        "severity": "low|medium|high",
-        "confidence": 0.0-1.0
+        "severity": "low|medium|high"
         }
     ],
     "analysisSummary": "Resumen general del análisis"

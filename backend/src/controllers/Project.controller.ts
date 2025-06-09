@@ -194,20 +194,15 @@ export class ProjectController {
     const transaction = await sequelize.transaction()
     try {
       const { projectId } = req.params
-      const { improveCode, userId } = req.body
-      const decodedCode = JSON.parse(improveCode);
-
-      // Validaciones básicas
-      if (!decodedCode) {
-        await transaction.rollback()
-        sendErrorResponse(res, 400, "El código mejorado es requerido y debe ser un string")
-        return 
-      }
-
-      if (decodedCode.length > 100000) { // ~100KB como límite
-        await transaction.rollback()
-        sendErrorResponse(res, 400, "El código es demasiado grande (límite 100KB)")
-        return 
+      const { codeFiles, userId} = req.body
+      
+      console.log(codeFiles)
+      
+      
+      if (!codeFiles || !Array.isArray(codeFiles)) {
+        await transaction.rollback();
+        sendErrorResponse(res, 400, "codeFiles debe ser un arreglo válido");
+        return;
       }
 
       const project = await Project.findByPk(projectId, { transaction })
@@ -216,7 +211,7 @@ export class ProjectController {
         sendErrorResponse(res, 404, "Proyecto no encontrado")
         return 
       }
-
+      /*
       // Verificación de permisos (propietario o miembro del equipo)
       if (project.userId !== userId) {
         const teamProject = await TeamProject.findOne({
@@ -237,10 +232,9 @@ export class ProjectController {
           return 
         }
       }
+      */
 
-
-      // Actualizar solo el campo decodedCode
-      await project.update({improveCode:decodedCode }, { transaction })
+      await project.update({codeFiles:codeFiles}, { transaction })
       await transaction.commit()
 
       sendSuccessResponse(res, 200, "Código mejorado actualizado exitosamente", {
