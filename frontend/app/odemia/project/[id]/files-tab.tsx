@@ -1,6 +1,11 @@
+import { CodeFile } from '@/models/types'
 import React from 'react'
 
-const FilesTab = () => {
+interface filesTab {
+  codeFiles?: CodeFile[]
+}
+
+const FilesTab = ({codeFiles}:filesTab) => {
   return (
     <div>FilesTab</div>
   )

@@ -7,7 +7,7 @@ import { authenticate, rejectAdminInjection } from "../middleware/auth.middlewar
 
 const authRouter = Router();
 
-authRouter.use(limiter)
+//authRouter.use(limiter)
 
 authRouter.post('/create-account',
     body('name')

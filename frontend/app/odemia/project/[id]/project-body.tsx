@@ -3,14 +3,15 @@ import { TabsContent } from '@radix-ui/react-tabs'
 import React from 'react'
 import InformationTab from './information-tab'
 import FilesTab from './files-tab'
-import { ITeamMember } from '@/models/types'
+import { CodeFile, ITeamMember } from '@/models/types'
 
 interface IProjectBodyProps {
   description?: string
   members?: ITeamMember[]
+  codeFiles?: CodeFile[]
 }
 
-const ProjectBody = ({ description = '', members = [] }: IProjectBodyProps) => {
+const ProjectBody = ({ description = '', members = [], codeFiles = [] }: IProjectBodyProps) => {
   return (
     <div>
       <Tabs defaultValue="informacion" className="mb-8">
@@ -34,7 +35,7 @@ const ProjectBody = ({ description = '', members = [] }: IProjectBodyProps) => {
         </TabsContent>
         
         <TabsContent value="archivos">
-          <FilesTab />
+          <FilesTab codeFiles={codeFiles}  />
         </TabsContent>
       </Tabs>
     </div>

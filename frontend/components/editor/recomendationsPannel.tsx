@@ -42,7 +42,7 @@ const RecommendationsPanel = ({ recommendations }: RecommendationsPanelProps) =>
   };
 
   return (
-    <div className="space-y-4 overflow-y-scroll h-full p-4">
+    <div className="space-y-4 overflow-y-scroll h-full w-full p-4">
       {recommendations.length > 0 ? (
         recommendations.map((recommendation,index) => (
           <Card 

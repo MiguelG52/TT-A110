@@ -84,7 +84,7 @@ export class ProjectController {
       }
 
       const project = await Project.findByPk(projectId, {
-        attributes: ['projectId', 'name', 'description', 'originalCode', 'improveCode'],
+        attributes: ['projectId', 'name', 'description', 'originalCode', 'improveCode','codeFiles'],
         include: [{
           model: Team,
           as: 'teams',
@@ -127,6 +127,7 @@ export class ProjectController {
           originalCode: project.dataValues.originalCode,
           improveCode: project.dataValues.improveCode,
           name:project.dataValues.name,
+          codeFiles:project.dataValues.codeFiles,
           team,
           members
 
@@ -196,9 +197,6 @@ export class ProjectController {
       const { projectId } = req.params
       const { codeFiles, userId} = req.body
       
-      console.log(codeFiles)
-      
-      
       if (!codeFiles || !Array.isArray(codeFiles)) {
         await transaction.rollback();
         sendErrorResponse(res, 400, "codeFiles debe ser un arreglo válido");
@@ -211,7 +209,7 @@ export class ProjectController {
         sendErrorResponse(res, 404, "Proyecto no encontrado")
         return 
       }
-      /*
+      
       // Verificación de permisos (propietario o miembro del equipo)
       if (project.userId !== userId) {
         const teamProject = await TeamProject.findOne({
@@ -232,7 +230,7 @@ export class ProjectController {
           return 
         }
       }
-      */
+      
 
       await project.update({codeFiles:codeFiles}, { transaction })
       await transaction.commit()

@@ -109,6 +109,7 @@ export interface IProject{
     "description":string,
   }
   members:ITeamMember[]
+  codeFiles:CodeFile[]
 }
 
 export interface ICode{
@@ -134,3 +135,19 @@ export interface saveChanges {
   improvedCode: string,
   userId:number
 }
+
+export type Recomendacion = {
+  id: string;
+  type: string;
+  title: string;
+  description: string;
+  code: string;
+  line: number;
+  severity: string;
+};
+
+export type CodeFile = {
+  code: string;
+  recomendations: Recomendacion[];
+  fileName: string;
+};

@@ -21,7 +21,8 @@ const ProjectDetail = () => {
         throw new Error(result.message || "Error al cargar equipos")
       }
       setProject(result.data || {} as IProject)
-      await sessionStorage.setItem("javaCode", result.data.improveCode || "")
+      console.log(result.data.codeFiles)
+      await sessionStorage.setItem("javaCode", JSON.stringify(result.data.codeFiles || []))
       setError(null)
     } catch (error: any) {
       setError(error.message || 'Error al cargar el proyecto')
@@ -51,6 +52,7 @@ const ProjectDetail = () => {
       <ProjectBody 
         description={project?.description || ''} 
         members={project?.members || []} 
+        codeFiles={project?.codeFiles || []}
       />
     </div>
   )

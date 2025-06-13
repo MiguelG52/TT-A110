@@ -3,14 +3,17 @@ import EditorHeader from '@/components/editor/editorHeader';
 import MonacoEditor from '@/components/editor/editor';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useCodeEditorSocket } from '@/hooks/useWebSockt';
-import { useRef, useState } from 'react';
-import { Recommendation} from '@/models/types';
+import { useEffect, useRef, useState } from 'react';
+import { CodeFile, Recommendation} from '@/models/types';
 import { postAsync, postAsyncAuth, putAsyncAuth } from '@/lib/generalWebService';
 import { methods } from '@/lib/endpoints';
-import { Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, File, FolderTree, Hourglass, Loader2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import RecommendationsPanel from '@/components/editor/recomendationsPannel';
 import { useUser } from '@/context/authContext';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
 
 const EditorPage = () => {
   const searchParams = useSearchParams();
@@ -24,6 +27,10 @@ const EditorPage = () => {
   const [loadingChanges, setLoadingChanges] = useState(false);
   const {user} = useUser();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [sidebarVisible, setSidebarVisible] = useState(true)
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [codeFiles, setCodeFiles] = useState<CodeFile[]>([]);
+  
   
   const onHandleRecommendations = async () => {
     try {
@@ -91,6 +98,16 @@ const EditorPage = () => {
     }
   }
 
+  const handleFileSelect = (fileName: string) => {
+    const file = codeFiles.find(f => f.fileName === fileName);
+    if (file) {
+      setSelectedFile(fileName);
+      handleCodeChange(file.code);
+    }
+  };
+
+  
+
   const handleClearEditor = () => {
     handleCodeChange('');
   };
@@ -126,6 +143,20 @@ const EditorPage = () => {
     URL.revokeObjectURL(url);
   };
 
+  useEffect(() => {
+    const stored = sessionStorage.getItem("javaCode");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setCodeFiles(parsed);
+        }
+      } catch (err) {
+        console.error("Error al parsear archivos:", err);
+      }
+    }
+  }, []);
+
   return (
     <> 
       <EditorHeader 
@@ -148,29 +179,57 @@ const EditorPage = () => {
               className="hidden"
               accept=".java,.txt"
       />
-      
-      <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 min-w-0">
-          <MonacoEditor 
-            code={code} 
-            onChange={handleCodeChange} 
-            theme="light" 
-            language="java" 
-          />
-        </div>
-
-        {showRecommendationsPanel && (
-          <div className={`md:w-96 min-w-96 transition-all ease-linear duration-300 border-l p-5 border-gray-200 overflow-y-auto bg-gray-50`}>
-            {loading ? (
-              <div className="flex justify-center items-center h-full">
-                <Loader2 size={20} className='animate-spin' />
-              </div>
-            ) : (
-              <RecommendationsPanel recommendations={recommendations} />
-            )}
+      <div className="flex flex-row gap-4 mt-4">
+        <div className={`transition-all duration-300 ${sidebarVisible ? "lg:w-1/6 q" : "lg:w-auto"}`}>
+            <div className="mb-4 relative border-r border-r-gray-400">
+              {sidebarVisible && (
+                <>
+                  <div className='ml-5'>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <FolderTree className="h-4 w-5 mr-2 text-blue-400" />
+                      </div>
+                    </div>
+                  </div>
+                  <ul className="mt-2 ml-6 space-y-2">
+                    {codeFiles.map((file, idx) => (
+                      <li
+                        key={idx}
+                        className="flex  items-center gap-2 text-sm cursor-pointer hover:bg-gray-100 p-1 rounded"
+                        onClick={() => handleFileSelect(file.fileName)}
+                      >
+                        <File className="h-4 w-4 text-red-400" />
+                        
+                        <p className='truncate'>{file.fileName}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
           </div>
-        )}
+          <div className="flex flex-1 overflow-hidden">
+              <MonacoEditor 
+                code={code} 
+                onChange={handleCodeChange} 
+                theme="light" 
+                language="java" 
+              />
+              {showRecommendationsPanel && (
+              <div className={`w-60 lg:96 flex flex-col transition-all ease-linear duration-300 border-l p-5 border-gray-200 overflow-y-auto bg-gray-50`}>
+                {loading ? (
+                  <div className="flex justify-center items-center h-full">
+                    <Loader2 size={20} className='animate-spin' />
+                  </div>
+                ) : (
+                  <RecommendationsPanel recommendations={recommendations} />
+                )}
+              </div>
+            )}      
+          </div>
       </div>
+
+      
     </>
   );
 };
